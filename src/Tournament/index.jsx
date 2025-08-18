@@ -1,0 +1,372 @@
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom'
+import { AdminButton, CheckIcon, CircleIcon, Footer, ReloadButton, ToggleTheme } from '../Components';
+import { formatDate } from '../utils';
+
+
+export default function Tournament() {
+  const [darkMode, setDarkMode] = useState(false);
+  const { tournamentId } = useParams();
+  const [tournamentData, setTournamentData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  async function loadData() {
+    setIsLoading(true);
+    const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
+    const resp = await fetch(`${API_ROUTE}/torneio/${tournamentId}/json`)
+    if (!resp.ok) {
+      console.error('Erro ao carregar os dados do torneio:', resp.statusText);
+      setError(true);
+      setIsLoading(false);
+      return;
+    }
+    const data = await resp.json()
+    setTournamentData(data);
+    document.title = `${data.torneio.nome} (${formatDate(data.torneio.data)})`;
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    loadData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tournamentId])
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+    setDarkMode(savedDarkMode);
+  }, []);
+
+  const toggleTheme = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem('darkMode', newDarkMode)
+  };
+
+  const formatTeamName = (dupla) => {
+    return dupla.replace('<br/>', '\n');
+  };
+
+  const getWinnerClass = (isWinner, isLoser) => {
+    if (isWinner) return 'font-bold text-green-600';
+    if (isLoser) return 'text-red-600';
+    return '';
+  };
+
+  if (isLoading) {
+    document.title = 'Carregando torneio...';
+    return (
+      <div className={`min-h-screen flex justify-center items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+        <h1>
+          Carregando torneio...
+        </h1>
+      </div>
+    );
+  } else if (error) {
+    document.title = 'Erro ao carregar o torneio!'
+    return (
+      <div className={`min-h-screen flex justify-center items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+        <h1>
+          Erro ao carregar o torneio. Verifique se o ID do torneio está correto.
+        </h1>
+      </div>
+    );
+  }
+
+  const { torneio, grupos, fases_finais, groups_finished, can_edit } = tournamentData;
+
+  return (
+    <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+
+      {can_edit && (
+        <AdminButton darkMode={darkMode} />
+      )}
+
+      {torneio.ativo && (
+        <ReloadButton loadData={loadData} />
+      )}
+
+      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
+
+      <div className="max-w-4xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
+        <div className="pt-20">
+          {/* Title */}
+          {torneio.ativo ? (
+            <h1 className="text-center text-3xl mb-8">{torneio.nome} ({formatDate(torneio.data)})</h1>
+          ) : (
+            <div className="text-center mb-8">
+              <h1 className="text-3xl line-through">{torneio.nome} ({formatDate(torneio.data)})</h1>
+              <h2 className="text-2xl line-through mt-2">FINALIZADO</h2>
+            </div>
+          )}
+
+          {/* Groups Section */}
+          <div>
+            {Object.keys(fases_finais).length > 0 && (
+              <h3 className="text-center text-2xl mb-6">Grupos e Classificação</h3>
+            )}
+
+            {Object.entries(grupos).map(([grupoNome, grupoData]) => (
+              <div key={grupoNome} className="mb-8">
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Games */}
+                  <div>
+                    <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                      <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
+                        {Object.keys(grupos).length > 1 ? `${grupoNome} - Jogos` : 'Jogos'}
+                      </h5>
+
+                      <div className="p-4">
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-center">
+                            <thead>
+                              <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
+                                <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
+                                <th className="py-2 px-3 border border-gray-300">Placar</th>
+                                <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
+                                <th className="px-1 border border-gray-300"></th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {grupoData.jogos.map((jogo, index) => (
+                                <tr key={jogo.id} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
+                                  <td className={`py-2 px-3 border border-gray-300`}>
+                                    {formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
+                                      <div className={`${getWinnerClass(
+                                        jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
+                                        jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                                      )}`} key={i}>{line}</div>
+                                    ))}
+                                  </td>
+                                  <td className="py-2 px-3 border border-gray-300">
+                                    {jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : ''} X {jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : ''}
+                                  </td>
+                                  <td className={`py-2 px-3 border border-gray-300`}>
+                                    {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
+                                      <div className={`${getWinnerClass(
+                                        jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
+                                        jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                                      )}`} key={i}>{line}</div>
+                                    ))}
+                                  </td>
+                                  <td className="px-1 border border-gray-300">
+                                    <span className={`flex items-center justify-center`}>
+                                      {jogo.concluido ? <CheckIcon /> : <CircleIcon />}
+                                    </span>
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Classification */}
+                  <div>
+                    <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                      <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
+                        {Object.keys(grupos).length > 1 ? `${grupoNome} - Classificação` : 'Classificação'}
+                      </h5>
+                      <div className="p-4">
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-center">
+                            <thead>
+                              <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
+                                <th className="py-2 px-3 border border-gray-300">#</th>
+                                <th className="py-2 px-3 border border-gray-300">Dupla</th>
+                                <th className="py-2 px-3 border border-gray-300">V</th>
+                                <th className="py-2 px-3 border border-gray-300">P</th>
+                                <th className="py-2 px-3 border border-gray-300">S</th>
+                                <th className="py-2 px-3 border border-gray-300">J</th>
+                              </tr>
+                            </thead>
+
+                            <tbody>
+                              {grupoData.classificacao.map((dupla, index) => (
+                                <tr key={dupla.posicao} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                    {dupla.posicao}
+                                  </td>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                    {formatTeamName(dupla.dupla).split('\n').map((line, i) => (
+                                      <div key={i}>{line}</div>
+                                    ))}
+                                  </td>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                    {dupla.vitorias}
+                                  </td>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                    {dupla.pontos}
+                                  </td>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                    {dupla.saldo}
+                                  </td>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                    {grupoData.jogos.length}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Playoffs Section */}
+          {Object.keys(fases_finais).length > 0 && (
+            <>
+              <hr className="my-8" />
+              <div>
+                <h3 className="text-center text-2xl mb-6">Playoffs</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 overflow-x-auto px-2">
+                  {/* Oitavas */}
+                  {fases_finais.OITAVAS && (
+                    <div className="flex flex-col justify-center items-center gap-4">
+                      <h5 className="text-center font-semibold">Oitavas de Final</h5>
+                      {fases_finais.OITAVAS.map((jogo) => (
+                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                          <div className="flex justify-between items-center py-1 border-b border-gray-300">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                            )}>
+                              {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                            )}>
+                              {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Quartas */}
+                  {fases_finais.QUARTAS && (
+                    <div className="flex flex-col justify-center items-center gap-4">
+                      <h5 className="text-center font-semibold">Quartas de Final</h5>
+                      {fases_finais.QUARTAS.map((jogo) => (
+                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                          <div className="flex justify-between items-center py-1 border-b border-gray-300">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                            )}>
+                              {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                            )}>
+                              {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Semifinals */}
+                  {fases_finais.SEMIFINAIS && (
+                    <div className="flex flex-col justify-center items-center gap-4">
+                      <h5 className="text-center font-semibold">Semifinal</h5>
+                      {fases_finais.SEMIFINAIS.map((jogo) => (
+                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                          <div className="flex justify-between items-center py-1 border-b border-gray-300">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                            )}>
+                              {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                            )}>
+                              {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Final */}
+                  {fases_finais.FINAL && (
+                    <div className="flex flex-col justify-center items-center gap-4">
+                      <h5 className="text-center font-semibold">Final</h5>
+                      {fases_finais.FINAL.map((jogo) => (
+                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                          <div className="flex justify-between items-center py-1 border-b border-gray-300">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                            )}>
+                              {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                          </div>
+                          <div className="flex justify-between items-center py-1">
+                            <span className={getWinnerClass(
+                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                            )}>
+                              {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
+                                <div key={i}>{line}</div>
+                              )) : <span className="text-gray-500">A definir</span>}
+                            </span>
+                            <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Footer */}
+        <Footer />
+      </div>
+    </div>
+  );
+};
