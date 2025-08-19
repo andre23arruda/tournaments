@@ -145,6 +145,7 @@ export default function League() {
                       <table className="w-full text-center">
                         <thead>
                           <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
+                            <th className="py-2 px-3 border border-gray-300" />
                             <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
                             <th className="py-2 px-3 border border-gray-300">Placar</th>
                             <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
@@ -155,6 +156,7 @@ export default function League() {
                         <tbody>
                           {filterGames(jogos, search).map((jogo, index) => (
                             <tr key={jogo.id} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
+                              <td className={`py-2 px-3 border border-gray-300`}>{jogo.quadra}</td>
                               <td className={`py-2 px-3 border border-gray-300`}>
                                 {formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                   <div className={`${getWinnerClass(
