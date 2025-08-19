@@ -205,7 +205,7 @@ export default function Tournament() {
                                     {dupla.saldo}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
-                                    {grupoData.jogos.length}
+                                    {dupla.jogos}
                                   </td>
                                 </tr>
                               ))}
