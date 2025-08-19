@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { AdminButton, CheckIcon, CircleIcon, Footer, ReloadButton, ToggleTheme } from '../Components';
+import { AdminButton, CheckIcon, CircleIcon, Footer, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
 import { formatDate } from '../utils';
 
+const statusIcons = {
+  'P': <CircleIcon />,
+  'A': <LoadingIcon />,
+  'C': <CheckIcon />
+}
 
 export default function League() {
   const [darkMode, setDarkMode] = useState(false);
@@ -132,7 +137,7 @@ export default function League() {
                       <input
                         type="text"
                         placeholder="Buscar jogador..."
-                        className="w-full mb-4 p-2 rounded border border-gray-300 focus:outline-sky-400"
+                        className="w-full mb-4 p-2 rounded border border-gray-300 focus:outline-sky-400 placeholder:text-gray-400"
                         value={search}
                         onChange={handleSearch}
                       />
@@ -171,7 +176,7 @@ export default function League() {
                               </td>
                               <td className="px-1 border border-gray-300">
                                 <span className={`flex items-center justify-center`}>
-                                  {jogo.concluido ? <CheckIcon /> : <CircleIcon />}
+                                  {statusIcons[jogo.concluido]}
                                 </span>
                               </td>
                             </tr>

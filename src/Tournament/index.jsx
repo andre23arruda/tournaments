@@ -1,8 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { AdminButton, CheckIcon, CircleIcon, Footer, ReloadButton, ToggleTheme } from '../Components';
+import { AdminButton, CheckIcon, CircleIcon, Footer, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
 import { formatDate } from '../utils';
 
+const statusIcons = {
+  'P': <CircleIcon />,
+  'A': <LoadingIcon />,
+  'C': <CheckIcon />
+}
 
 export default function Tournament() {
   const [darkMode, setDarkMode] = useState(false);
@@ -134,8 +139,8 @@ export default function Tournament() {
                                   <td className={`py-2 px-3 border border-gray-300`}>
                                     {formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                       <div className={`${getWinnerClass(
-                                        jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
-                                        jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                                        jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
+                                        jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
@@ -145,14 +150,14 @@ export default function Tournament() {
                                   <td className={`py-2 px-3 border border-gray-300`}>
                                     {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                       <div className={`${getWinnerClass(
-                                        jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
-                                        jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                                        jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
+                                        jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
                                   <td className="px-1 border border-gray-300">
                                     <span className={`flex items-center justify-center`}>
-                                      {jogo.concluido ? <CheckIcon /> : <CircleIcon />}
+                                      {statusIcons[jogo.concluido]}
                                     </span>
                                   </td>
                                 </tr>
@@ -170,6 +175,7 @@ export default function Tournament() {
                       <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                         {Object.keys(grupos).length > 1 ? `${grupoNome} - Classificação` : 'Classificação'}
                       </h5>
+
                       <div className="p-4">
                         <div className="overflow-x-auto">
                           <table className="w-full text-center">
@@ -186,7 +192,7 @@ export default function Tournament() {
 
                             <tbody>
                               {grupoData.classificacao.map((dupla, index) => (
-                                <tr key={dupla.posicao} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
+                                <tr key={index} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
                                   <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
                                     {dupla.posicao}
                                   </td>
@@ -235,8 +241,8 @@ export default function Tournament() {
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
-                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                              jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
                             )}>
                               {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
@@ -246,8 +252,8 @@ export default function Tournament() {
                           </div>
                           <div className="flex justify-between items-center py-1">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
-                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                              jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
                             )}>
                               {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
@@ -268,8 +274,8 @@ export default function Tournament() {
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
-                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                              jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
                             )}>
                               {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
@@ -279,8 +285,8 @@ export default function Tournament() {
                           </div>
                           <div className="flex justify-between items-center py-1">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
-                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                              jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
                             )}>
                               {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
@@ -301,8 +307,8 @@ export default function Tournament() {
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
-                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                              jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
                             )}>
                               {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
@@ -312,8 +318,8 @@ export default function Tournament() {
                           </div>
                           <div className="flex justify-between items-center py-1">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
-                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                              jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
                             )}>
                               {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
@@ -334,8 +340,8 @@ export default function Tournament() {
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla1 > jogo.placar_dupla2,
-                              jogo.concluido && jogo.placar_dupla1 < jogo.placar_dupla2
+                              jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
+                              jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
                             )}>
                               {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
@@ -345,8 +351,8 @@ export default function Tournament() {
                           </div>
                           <div className="flex justify-between items-center py-1">
                             <span className={getWinnerClass(
-                              jogo.concluido && jogo.placar_dupla2 > jogo.placar_dupla1,
-                              jogo.concluido && jogo.placar_dupla2 < jogo.placar_dupla1
+                              jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
+                              jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
                             )}>
                               {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
