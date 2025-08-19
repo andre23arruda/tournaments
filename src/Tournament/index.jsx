@@ -178,8 +178,8 @@ export default function Tournament() {
                                 <th className="py-2 px-3 border border-gray-300">#</th>
                                 <th className="py-2 px-3 border border-gray-300">Dupla</th>
                                 <th className="py-2 px-3 border border-gray-300">V</th>
-                                <th className="py-2 px-3 border border-gray-300">P</th>
                                 <th className="py-2 px-3 border border-gray-300">S</th>
+                                <th className="py-2 px-3 border border-gray-300">P</th>
                                 <th className="py-2 px-3 border border-gray-300">J</th>
                               </tr>
                             </thead>
@@ -199,10 +199,10 @@ export default function Tournament() {
                                     {dupla.vitorias}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
-                                    {dupla.pontos}
+                                    {dupla.saldo}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
-                                    {dupla.saldo}
+                                    {dupla.pontos}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
                                     {dupla.jogos}
