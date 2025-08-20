@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { AdminButton, CheckIcon, CircleIcon, Footer, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
+import { AdminButton, CheckIcon, CircleIcon, Footer, Loading, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
 import { formatDate } from '../utils';
 
 const statusIcons = {
@@ -54,31 +54,31 @@ export default function Tournament() {
 
   const getWinnerClass = (isWinner, isLoser) => {
     if (isWinner) return 'font-bold text-green-600';
-    if (isLoser) return 'text-red-600';
+    if (isLoser) return 'text-red-500';
     return '';
   };
 
   if (isLoading) {
-    document.title = 'Carregando torneio...';
     return (
-      <div className={`min-h-screen flex justify-center items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-        <h1>
-          Carregando torneio...
-        </h1>
-      </div>
+      <Loading
+        darkMode={darkMode}
+        pageTitle="Carregando torneio..."
+      >
+        Carregando torneio...
+      </Loading>
     );
   } else if (error) {
-    document.title = 'Erro ao carregar o torneio!'
     return (
-      <div className={`min-h-screen flex justify-center items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-        <h1>
-          Erro ao carregar o torneio. Verifique se o ID do torneio está correto.
-        </h1>
-      </div>
+      <Loading
+        darkMode={darkMode}
+        pageTitle="Erro ao carregar o torneio!"
+      >
+        Erro ao carregar o torneio. Verifique se o ID do torneio está correto.
+      </Loading>
     );
   }
 
-  const { torneio, grupos, fases_finais, groups_finished, can_edit } = tournamentData;
+  const { torneio, grupos, fases_finais, groups_finished, can_edit, card_style } = tournamentData;
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
@@ -93,7 +93,7 @@ export default function Tournament() {
 
       <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
 
-      <div className="max-w-4xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
+      <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-20">
           {/* Title */}
           {torneio.ativo ? (
@@ -129,7 +129,7 @@ export default function Tournament() {
                                 <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
                                 <th className="py-2 px-3 border border-gray-300">Placar</th>
                                 <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
-                                <th className="px-1 border border-gray-300"></th>
+                                <th className="py-2 px-1 border border-gray-300"></th>
                               </tr>
                             </thead>
 
@@ -155,7 +155,7 @@ export default function Tournament() {
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
-                                  <td className="px-1 border border-gray-300">
+                                  <td className="border border-gray-300">
                                     <span className={`flex items-center justify-center`}>
                                       {statusIcons[jogo.concluido]}
                                     </span>
@@ -193,24 +193,24 @@ export default function Tournament() {
                             <tbody>
                               {grupoData.classificacao.map((dupla, index) => (
                                 <tr key={index} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
                                     {dupla.posicao}
                                   </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
                                     {formatTeamName(dupla.dupla).split('\n').map((line, i) => (
                                       <div key={i}>{line}</div>
                                     ))}
                                   </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
                                     {dupla.vitorias}
                                   </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
                                     {dupla.saldo}
                                   </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
                                     {dupla.pontos}
                                   </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-200 font-bold text-black' : ''}`}>
+                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
                                     {dupla.jogos}
                                   </td>
                                 </tr>
@@ -232,10 +232,10 @@ export default function Tournament() {
               <hr className="my-8" />
               <div>
                 <h3 className="text-center text-2xl mb-6">Playoffs</h3>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 overflow-x-auto px-2">
+                <div className="flex flex-wrap items-center justify-center">
                   {/* Oitavas */}
                   {fases_finais.OITAVAS && (
-                    <div className="flex flex-col justify-center items-center gap-4">
+                    <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Oitavas de Final</h5>
                       {fases_finais.OITAVAS.map((jogo) => (
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
@@ -268,7 +268,7 @@ export default function Tournament() {
 
                   {/* Quartas */}
                   {fases_finais.QUARTAS && (
-                    <div className="flex flex-col justify-center items-center gap-4">
+                    <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Quartas de Final</h5>
                       {fases_finais.QUARTAS.map((jogo) => (
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
@@ -301,7 +301,7 @@ export default function Tournament() {
 
                   {/* Semifinals */}
                   {fases_finais.SEMIFINAIS && (
-                    <div className="flex flex-col justify-center items-center gap-4">
+                    <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Semifinal</h5>
                       {fases_finais.SEMIFINAIS.map((jogo) => (
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
@@ -334,7 +334,7 @@ export default function Tournament() {
 
                   {/* Final */}
                   {fases_finais.FINAL && (
-                    <div className="flex flex-col justify-center items-center gap-4">
+                    <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Final</h5>
                       {fases_finais.FINAL.map((jogo) => (
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>

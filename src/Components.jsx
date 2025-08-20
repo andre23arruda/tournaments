@@ -60,4 +60,16 @@ function ToggleTheme({ darkMode, toggleTheme }) {
     )
 }
 
-export { AdminButton, CheckIcon, CircleIcon, Footer, LoadingIcon, ReloadButton, ToggleTheme };
+function Loading({ children, darkMode, pageTitle }) {
+    document.title = pageTitle;
+    return (
+        <div className={`min-h-screen flex justify-center items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+            <div className="flex flex-col justify-center items-center">
+                <img className="mb-5" src="/looping.svg" alt="Loading..." width={100} />
+                <h1>{children}</h1>
+            </div>
+        </div>
+    );
+}
+
+export { AdminButton, CheckIcon, CircleIcon, Footer, Loading, LoadingIcon, ReloadButton, ToggleTheme };

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { AdminButton, CheckIcon, CircleIcon, Footer, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
+import { AdminButton, CheckIcon, CircleIcon, Footer, Loading, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
 import { formatDate } from '../utils';
 
 const statusIcons = {
@@ -72,27 +72,27 @@ export default function League() {
 
   const getWinnerClass = (isWinner, isLoser) => {
     if (isWinner) return 'font-bold text-green-600';
-    if (isLoser) return 'text-red-600';
+    if (isLoser) return 'text-red-500';
     return '';
   };
 
   if (isLoading) {
-    document.title = 'Carregando torneio...';
     return (
-      <div className={`min-h-screen flex justify-center items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-        <h1>
-          Carregando torneio...
-        </h1>
-      </div>
+      <Loading
+        darkMode={darkMode}
+        pageTitle="Carregando torneio..."
+      >
+        Carregando torneio...
+      </Loading>
     );
   } else if (error) {
-    document.title = 'Erro ao carregar o torneio!'
     return (
-      <div className={`min-h-screen flex justify-center items-center ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-        <h1>
-          Erro ao carregar o torneio. Verifique se o ID do torneio está correto.
-        </h1>
-      </div>
+      <Loading
+        darkMode={darkMode}
+        pageTitle="Erro ao carregar o torneio!"
+      >
+        Erro ao carregar o torneio. Verifique se o ID do torneio está correto.
+      </Loading>
     );
   }
 
@@ -111,7 +111,7 @@ export default function League() {
 
       <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
 
-      <div className="max-w-4xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
+      <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-20">
           {/* Title */}
           {torneio.ativo ? (
@@ -145,18 +145,18 @@ export default function League() {
                       <table className="w-full text-center">
                         <thead>
                           <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
-                            <th className="py-2 px-3 border border-gray-300" />
+                            <th className="py-2 px-1 border border-gray-300" />
                             <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
                             <th className="py-2 px-3 border border-gray-300">Placar</th>
                             <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
-                            <th className="px-1 border border-gray-300" />
+                            <th className="py-2 px-3 border border-gray-300" />
                           </tr>
                         </thead>
 
                         <tbody>
                           {filterGames(jogos, search).map((jogo, index) => (
                             <tr key={jogo.id} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
-                              <td className={`py-2 px-3 border border-gray-300`}>{jogo.quadra}</td>
+                              <td className={`py-2 px-1 border border-gray-300`}>{jogo.quadra}</td>
                               <td className={`py-2 px-3 border border-gray-300`}>
                                 {formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                   <div className={`${getWinnerClass(
@@ -176,7 +176,7 @@ export default function League() {
                                   )}`} key={i}>{line}</div>
                                 ))}
                               </td>
-                              <td className="px-1 border border-gray-300">
+                              <td className=" border border-gray-300">
                                 <span className={`flex items-center justify-center`}>
                                   {statusIcons[jogo.concluido]}
                                 </span>
