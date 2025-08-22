@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { AdminButton, CheckIcon, CircleIcon, Footer, Loading, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
+import { AdminButton, Footer, Loading, ReloadButton, StatusIcon, ToggleTheme } from '../Components';
 import { formatDate } from '../utils';
-
-const statusIcons = {
-  'P': <CircleIcon />,
-  'A': <LoadingIcon />,
-  'C': <CheckIcon />
-}
 
 export default function League() {
   const [darkMode, setDarkMode] = useState(false);
@@ -178,7 +172,7 @@ export default function League() {
                               </td>
                               <td className=" border border-gray-300">
                                 <span className={`flex items-center justify-center`}>
-                                  {statusIcons[jogo.concluido]}
+                                  <StatusIcon status={jogo.concluido} />
                                 </span>
                               </td>
                             </tr>

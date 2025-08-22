@@ -11,7 +11,7 @@ const CircleIcon = () => (
 );
 
 const LoadingIcon = () => (
-    <img src="/loading.svg" title="Em andamento" alt="Em andamento" width={30} />
+    <img src="/loading.svg" title="Em andamento" alt="Em andamento" width={25} />
 );
 
 const ReloadIcon = () => (
@@ -72,4 +72,24 @@ function Loading({ children, darkMode, pageTitle }) {
     );
 }
 
-export { AdminButton, CheckIcon, CircleIcon, Footer, Loading, LoadingIcon, ReloadButton, ToggleTheme };
+const statusIcons = {
+    'P': <CircleIcon />,
+    'A': <LoadingIcon />,
+    'C': <CheckIcon />
+}
+
+function StatusIcon({ status }) {
+    return statusIcons[status] || null;
+}
+
+export {
+    AdminButton,
+    CheckIcon,
+    CircleIcon,
+    Footer,
+    Loading,
+    LoadingIcon,
+    ReloadButton,
+    StatusIcon,
+    ToggleTheme,
+};

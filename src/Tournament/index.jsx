@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { AdminButton, CheckIcon, CircleIcon, Footer, Loading, LoadingIcon, ReloadButton, ToggleTheme } from '../Components';
+import { AdminButton, Footer, Loading, ReloadButton, StatusIcon, ToggleTheme } from '../Components';
 import { formatDate } from '../utils';
-
-const statusIcons = {
-  'P': <CircleIcon />,
-  'A': <LoadingIcon />,
-  'C': <CheckIcon />
-}
 
 export default function Tournament() {
   const [darkMode, setDarkMode] = useState(false);
@@ -129,7 +123,7 @@ export default function Tournament() {
                                 <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
                                 <th className="py-2 px-3 border border-gray-300">Placar</th>
                                 <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
-                                <th className="py-2 px-1 border border-gray-300"></th>
+                                <th className="py-2 px-3 border border-gray-300" />
                               </tr>
                             </thead>
 
@@ -157,7 +151,7 @@ export default function Tournament() {
                                   </td>
                                   <td className="border border-gray-300">
                                     <span className={`flex items-center justify-center`}>
-                                      {statusIcons[jogo.concluido]}
+                                      <StatusIcon status={jogo.concluido} />
                                     </span>
                                   </td>
                                 </tr>
