@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@keyframes pulseBorder {
+    0%, 100% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: #afafaf;
+    }
+}
+
+.animate-border {
+    border: 2px solid transparent;
+    animation: pulseBorder 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

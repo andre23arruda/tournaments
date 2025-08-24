@@ -232,7 +232,7 @@ export default function Tournament() {
                     <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Oitavas de Final</h5>
                       {fases_finais.OITAVAS.map((jogo) => (
-                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
                               jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
@@ -265,7 +265,7 @@ export default function Tournament() {
                     <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Quartas de Final</h5>
                       {fases_finais.QUARTAS.map((jogo) => (
-                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
                               jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
@@ -298,7 +298,10 @@ export default function Tournament() {
                     <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Semifinal</h5>
                       {fases_finais.SEMIFINAIS.map((jogo) => (
-                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                        <div
+                          key={jogo.id}
+                          className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}
+                        >
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
                               jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
@@ -331,7 +334,7 @@ export default function Tournament() {
                     <div className={`w-1/2 ${card_style} flex flex-col justify-center items-center gap-4 p-2`}>
                       <h5 className="text-center font-semibold">Final</h5>
                       {fases_finais.FINAL.map((jogo) => (
-                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                        <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
                               jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
