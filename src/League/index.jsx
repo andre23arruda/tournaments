@@ -90,7 +90,7 @@ export default function League() {
     );
   }
 
-  const { torneio, jogos, ranking, can_edit } = tournamentData;
+  const { torneio, jogos, ranking, estatisticas, can_edit } = tournamentData;
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
@@ -123,7 +123,8 @@ export default function League() {
               <div>
                 <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                   <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
-                    Jogos
+                    Jogos: {estatisticas.total_jogos}
+                    {estatisticas.jogos_restantes > 0 ? ` / Pendente: ${estatisticas.jogos_restantes}` : ''}
                   </h5>
 
                   <div className="p-4">
