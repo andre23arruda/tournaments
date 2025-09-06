@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import classNames from 'classnames';
-import { AdminButton, Footer, Loading, ReloadButton, StatusIcon, ToggleTheme } from '../Components';
+import {
+  AdminButton,
+  Footer,
+  Loading,
+  ReloadButton,
+  ShareLinkButton,
+  StatusIcon,
+  ToggleTheme
+} from '../Components';
 import { formatDate } from '../utils';
 
 export default function Tournament() {
@@ -89,10 +97,13 @@ export default function Tournament() {
       )}
 
       {torneio.ativo && (
-        <ReloadButton loadData={loadData} />
+        <>
+          <ReloadButton loadData={loadData} />
+          <ShareLinkButton darkMode={darkMode} />
+          <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
+        </>
       )}
 
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-20">
@@ -130,7 +141,7 @@ export default function Tournament() {
                                 <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
                                 <th className="py-2 px-3 border border-gray-300">Placar</th>
                                 <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
-                                <th className="py-2 px-3 border border-gray-300" />
+                                <th className="py-2 px-5 md:px-3 border border-gray-300" />
                               </tr>
                             </thead>
 

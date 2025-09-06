@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-import { AdminButton, Footer, Loading, ReloadButton, StatusIcon, ToggleTheme } from '../Components';
+import {
+  AdminButton,
+  Footer,
+  Loading,
+  ReloadButton,
+  ShareLinkButton,
+  StatusIcon,
+  ToggleTheme
+} from '../Components';
 import { formatDate } from '../utils';
 
 export default function League() {
@@ -100,10 +108,13 @@ export default function League() {
       )}
 
       {torneio.ativo && (
-        <ReloadButton loadData={loadData} />
+        <>
+          <ReloadButton loadData={loadData} />
+          <ShareLinkButton darkMode={darkMode} />
+          <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
+        </>
       )}
 
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-20">
@@ -140,11 +151,11 @@ export default function League() {
                       <table className="w-full text-center">
                         <thead>
                           <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
-                            <th className="py-2 px-1 border border-gray-300" />
+                            <th className="py-2 px-3 border border-gray-300" />
                             <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
                             <th className="py-2 px-3 border border-gray-300">Placar</th>
                             <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
-                            <th className="py-2 px-3 border border-gray-300" />
+                            <th className="py-2 px-5 md:px-3 border border-gray-300" />
                           </tr>
                         </thead>
 
