@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+    font-family: "Oswald", sans-serif;
+}
+
 @keyframes pulseBorder {
     0%, 100% {
         border-color: transparent;
