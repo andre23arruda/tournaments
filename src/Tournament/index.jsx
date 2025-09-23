@@ -12,6 +12,11 @@ import {
 } from '../Components';
 import { formatDate } from '../utils';
 
+function renderTeam(torneio, number = '') {
+  const teamType = torneio.tipo === 'S' ? 'Jogador' : 'Dupla'
+  return teamType + ' ' + number
+}
+
 export default function Tournament() {
   const [darkMode, setDarkMode] = useState(false);
   const { tournamentId } = useParams();
@@ -23,6 +28,7 @@ export default function Tournament() {
     setIsLoading(true);
     const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
     const resp = await fetch(`${API_ROUTE}/torneio/${tournamentId}/json`)
+    // const resp = await fetch(`${API_ROUTE}/torneio-v2/${tournamentId}/json`)
     if (!resp.ok) {
       console.error('Erro ao carregar os dados do torneio:', resp.statusText);
       setError(true);
@@ -138,9 +144,9 @@ export default function Tournament() {
                           <table className="w-full text-center">
                             <thead>
                               <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
-                                <th className="py-2 px-3 border border-gray-300">Dupla 1</th>
+                                <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio, 1)}</th>
                                 <th className="py-2 px-3 border border-gray-300">Placar</th>
-                                <th className="py-2 px-3 border border-gray-300">Dupla 2</th>
+                                <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio, 2)}</th>
                                 <th className="py-2 px-5 md:px-3 border border-gray-300" />
                               </tr>
                             </thead>
@@ -194,7 +200,7 @@ export default function Tournament() {
                             <thead>
                               <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
                                 <th className="py-2 px-3 border border-gray-300">#</th>
-                                <th className="py-2 px-3 border border-gray-300">Dupla</th>
+                                <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio)}</th>
                                 <th className="py-2 px-3 border border-gray-300">V</th>
                                 <th className="py-2 px-3 border border-gray-300">S</th>
                                 <th className="py-2 px-3 border border-gray-300">P</th>
