@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import classNames from 'classnames';
 import {
@@ -23,13 +23,11 @@ export default function Tournament() {
   const [tournamentData, setTournamentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
-  const scrollPositionRef = useRef(0);
 
   async function loadData() {
-    scrollPositionRef.current = window.pageYOffset;
     setIsLoading(true);
     const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
-    const resp = await fetch(`${API_ROUTE}/torneio/${tournamentId}/json`)
+    const resp = await fetch(`${API_ROUTE}/torneio-v2/${tournamentId}/json`)
     if (!resp.ok) {
       console.error('Erro ao carregar os dados do torneio:', resp.statusText);
       setError(true);
@@ -40,10 +38,6 @@ export default function Tournament() {
     setTournamentData(data);
     document.title = `${data.torneio.nome} (${formatDate(data.torneio.data)})`;
     setIsLoading(false);
-
-    setTimeout(() => {
-      window.scrollTo({ top: scrollPositionRef.current, behavior: 'smooth' });
-    }, 100)
   }
 
   useEffect(() => {
@@ -119,51 +113,14 @@ export default function Tournament() {
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-20">
           {/* Title */}
-          <h1 className="text-center text-3xl mb-2">
-            {torneio.nome}
-          </h1>
-
-          <h2 className="text-center text-2xl mb-8">
-            ({formatDate(torneio.data)})
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-            <div className={`rounded-lg shadow p-6 flex flex-col justify-center items-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
-              {torneio.ativo ? (
-                <h3 className="text-2xl font-bold text-blue-600">
-                  Em andamento
-                </h3>
-              ) : (
-                <h3 className="text-2xl font-bold text-green-600">
-                  Finalizado
-                </h3>
-              )}
+          {torneio.ativo ? (
+            <h1 className="text-center text-3xl mb-8">{torneio.nome} ({formatDate(torneio.data)})</h1>
+          ) : (
+            <div className="text-center mb-8">
+              <h1 className="text-3xl line-through">{torneio.nome} ({formatDate(torneio.data)})</h1>
+              <h2 className="text-2xl line-through mt-2">FINALIZADO</h2>
             </div>
-
-            <div className={`rounded-lg shadow p-6 text-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
-              <h3 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                {torneio.duplas}
-              </h3>
-
-              <p className="text-gray-600 dark:text-gray-400">Duplas</p>
-            </div>
-
-            <div className={`rounded-lg shadow p-6 text-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
-              <h3 className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                {Object.keys(grupos).length}
-              </h3>
-
-              <p className="text-gray-600 dark:text-gray-400">Grupos</p>
-            </div>
-
-            <div className={`rounded-lg shadow p-6 text-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
-              <h3 className="text-2xl font-bold text-green-600 dark:text-green-400">
-                {torneio.jogos}
-              </h3>
-
-              <p className="text-gray-600 dark:text-gray-400">Jogos</p>
-            </div>
-          </div>
+          )}
 
           {/* Groups Section */}
           <div>
