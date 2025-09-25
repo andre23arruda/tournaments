@@ -217,7 +217,7 @@ export default function LeagueRanking() {
                         <div>
                             <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                                 <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
-                                    Torneios ({estatisticas.num_torneios})
+                                    Torneios
                                 </h5>
 
                                 <div className="p-4">
@@ -236,7 +236,10 @@ export default function LeagueRanking() {
                                                 </div>
 
                                                 <p className="text-xs text-gray-600 dark:text-gray-400">
-                                                    {formatDate(torneio.data)}
+                                                    <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
+                                                        <p>{formatDate(torneio.data)}</p>
+                                                        <p>{torneio.jogadores} jogadores • {torneio.jogos} jogos</p>
+                                                    </div>
                                                 </p>
                                             </div>
                                         ))}
