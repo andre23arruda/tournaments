@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
+import toast from 'react-hot-toast';
 import {
     Footer,
     Loading,
@@ -23,6 +24,7 @@ export default function TournamentRanking() {
         const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
         const resp = await fetch(`${API_ROUTE}/torneio-v2/ranking/${rankingId}/json`)
         if (!resp.ok) {
+            toast.error('Erro ao carregar os dados do torneio!')
             console.error('Erro ao carregar os dados do ranking:', resp.statusText);
             setError(true);
             setIsLoading(false);
@@ -86,7 +88,11 @@ export default function TournamentRanking() {
                 darkMode={darkMode}
                 pageTitle="Erro ao carregar o ranking!"
             >
-                Erro ao carregar o ranking. Verifique se o ID do ranking está correto.
+                <p className="text-center">
+                    Erro ao carregar o ranking.
+                    <br />
+                    Verifique se o ID do ranking está correto.
+                </p>
             </Loading>
         );
     }

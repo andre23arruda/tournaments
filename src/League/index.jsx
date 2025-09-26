@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
+import toast from 'react-hot-toast';
 import {
   AdminButton,
   Footer,
@@ -26,6 +27,7 @@ export default function League() {
     const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
     const resp = await fetch(`${API_ROUTE}/rei-rainha/${tournamentId}/json`)
     if (!resp.ok) {
+      toast.error('Erro ao carregar os dados do torneio!')
       console.error('Erro ao carregar os dados do torneio:', resp.statusText);
       setError(true);
       setIsLoading(false);
@@ -99,7 +101,11 @@ export default function League() {
         darkMode={darkMode}
         pageTitle="Erro ao carregar o torneio!"
       >
-        Erro ao carregar o torneio. Verifique se o ID do torneio está correto.
+        <p className="text-center">
+          Erro ao carregar o torneio.
+          <br />
+          Verifique se o ID do torneio está correto.
+        </p>
       </Loading>
     );
   }
