@@ -86,7 +86,7 @@ export default function LandingPage() {
 
             <h1 className={`text-5xl md:text-7xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               Pódio
-              <span className={`block ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+              <span className={`ml-2 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
                 Digital
               </span>
             </h1>
@@ -272,12 +272,15 @@ export default function LandingPage() {
             <Trophy className={`h-8 w-8 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
 
             <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              Pódio Digital
+              Pódio
+              <span className={`ml-1 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                Digital
+              </span>
             </span>
           </div>
 
           <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            Torneios, Ligas e Rankings de um jeito fácil e totalmente digital!
+            Torneios e Jogos de um jeito fácil e totalmente digital!
           </p>
         </div>
       </footer>
