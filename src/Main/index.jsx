@@ -55,7 +55,7 @@ export default function LandingPage() {
       link: '/rei-rainha/rei-da-quadra-open_aVikY52a'
     },
     {
-      title: '1° TORNEIO DE FUTEVÔLEI – PRIME BEACH - Masculino',
+      title: '1° TORNEIO DE FUTEVÔLEI - PRIME BEACH - Masculino',
       subtitle: '13/09/2025',
       status: 'Finalizado',
       participants: '13 duplas',
@@ -79,9 +79,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 py-20">
           <div className="text-center">
             <div className="flex justify-center mb-8">
-              <div className={`p-4 rounded-full ${darkMode ? 'bg-orange-600' : 'bg-orange-100'}`}>
-                <Trophy className={`h-16 w-16 ${darkMode ? 'text-white' : 'text-orange-600'}`} />
-              </div>
+              <Trophy className={`h-24 w-24 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
             </div>
 
             <h1 className={`text-5xl md:text-7xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -101,10 +99,7 @@ export default function LandingPage() {
               <button
                 onClick={openWhats}
                 title="Entre em contato"
-                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 shadow-lg cursor-pointer ${darkMode
-                  ? 'bg-orange-600 hover:bg-orange-700 text-white'
-                  : 'bg-orange-600 hover:bg-orange-700 text-white'
-                  }`}>
+                className="px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 shadow-lg cursor-pointer bg-orange-600 hover:bg-orange-700 text-white">
                 Entre em contato
               </button>
 
@@ -184,8 +179,7 @@ export default function LandingPage() {
             {examples.map((example, index) => (
               <div
                 key={index}
-                className={`rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105 ${darkMode ? 'bg-gray-800' : 'bg-white'
-                  }`}
+                className={`rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
               >
                 <Link to={example.link}>
                   <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-gradient-to-r from-orange-500 to-gray-400'} text-white`}>
