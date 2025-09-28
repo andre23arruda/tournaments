@@ -90,9 +90,9 @@ export default function LandingPage() {
             </h1>
 
             <p className={`text-xl md:text-2xl mb-8 max-w-3xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-              Torneios e Jogos de um jeito fácil e totalmente digital!
+              Torneios de um jeito fácil e totalmente digital!
               <br />
-              Acompanhe torneios e jogos na palma da sua mão.
+              Acompanhe os jogos na palma da sua mão.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -274,7 +274,7 @@ export default function LandingPage() {
           </div>
 
           <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-            Torneios e Jogos de um jeito fácil e totalmente digital!
+            Torneios de um jeito fácil e totalmente digital!
           </p>
         </div>
       </footer>
