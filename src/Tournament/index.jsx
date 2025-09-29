@@ -113,11 +113,12 @@ export default function Tournament() {
         <AdminButton darkMode={darkMode} />
       )}
 
+      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
+
       {torneio.ativo && (
         <>
+          <ShareLinkButton pageName={torneio.nome} />
           <ReloadButton loadData={loadData} />
-          <ShareLinkButton darkMode={darkMode} />
-          <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
         </>
       )}
 

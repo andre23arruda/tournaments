@@ -101,7 +101,8 @@ export default function TournamentRanking() {
 
     return (
         <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-            <ShareLinkButton darkMode={darkMode} />
+            <ShareLinkButton pageName={ranking.nome} />
+
             <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
 
             <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">

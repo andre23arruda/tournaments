@@ -99,7 +99,7 @@ export default function LeagueRanking() {
 
     return (
         <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-            <ShareLinkButton darkMode={darkMode} />
+            <ShareLinkButton pageName={ranking.nome} />
 
             <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
 

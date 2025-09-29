@@ -47,12 +47,20 @@ export default function LandingPage() {
 
   const examples = [
     {
-      title: 'REI DA QUADRA OPEN',
-      subtitle: '26/07/2025',
+      title: '1º OPEN MASCULINO ARENA BEACH SPORTS',
+      subtitle: '13/09/2025',
       status: 'Finalizado',
-      participants: '12 jogadores',
-      games: 33,
-      link: '/rei-rainha/rei-da-quadra-open_aVikY52a'
+      participants: '8 duplas',
+      games: 15,
+      link: '/torneio/1o-open-masculino-arena-beach-sports_cFB5efcx'
+    },
+    {
+      title: '1° TORNEIO DE FUTEVÔLEI - PRIME BEACH - Misto',
+      subtitle: '13/09/2025',
+      status: 'Finalizado',
+      participants: '13 duplas',
+      games: 23,
+      link: '/torneio/1-torneio-de-futevolei-prime-beach-misto_QL5CBq3y'
     },
     {
       title: '1° TORNEIO DE FUTEVÔLEI - PRIME BEACH - Masculino',
@@ -63,12 +71,28 @@ export default function LandingPage() {
       link: '/torneio/1-torneio-de-futevolei-prime-beach-masculino_u8rN6D6Z'
     },
     {
+      title: 'SUPER SEXTA ARENA BEACH SPORTS',
+      subtitle: '12/09/2025',
+      status: 'Finalizado',
+      participants: '7 duplas',
+      games: 12,
+      link: '/torneio/super-sexta-arena-beach-sports_DjovRQBr'
+    },
+    {
       title: 'TORNEIO RELÂMPAGO ARENA BEACH SPORTS',
       subtitle: '06/09/2025',
       status: 'Finalizado',
       participants: '8 duplas',
       games: 15,
       link: '/torneio/torneio-relampago-arena-beach-sports_zQhCZXFP'
+    },
+    {
+      title: 'REI DA QUADRA OPEN',
+      subtitle: '26/07/2025',
+      status: 'Finalizado',
+      participants: '12 jogadores',
+      games: 33,
+      link: '/rei-rainha/rei-da-quadra-open_aVikY52a'
     },
   ];
 
