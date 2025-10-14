@@ -1,16 +1,28 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BarChart3, Calendar, CheckCircle, Clock, Medal, Target, Trophy, Users } from 'lucide-react';
+import { BarChart3, Calendar, CheckCircle, Clock, Medal, Target, Trophy, Users, X } from 'lucide-react';
 import { openWhats } from '../utils';
 
 export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   useEffect(() => {
     document.title = 'Pódio Digital | Torneios e Jogos de um jeito fácil e totalmente digital!';
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedDarkMode);
   }, []);
+
+  useEffect(() => {
+    if (showVideoModal) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showVideoModal]);
 
   // const toggleTheme = () => {
   //   const newDarkMode = !darkMode;
@@ -127,14 +139,14 @@ export default function LandingPage() {
                 Entre em contato
               </button>
 
-              <Link to="https://youtu.be/N6G-DkHiEZ4">
-                <button className={`w-full px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 cursor-pointer ${darkMode
+              <button
+                onClick={() => setShowVideoModal(true)}
+                className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 cursor-pointer ${darkMode
                   ? 'border-2 border-gray-600 hover:bg-gray-800 text-gray-300'
                   : 'border-2 border-gray-300 hover:bg-gray-50 text-gray-700'
-                  }`}>
-                  Ver demonstração
-                </button>
-              </Link>
+                }`}>
+                Ver demonstração
+              </button>
             </div>
           </div>
         </div>
@@ -302,6 +314,37 @@ export default function LandingPage() {
           </p>
         </div>
       </footer>
+
+      {showVideoModal && (
+        <div
+          className="fixed inset-0 bg-[#00000069] z-50 flex flex-col items-center justify-center p-4"
+          onClick={() => setShowVideoModal(false)}
+        >
+          <button
+            onClick={() => setShowVideoModal(false)}
+            className="z-10 bg-orange-400 bg-opacity-50 hover:bg-orange-600 text-white rounded-full p-2 transition-all mb-4 hover:cursor-pointer"
+            aria-label="Fechar modal"
+          >
+            <X className="h-6 w-6" />
+          </button>
+
+          <div
+            className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative pt-[56.25%]">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/N6G-DkHiEZ4?autoplay=1&controls=0&disablekb=1"
+                title="Demonstração Pódio Digital"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
