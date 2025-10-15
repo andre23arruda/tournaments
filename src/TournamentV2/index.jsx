@@ -136,11 +136,11 @@ export default function Tournament() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div className={`rounded-lg shadow p-6 flex flex-col justify-center items-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
               {torneio.ativo ? (
-                <h3 className="text-2xl font-bold text-blue-600">
+                <h3 className="text-center text-2xl font-bold text-blue-600">
                   Em andamento
                 </h3>
               ) : (
-                <h3 className="text-2xl font-bold text-green-600">
+                <h3 className="text-center text-2xl font-bold text-green-600">
                   Finalizado
                 </h3>
               )}
@@ -205,19 +205,21 @@ export default function Tournament() {
                                   <td className={`py-2 px-3 border border-gray-300`}>
                                     {formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                       <div className={`${getWinnerClass(
-                                        jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
-                                        jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
+                                        jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
+                                        jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
                                   <td className="py-2 px-3 border border-gray-300">
-                                    {jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : ''} X {jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : ''}
+                                    {jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : ''}
+                                    {' X ' }
+                                    {jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : ''}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300`}>
                                     {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                       <div className={`${getWinnerClass(
-                                        jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
-                                        jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
+                                        jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
+                                        jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
@@ -307,25 +309,25 @@ export default function Tournament() {
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
-                              jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
-                              jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
+                              jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
+                              jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
                             )}>
                               {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
                               )) : <span className="text-gray-500">A definir</span>}
                             </span>
-                            <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                            <span className="font-bold">{jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : '-'}</span>
                           </div>
                           <div className="flex justify-between items-center py-1">
                             <span className={getWinnerClass(
-                              jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
-                              jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
+                              jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
+                              jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
                             )}>
                               {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
                               )) : <span className="text-gray-500">A definir</span>}
                             </span>
-                            <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                            <span className="font-bold">{jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : '-'}</span>
                           </div>
                         </div>
                       ))}
@@ -340,25 +342,25 @@ export default function Tournament() {
                         <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
-                              jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
-                              jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
+                              jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
+                              jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
                             )}>
                               {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
                               )) : <span className="text-gray-500">A definir</span>}
                             </span>
-                            <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                            <span className="font-bold">{jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : '-'}</span>
                           </div>
                           <div className="flex justify-between items-center py-1">
                             <span className={getWinnerClass(
-                              jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
-                              jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
+                              jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
+                              jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
                             )}>
                               {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
                               )) : <span className="text-gray-500">A definir</span>}
                             </span>
-                            <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                            <span className="font-bold">{jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : '-'}</span>
                           </div>
                         </div>
                       ))}
@@ -376,25 +378,25 @@ export default function Tournament() {
                         >
                           <div className="flex justify-between items-center py-1 border-b border-gray-300">
                             <span className={getWinnerClass(
-                              jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
-                              jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
+                              jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
+                              jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
                             )}>
                               {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
                               )) : <span className="text-gray-500">A definir</span>}
                             </span>
-                            <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                            <span className="font-bold">{jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : '-'}</span>
                           </div>
                           <div className="flex justify-between items-center py-1">
                             <span className={getWinnerClass(
-                              jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
-                              jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
+                              jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
+                              jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
                             )}>
                               {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                 <div key={i}>{line}</div>
                               )) : <span className="text-gray-500">A definir</span>}
                             </span>
-                            <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                            <span className="font-bold">{jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : '-'}</span>
                           </div>
                         </div>
                       ))}
@@ -410,25 +412,25 @@ export default function Tournament() {
                           <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
                             <div className="flex justify-between items-center py-1 border-b border-gray-300">
                               <span className={getWinnerClass(
-                                jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
-                                jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
+                                jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
+                                jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
                               )}>
                                 {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                   <div key={i}>{line}</div>
                                 )) : <span className="text-gray-500">A definir</span>}
                               </span>
-                              <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                              <span className="font-bold">{jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : '-'}</span>
                             </div>
                             <div className="flex justify-between items-center py-1">
                               <span className={getWinnerClass(
-                                jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
-                                jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
+                                jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
+                                jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
                               )}>
                                 {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                   <div key={i}>{line}</div>
                                 )) : <span className="text-gray-500">A definir</span>}
                               </span>
-                              <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                              <span className="font-bold">{jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : '-'}</span>
                             </div>
                           </div>
                         </div>
@@ -440,25 +442,25 @@ export default function Tournament() {
                           <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
                             <div className="flex justify-between items-center py-1 border-b border-gray-300">
                               <span className={getWinnerClass(
-                                jogo.concluido === 'C' && jogo.placar_dupla1 > jogo.placar_dupla2,
-                                jogo.concluido === 'C' && jogo.placar_dupla1 < jogo.placar_dupla2
+                                jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
+                                jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
                               )}>
                                 {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
                                   <div key={i}>{line}</div>
                                 )) : <span className="text-gray-500">A definir</span>}
                               </span>
-                              <span className="font-bold">{jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : '-'}</span>
+                              <span className="font-bold">{jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : '-'}</span>
                             </div>
                             <div className="flex justify-between items-center py-1">
                               <span className={getWinnerClass(
-                                jogo.concluido === 'C' && jogo.placar_dupla2 > jogo.placar_dupla1,
-                                jogo.concluido === 'C' && jogo.placar_dupla2 < jogo.placar_dupla1
+                                jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
+                                jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
                               )}>
                                 {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                   <div key={i}>{line}</div>
                                 )) : <span className="text-gray-500">A definir</span>}
                               </span>
-                              <span className="font-bold">{jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : '-'}</span>
+                              <span className="font-bold">{jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : '-'}</span>
                             </div>
                           </div>
                         </div>

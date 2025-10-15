@@ -142,11 +142,11 @@ export default function League() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div className={`rounded-lg shadow p-6 flex flex-col justify-center items-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
               {torneio.ativo ? (
-                <h3 className="text-2xl font-bold text-blue-600">
+                <h3 className="text-center text-2xl font-bold text-blue-600">
                   Em andamento
                 </h3>
               ) : (
-                <h3 className="text-2xl font-bold text-green-600">
+                <h3 className="text-center text-2xl font-bold text-green-600">
                   Finalizado
                 </h3>
               )}
@@ -220,7 +220,9 @@ export default function League() {
                                 ))}
                               </td>
                               <td className="py-2 px-3 border border-gray-300">
-                                {jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : ''} X {jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : ''}
+                                {jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : ''}
+                                {' X ' }
+                                {jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : ''}
                               </td>
                               <td className={`py-2 px-3 border border-gray-300`}>
                                 {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
