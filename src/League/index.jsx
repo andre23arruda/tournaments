@@ -25,7 +25,13 @@ export default function League() {
     scrollPositionRef.current = window.pageYOffset;
     setIsLoading(true);
     const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
-    const resp = await fetch(`${API_ROUTE}/rei-rainha/${tournamentId}/json`)
+    const resp = await fetch(`${API_ROUTE}/rei-rainha/${tournamentId}/json`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
     if (!resp.ok) {
       toast.error('Erro ao carregar os dados do torneio!')
       console.error('Erro ao carregar os dados do torneio:', resp.statusText);
@@ -116,7 +122,7 @@ export default function League() {
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
 
       {can_edit && (
-        <AdminButton darkMode={darkMode} />
+        <AdminButton route={`bt_league/torneio/${torneio.id}/change/#jogos-tab`} />
       )}
 
       <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
