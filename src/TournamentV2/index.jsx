@@ -80,6 +80,12 @@ export default function Tournament() {
     return '';
   };
 
+  const handleScoreClick = (obs) => {
+    if (obs) {
+      alert(obs);
+    }
+  };
+
   if (isLoading) {
     return (
       <Loading
@@ -216,10 +222,17 @@ export default function Tournament() {
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
-                                  <td className="py-2 px-3 border border-gray-300">
+                                  <td
+                                    className={classNames(
+                                      "py-2 px-3 border border-gray-300", {
+                                        'cursor-pointer': jogo.obs,
+                                    })}
+                                    onClick={() => handleScoreClick(jogo.obs)}
+                                  >
                                     {jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : ''}
                                     {' X ' }
                                     {jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : ''}
+                                    {jogo.obs ? <span className="ml-2 text-blue-300">🛈</span> : ''}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300`}>
                                     {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
