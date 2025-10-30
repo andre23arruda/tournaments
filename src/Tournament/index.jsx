@@ -143,7 +143,7 @@ export default function Tournament() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             <div className={`rounded-lg shadow p-6 flex flex-col justify-center items-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
               {torneio.ativo ? (
-                <h3 className="text-center text-2xl font-bold text-blue-600">
+                <h3 className="text-center text-2xl font-bold text-orange-400">
                   Em andamento
                 </h3>
               ) : (
@@ -171,7 +171,7 @@ export default function Tournament() {
 
             <div className={`rounded-lg shadow p-6 text-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
               <h3 className="text-2xl font-bold text-green-600 dark:text-green-400">
-                {torneio.jogos}
+                {torneio.jogos - torneio.pendente} / {torneio.jogos}
               </h3>
 
               <p className="text-gray-600 dark:text-gray-400">Jogos</p>
