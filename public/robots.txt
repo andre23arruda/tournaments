@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://podio-digital.vercel.app/sitemap.xml
