@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://podio-digital.vercel.app/">
+<urlset xmlns="https://podio-digital.vercel.app">
   <url>
-    <loc>https://podio-digital.vercel.app/</loc>
+    <loc>https://podio-digital.vercel.app</loc>
     <lastmod>2025-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>

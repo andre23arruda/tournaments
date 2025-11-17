@@ -232,7 +232,7 @@ export default function Tournament() {
                                     {jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : ''}
                                     {' X ' }
                                     {jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : ''}
-                                    {jogo.obs ? <span className="ml-2 text-blue-300">🛈</span> : ''}
+                                    {jogo.obs ? <span className="ml-2 text-blue-300">ℹ️</span> : ''}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300`}>
                                     {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
