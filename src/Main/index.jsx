@@ -8,7 +8,7 @@ export default function LandingPage() {
   const [showVideoModal, setShowVideoModal] = useState(false);
 
   useEffect(() => {
-    document.title = 'Pódio Digital | Torneios e Jogos de um jeito fácil e totalmente digital!';
+    document.title = 'Pódio Digital | Torneios de um jeito fácil e totalmente digital!';
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedDarkMode);
   }, []);
