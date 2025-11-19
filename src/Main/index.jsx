@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BarChart3, Calendar, CheckCircle, Clock, Medal, Target, Trophy, Users, X } from 'lucide-react';
+import { BarChart3, Calendar, CheckCircle, Clock, Medal, Target, Trophy, Users, X, DollarSign, Crown, Zap } from 'lucide-react';
 import { openWhats } from '../utils';
 
 export default function LandingPage() {
@@ -23,12 +23,6 @@ export default function LandingPage() {
       document.body.style.overflow = 'unset';
     };
   }, [showVideoModal]);
-
-  // const toggleTheme = () => {
-  //   const newDarkMode = !darkMode;
-  //   setDarkMode(newDarkMode);
-  //   localStorage.setItem('darkMode', newDarkMode);
-  // };
 
   const features = [
     {
@@ -58,6 +52,22 @@ export default function LandingPage() {
   ];
 
   const examples = [
+    {
+      title: 'Mista Sorteada CBS',
+      subtitle: '14/11/2025',
+      status: 'Finalizado',
+      participants: '14 duplas',
+      games: 26,
+      link: '/torneio-v2/mista-sorteada-cbs_pa7b24Ew'
+    },
+    {
+      title: 'Torneio Interno Masculino PNA - Etapa Chiquinho',
+      subtitle: '24/10/2025',
+      status: 'Finalizado',
+      participants: '5 duplas',
+      games: 11,
+      link: '/torneio-v2/torneio-interno-masculino-pna_ujDgztsJ'
+    },
     {
       title: '1º OPEN MASCULINO ARENA BEACH SPORTS',
       subtitle: '13/09/2025',
@@ -105,6 +115,60 @@ export default function LandingPage() {
       participants: '12 jogadores',
       games: 33,
       link: '/rei-rainha/rei-da-quadra-open_aVikY52a'
+    },
+  ];
+
+  const pricing = [
+    {
+      name: 'Torneio Avulso',
+      sub: 'Sem compromisso',
+      price: 'R$ 1,00',
+      per: 'por participante',
+      icon: Trophy,
+      color: 'text-blue-500',
+      features: [
+        'Organização de 1 torneio',
+        'Cálculo automático de pontuações',
+        'Classificações de grupos automáticas',
+        'Mata-mata gerado automaticamente',
+      ],
+      highlight: false,
+      buttonText: 'Contratar Avulso',
+    },
+    {
+      name: 'Mensalidade Premium',
+      sub: 'Perfeito para quem joga muito',
+      price: 'R$ 80,00',
+      per: 'por mês',
+      icon: Crown
+      ,
+      color: 'text-orange-500',
+      features: [
+        'Torneios ilimitados',
+        'Rei/Rainha ilimitados',
+        'Jogos gerados automaticamente',
+        'Cálculo automático de pontuações',
+        'Classificação automática',
+        'Mata-mata gerado automaticamente',
+      ],
+      highlight: true,
+      buttonText: 'Assinar Mensalidade',
+    },
+    {
+      name: 'Rei/Rainha Avulso',
+      sub: 'Fácil e Rápido',
+      price: 'R$ 2,00',
+      per: 'por participante',
+      icon: Medal,
+      color: 'text-green-500',
+      features: [
+        'Organização de 1 evento Rei/Rainha',
+        'Jogos gerados automaticamente',
+        'Cálculo automático de pontuações',
+        'Classificação automática',
+      ],
+      highlight: false,
+      buttonText: 'Contratar Avulso',
     },
   ];
 
@@ -218,7 +282,7 @@ export default function LandingPage() {
                 className={`rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}
               >
                 <Link to={example.link}>
-                  <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-gradient-to-r from-orange-500 to-gray-400'} text-white`}>
+                  <div className={`p-6 ${darkMode ? 'bg-gray-700' : 'bg-gradient-to-r from-orange-600 to-yellow-500'} text-white`}>
                     <h3 className="text-xl font-bold mb-1">{example.title}</h3>
                     <p className="text-orange-100">{example.subtitle}</p>
                   </div>
@@ -258,8 +322,77 @@ export default function LandingPage() {
         </div>
       </div>
 
+      {/* Pricing Section */}
+      <div className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              Planos e Preços
+            </h2>
+
+            <p className={`text-xl ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Escolha o plano que melhor se encaixa nas suas necessidades
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            {pricing.map((plan, index) => (
+              <div
+                key={index}
+                className={`p-8 rounded-xl shadow-2xl transition-all duration-300 ${plan.highlight
+                  ? 'bg-orange-600 text-white transform scale-105 ring-4 ring-orange-500/50'
+                  : darkMode
+                    ? 'bg-gray-700 text-white'
+                    : 'bg-white text-gray-900 hover:shadow-xl'
+                  }`}
+              >
+                {plan.highlight && (
+                  <div className="text-center mb-4">
+                    <span className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-yellow-400 text-gray-900">
+                      Mais Popular
+                    </span>
+                  </div>
+                )}
+
+                <div className="flex justify-center mb-4">
+                  <plan.icon className={`h-12 w-12 ${plan.highlight ? 'text-yellow-400' : plan.color}`} />
+                </div>
+
+                <h3 className={`text-2xl font-bold text-center mb-2 ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
+                  {plan.name}
+                </h3>
+
+                <p className={`text-center mb-6 ${plan.highlight ? 'text-orange-100' : 'text-gray-600'}`}>
+                  {plan.sub}
+                </p>
+
+                <div className="text-center mb-8">
+                  <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
+                    {plan.price}
+                  </span>
+                  <span className={`text-xl font-medium ml-1 ${plan.highlight ? 'text-orange-100' : 'text-gray-500'}`}>
+                    {plan.per}
+                  </span>
+                </div>
+
+                <ul className="space-y-3 mb-10">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-center">
+                      <CheckCircle className={`h-5 w-5 mr-3 flex-shrink-0 ${plan.highlight ? 'text-yellow-400' : 'text-green-500'}`} />
+                      <span className={`${plan.highlight ? 'text-white' : (darkMode ? 'text-gray-300' : 'text-gray-600')}`}>
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* CTA Section */}
-      <div className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-gradient-to-r from-orange-600 to-gray-400'} text-white`}>
+      <div className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-orange-600 to-gray-400'} text-white`}>
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">
             Pronto para organizar seu próximo torneio?
