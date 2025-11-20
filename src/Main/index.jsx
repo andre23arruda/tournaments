@@ -53,6 +53,14 @@ export default function LandingPage() {
 
   const examples = [
     {
+      title: 'OPEN FEMININO 2025',
+      subtitle: '15/11/2025',
+      status: 'Finalizado',
+      participants: '8 duplas',
+      games: 15,
+      link: '/torneio-v2/open-feminino-2025_bbEmdkwj'
+    },
+    {
       title: 'Mista Sorteada CBS',
       subtitle: '14/11/2025',
       status: 'Finalizado',
@@ -131,6 +139,7 @@ export default function LandingPage() {
         'Cálculo automático de pontuações',
         'Classificações de grupos automáticas',
         'Mata-mata gerado automaticamente',
+        'Link para participantes acompanharem os jogos',
       ],
       highlight: false,
       buttonText: 'Contratar Avulso',
@@ -150,6 +159,7 @@ export default function LandingPage() {
         'Cálculo automático de pontuações',
         'Classificação automática',
         'Mata-mata gerado automaticamente',
+        'Link para participantes acompanharem os jogos',
       ],
       highlight: true,
       buttonText: 'Assinar Mensalidade',
@@ -166,6 +176,7 @@ export default function LandingPage() {
         'Jogos gerados automaticamente',
         'Cálculo automático de pontuações',
         'Classificação automática',
+        'Link para participantes acompanharem os jogos',
       ],
       highlight: false,
       buttonText: 'Contratar Avulso',
@@ -358,19 +369,20 @@ export default function LandingPage() {
                   <plan.icon className={`h-12 w-12 ${plan.highlight ? 'text-yellow-400' : plan.color}`} />
                 </div>
 
-                <h3 className={`text-2xl font-bold text-center mb-2 ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
+                <h3 className={`text-2xl font-bold text-center mb-2 ${(plan.highlight || darkMode) ? 'text-white' : 'text-gray-900'}`}>
                   {plan.name}
                 </h3>
 
-                <p className={`text-center mb-6 ${plan.highlight ? 'text-orange-100' : 'text-gray-600'}`}>
+                <p className={`text-center mb-6 ${(plan.highlight || darkMode) ? 'text-orange-100' : 'text-gray-600'}`}>
                   {plan.sub}
                 </p>
 
                 <div className="text-center mb-8">
-                  <span className={`text-5xl font-extrabold ${plan.highlight ? 'text-white' : 'text-gray-900'}`}>
+                  <span className={`text-5xl font-extrabold ${(plan.highlight || darkMode) ? 'text-white' : 'text-gray-900'}`}>
                     {plan.price}
                   </span>
-                  <span className={`text-xl font-medium ml-1 ${plan.highlight ? 'text-orange-100' : 'text-gray-500'}`}>
+
+                  <span className={`text-xl font-medium ml-1 ${(plan.highlight || darkMode) ? 'text-orange-100' : 'text-gray-500'}`}>
                     {plan.per}
                   </span>
                 </div>
@@ -379,6 +391,7 @@ export default function LandingPage() {
                   {plan.features.map((feature, i) => (
                     <li key={i} className="flex items-center">
                       <CheckCircle className={`h-5 w-5 mr-3 flex-shrink-0 ${plan.highlight ? 'text-yellow-400' : 'text-green-500'}`} />
+
                       <span className={`${plan.highlight ? 'text-white' : (darkMode ? 'text-gray-300' : 'text-gray-600')}`}>
                         {feature}
                       </span>
