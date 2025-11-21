@@ -237,7 +237,10 @@ export default function LandingPage() {
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
                 <Trophy className={`h-8 w-8 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
                 <span className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                  Pódio<span className={darkMode ? 'text-orange-400' : 'text-orange-600'}>Digital</span>
+                  Pódio
+                  <span className={`ml-1 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                    Digital
+                  </span>
                 </span>
               </div>
 
