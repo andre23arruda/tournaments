@@ -294,7 +294,7 @@ export default function LandingPage() {
 
         {/* Hero Section - Adicionado pt-20 para compensar a navbar fixa */}
         <div className="pt-20 min-h-screen flex flex-col justify-center relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 py-20">
+          <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
             <div className="text-center">
               <div className="flex justify-center mb-8 animate-bounce-slow">
                 <Trophy className={`h-24 w-24 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
@@ -325,7 +325,8 @@ export default function LandingPage() {
                   className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 cursor-pointer ${darkMode
                     ? 'border-2 border-gray-600 hover:bg-gray-800 text-gray-300'
                     : 'border-2 border-gray-300 hover:bg-gray-50 text-gray-700'
-                  }`}>
+                  }`}
+                >
                   Ver demonstração
                 </button>
               </div>
@@ -333,11 +334,11 @@ export default function LandingPage() {
           </div>
 
           {/* Decorative elements */}
-          <div className={`absolute top-20 left-10 opacity-20 ${darkMode ? 'text-orange-400' : 'text-orange-200'}`}>
+          <div className={`absolute top-20 left-10 opacity-20 pointer-events-none ${darkMode ? 'text-orange-400' : 'text-orange-200'}`}>
             <Medal className="h-24 w-24" />
           </div>
 
-          <div className={`absolute bottom-20 right-10 opacity-20 ${darkMode ? 'text-orange-400' : 'text-orange-200'}`}>
+          <div className={`absolute bottom-20 right-10 opacity-20 pointer-events-none ${darkMode ? 'text-orange-400' : 'text-orange-200'}`}>
             <Target className="h-32 w-32" />
           </div>
         </div>
