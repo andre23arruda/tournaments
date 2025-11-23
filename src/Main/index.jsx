@@ -1,8 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  BarChart3, Calendar, CheckCircle, Clock, Medal, Target,
-  Trophy, Users, X, Crown, Menu, Sun, Moon
+  BarChart3,
+  Calendar,
+  CheckCircle,
+  Clock,
+  Crown,
+  Facebook,
+  Instagram,
+  Medal,
+  Menu,
+  Moon,
+  Sun,
+  Target,
+  Trophy,
+  Users,
+  X,
 } from 'lucide-react';import { openWhats } from '../utils';
 
 export default function LandingPage() {
@@ -556,9 +569,30 @@ export default function LandingPage() {
                 </span>
               </span>
             </div>
-            <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} mb-6`}>
               Torneios de um jeito fácil e totalmente digital!
             </p>
+
+            <div className="flex justify-center gap-6">
+              <a
+                href="https://www.instagram.com/podiodigital.oficial"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`transition-transform hover:scale-110 ${darkMode ? 'text-gray-400 hover:text-orange-400' : 'text-gray-600 hover:text-orange-600'}`}
+                aria-label="Siga-nos no Instagram"
+              >
+                <Instagram className="h-6 w-6" />
+              </a>
+              <a
+                href="https://www.facebook.com/people/P%C3%B3dio-Digital/61583940248196/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`transition-transform hover:scale-110 ${darkMode ? 'text-gray-400 hover:text-orange-400' : 'text-gray-600 hover:text-orange-600'}`}
+                aria-label="Curta nossa página no Facebook"
+              >
+                <Facebook className="h-6 w-6" />
+              </a>
+            </div>
           </div>
         </footer>
 
