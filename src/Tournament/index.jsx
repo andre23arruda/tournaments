@@ -6,6 +6,7 @@ import {
   AdminButton,
   Footer,
   Loading,
+  LogoHeader,
   ReloadButton,
   ShareLinkButton,
   StatusIcon,
@@ -130,6 +131,8 @@ export default function Tournament() {
 
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
+        <LogoHeader darkMode={darkMode} />
+
         <div className="pt-20">
           {/* Title */}
           <h1 className="text-center text-3xl mb-2">
