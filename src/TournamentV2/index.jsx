@@ -166,7 +166,9 @@ export default function Tournament() {
                 {torneio.duplas}
               </h3>
 
-              <p className="text-gray-600 dark:text-gray-400">Duplas</p>
+              <p className="text-gray-600 dark:text-gray-400">
+                {torneio.tipo === 'S' ? 'Jogadores' : 'Duplas'}
+              </p>
             </div>
 
             <div className={`rounded-lg shadow p-6 text-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
