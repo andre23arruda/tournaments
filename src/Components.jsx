@@ -120,7 +120,7 @@ const ReloadButton = ({ loadData }) => (
 const Footer = () => (
     <footer className="w-full py-8 text-center">
         <span className="text-gray-500">
-            Feito por <a href="https://andrearruda-links.vercel.app/" target="_blank" rel="noopener noreferrer" className="underline">ALCA Inovações Tecnológicas</a>
+            © { new Date().getFullYear() } Pódio Digital. Todos os direitos reservados.
         </span>
     </footer>
 )

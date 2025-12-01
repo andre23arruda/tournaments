@@ -222,7 +222,7 @@ export default function Tournament() {
                                   </td>
                                   <td className="py-2 px-3 border border-gray-300">
                                     {jogo.placar_dupla1 || jogo.placar_dupla1 === 0 ? jogo.placar_dupla1 : ''}
-                                    {' X ' }
+                                    {' ✕ ' }
                                     {jogo.placar_dupla2 || jogo.placar_dupla2 === 0 ? jogo.placar_dupla2 : ''}
                                   </td>
                                   <td className={`py-2 px-3 border border-gray-300`}>

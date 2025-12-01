@@ -235,7 +235,7 @@ export default function Tournament() {
                                     onClick={() => handleScoreClick(jogo.obs)}
                                   >
                                     {jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : ''}
-                                    {' X ' }
+                                    {' ✕ ' }
                                     {jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : ''}
                                     {jogo.obs ? <><br/><span className="text-xs text-blue-300">ℹ️</span></> : ''}
                                   </td>
