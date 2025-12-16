@@ -23,7 +23,7 @@ export default function TournamentRanking() {
     async function loadData() {
         setIsLoading(true);
         const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
-        const resp = await fetch(`${API_ROUTE}/torneio-v2/ranking/${rankingId}/json`)
+        const resp = await fetch(`${API_ROUTE}/torneio/ranking/${rankingId}/json`)
         if (!resp.ok) {
             toast.error('Erro ao carregar os dados do torneio!')
             console.error('Erro ao carregar os dados do ranking:', resp.statusText);

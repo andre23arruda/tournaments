@@ -96,7 +96,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '8 duplas',
       games: 15,
-      link: '/torneio-v2/open-feminino-2025_bbEmdkwj'
+      link: '/torneio/open-feminino-2025_bbEmdkwj'
     },
     {
       title: 'Mista Sorteada CBS',
@@ -104,7 +104,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '14 duplas',
       games: 26,
-      link: '/torneio-v2/mista-sorteada-cbs_pa7b24Ew'
+      link: '/torneio/mista-sorteada-cbs_pa7b24Ew'
     },
     {
       title: 'Torneio Interno Masculino PNA - Etapa Chiquinho',
@@ -112,7 +112,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '5 duplas',
       games: 11,
-      link: '/torneio-v2/torneio-interno-masculino-pna_ujDgztsJ'
+      link: '/torneio/torneio-interno-masculino-pna_ujDgztsJ'
     },
     {
       title: '1º OPEN MASCULINO ARENA BEACH SPORTS',
@@ -120,7 +120,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '8 duplas',
       games: 15,
-      link: '/torneio/1o-open-masculino-arena-beach-sports_cFB5efcx'
+      link: '/torneio-v1/1o-open-masculino-arena-beach-sports_cFB5efcx'
     },
     {
       title: '1° TORNEIO DE FUTEVÔLEI - PRIME BEACH - Misto',
@@ -128,7 +128,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '13 duplas',
       games: 23,
-      link: '/torneio/1-torneio-de-futevolei-prime-beach-misto_QL5CBq3y'
+      link: '/torneio-v1/1-torneio-de-futevolei-prime-beach-misto_QL5CBq3y'
     },
     {
       title: '1° TORNEIO DE FUTEVÔLEI - PRIME BEACH - Masculino',
@@ -136,7 +136,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '13 duplas',
       games: 23,
-      link: '/torneio/1-torneio-de-futevolei-prime-beach-masculino_u8rN6D6Z'
+      link: '/torneio-v1/1-torneio-de-futevolei-prime-beach-masculino_u8rN6D6Z'
     },
     {
       title: 'SUPER SEXTA ARENA BEACH SPORTS',
@@ -144,7 +144,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '7 duplas',
       games: 12,
-      link: '/torneio/super-sexta-arena-beach-sports_DjovRQBr'
+      link: '/torneio-v1/super-sexta-arena-beach-sports_DjovRQBr'
     },
     {
       title: 'TORNEIO RELÂMPAGO ARENA BEACH SPORTS',
@@ -152,7 +152,7 @@ export default function LandingPage() {
       status: 'Finalizado',
       participants: '8 duplas',
       games: 15,
-      link: '/torneio/torneio-relampago-arena-beach-sports_zQhCZXFP'
+      link: '/torneio-v1/torneio-relampago-arena-beach-sports_zQhCZXFP'
     },
     {
       title: 'REI DA QUADRA OPEN',
