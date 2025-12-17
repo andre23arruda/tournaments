@@ -152,7 +152,7 @@ export default function League() {
             <div className={`rounded-lg shadow p-6 flex flex-col justify-center items-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
               {torneio.ativo ? (
                 <h3 className="text-center text-2xl font-bold text-orange-400">
-                  Em andamento
+                  { torneio.nao_iniciado ? 'Não iniciado' : 'Em andamento' }
                 </h3>
               ) : (
                 <h3 className="text-center text-2xl font-bold text-green-600">
