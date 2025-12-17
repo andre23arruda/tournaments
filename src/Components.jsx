@@ -67,11 +67,11 @@ const ShareLinkIcon = () => (
     </svg>
 );
 
-const ShareLinkButton = ({ pageName }) => {
+const ShareLinkButton = ({ pageName, text='Acompanhe' }) => {
     function copyLinkToClipboard() {
         const currentUrl = window.location.href;
         if (pageName) {
-            window.open(`https://wa.me/?text=Acompanhe ${pageName} via Pódio Digital: ${currentUrl}`, '_blank');
+            window.open(`https://wa.me/?text=${text} ${pageName} via Pódio Digital: ${currentUrl}`, '_blank');
         } else {
             window.open(`https://wa.me/?text=${currentUrl}`, '_blank');
         }

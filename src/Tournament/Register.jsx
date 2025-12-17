@@ -2,8 +2,55 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast';
 import { cpf } from 'cpf-cnpj-validator';
-import { Footer, Loading, LogoHeader } from '../Components';
+import { Footer, Loading, LogoHeader, ShareLinkButton } from '../Components';
 import { formatDate } from '../utils';
+
+
+function ParticipantsList({ participants, tournamentType }) {
+    function renderTeam(team) {
+        if (tournamentType === 'D') {
+            const players = team.split('<br/>');
+            return players.join(' & ');
+        } else {
+            return team;
+        }
+    }
+
+    if (!participants || participants.length === 0) {
+        return (
+            <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl">
+                <div className="text-center py-6 text-gray-500 bg-gray-100 rounded-xl mt-8 border border-dashed border-gray-300">
+                    <p className="font-semibold">Ainda não há inscritos neste torneio.</p>
+                    <p className="text-sm">Seja o primeiro a garantir sua vaga!</p>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b border-gray-200 pb-2">
+                Inscritos ({participants.length})
+            </h2>
+
+            <div className="space-y-3 max-h-96 overflow-y-auto p-2 mb-4">
+                {participants.map((p, index) => (
+                    <div
+                        key={index}
+                        className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col justify-between items-start transition duration-150 ease-in-out hover:shadow-md max-w-md"
+                    >
+                        <div className="font-medium text-gray-800 flex flex-row">
+                            <span className="text-orange-600 font-bold mr-2">{index + 1}.</span>
+                            <div className="flex flex-col sm:flex-row sm:items-center">
+                                <span className="truncate max-w-xs">{renderTeam(p)}</span>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 
 function Form({ tipo, formData, handleChange, handleBlur, errors }) {
@@ -18,7 +65,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
 
                     <div>
                         <label htmlFor="player1" className="block text-sm font-medium text-gray-700 mb-2">
-                            Nome Completo *
+                            Nome e Sobrenome *
                         </label>
                         <input
                             type="text"
@@ -28,7 +75,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required
-                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-transparent outline-none transition ${
                                 errors.player1 ? 'border-red-500' : 'border-gray-300'
                             }`}
                             placeholder="João Silva"
@@ -50,7 +97,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required
-                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-transparent outline-none transition ${
                                 errors.cpfPlayer1 ? 'border-red-500' : 'border-gray-300'
                             }`}
                             placeholder="12345678900"
@@ -73,7 +120,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             required
-                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-transparent outline-none transition ${
                                 errors.phonePlayer1 ? 'border-red-500' : 'border-gray-300'
                             }`}
                             placeholder="31 999999999"
@@ -92,7 +139,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
 
                         <div>
                             <label htmlFor="player2" className="block text-sm font-medium text-gray-700 mb-2">
-                                Nome Completo *
+                                Nome e Sobrenome *
                             </label>
                             <input
                                 type="text"
@@ -102,7 +149,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
-                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-transparent outline-none transition ${
                                     errors.player2 ? 'border-red-500' : 'border-gray-300'
                                 }`}
                                 placeholder="Maria Santos"
@@ -124,7 +171,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
-                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-transparent outline-none transition ${
                                     errors.cpfPlayer2 ? 'border-red-500' : 'border-gray-300'
                                 }`}
                                 placeholder="12345678900"
@@ -147,7 +194,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
-                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition ${
+                                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-orange-200 focus:border-transparent outline-none transition ${
                                     errors.phonePlayer2 ? 'border-red-500' : 'border-gray-300'
                                 }`}
                                 placeholder="31 999999999"
@@ -165,7 +212,7 @@ function Form({ tipo, formData, handleChange, handleBlur, errors }) {
 }
 
 
-function RegisterForm({ csrfToken, tournamentData, formData, setFormData, setStep, tournamentId }) {
+function RegisterForm({ csrfToken, tournamentData, setTournamentData, formData, setFormData, setStep, tournamentId }) {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
@@ -325,6 +372,10 @@ function RegisterForm({ csrfToken, tournamentData, formData, setFormData, setSte
 
             if (response.ok) {
                 toast.success(data.msg || 'Inscrição realizada com sucesso!');
+                setTournamentData({
+                    ...tournamentData,
+                    duplas: [...tournamentData.duplas, data.data]
+                })
                 const newUrl = `${window.location.pathname}?status=success`
                 window.history.replaceState({}, '', newUrl)
                 setStep('success');
@@ -349,7 +400,7 @@ function RegisterForm({ csrfToken, tournamentData, formData, setFormData, setSte
     }
 
     return (
-        <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-4xl mt-10">
+        <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl my-10">
             <h2 className="text-4xl font-bold text-gray-800 text-center">
                 {tournamentData?.nome}
                 <br />
@@ -387,7 +438,7 @@ function RegisterForm({ csrfToken, tournamentData, formData, setFormData, setSte
                 <button
                     onClick={handleSubmit}
                     disabled={loading || !csrfToken || !isFormValid()}
-                    className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                    className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                     {loading ? 'Enviando...' : 'Enviar Inscrição'}
                 </button>
@@ -397,14 +448,24 @@ function RegisterForm({ csrfToken, tournamentData, formData, setFormData, setSte
 }
 
 
-function Success() {
+function Success({ tournamentData }) {
     document.title = 'Inscrição realizada com sucesso!';
 
     return (
-        <div className="bg-green-50 border border-green-200 text-green-700 p-10 rounded-lg">
-            <h2 className="text-3xl font-semibold">
-                ✓ Inscrição enviada com sucesso!
+        <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl mb-10">
+            <h2 className="text-3xl font-semibold text-center">
+                {tournamentData?.nome}
+                <br />
+                <span className="text-2xl text-gray-600">
+                    {formatDate(tournamentData.data)}
+                </span>
             </h2>
+
+            <div className="mt-6 text-center">
+                <p className="text-lg text-green-600">
+                    Sua inscrição foi realizada com sucesso!
+                </p>
+            </div>
         </div>
     );
 }
@@ -429,6 +490,7 @@ export default function Register() {
         nome: '',
         data: '',
         tipo: '',
+        duplas: []
     });
     const [formData, setFormData] = useState({
         player1: '',
@@ -451,11 +513,9 @@ export default function Register() {
 			const status = params.get('status') || ''
 			if (status === 'success') {
 				setStep('success')
-                setIsLoading(false);
-			} else {
-                await loadData();
-                fetchCsrfToken();
             }
+            await loadData();
+            fetchCsrfToken();
 		}, 500)
         // eslint-disable-next-line
     }, []);
@@ -470,7 +530,16 @@ export default function Register() {
                 'Content-Type': 'application/json',
             }
         });
-        const data = await resp.json()
+
+        let data = {}
+        try {
+            data = await resp.json()
+        } catch (error) {
+            console.error('Erro ao carregar os dados do torneio:', error);
+            setError(true);
+            setIsLoading(false);
+            return;
+        }
 
         if (resp.status === 301) {
             toast.error(data.msg)
@@ -542,21 +611,36 @@ export default function Register() {
             <RegisterForm
                 csrfToken={csrfToken}
                 tournamentData={tournamentData}
+                setTournamentData={setTournamentData}
                 formData={formData}
                 setFormData={setFormData}
                 setStep={setStep}
                 tournamentId={tournamentId}
             />
         ),
-        success: <Success />,
+        success: <Success tournamentData={tournamentData}  />,
         error: <Error />,
     }
 
     return (
         <div className="min-h-screen bg-gray-50 flex items-center justify-between p-4 flex-col">
+            { step === 'form' && (
+                <ShareLinkButton
+                    pageName={tournamentData?.nome}
+                    text="Faça sua inscrição em"
+                />
+            )}
+
             <LogoHeader />
 
-            {render[step]}
+            <div className="w-full max-w-4xl">
+                {render[step]}
+
+                <ParticipantsList
+                    participants={tournamentData?.duplas}
+                    tournamentType={tournamentData?.tipo}
+                />
+            </div>
 
             <Footer />
         </div>
