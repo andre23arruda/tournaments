@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   BarChart3,
   Calendar,
@@ -8,6 +8,7 @@ import {
   Crown,
   Facebook,
   Instagram,
+  Lock,
   Medal,
   Menu,
   Moon,
@@ -23,6 +24,11 @@ export default function LandingPage() {
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+
+  const goToLogin = () => {
+      navigate('/login');
+  };
 
   useEffect(() => {
     document.title = 'Pódio Digital | Torneios de um jeito fácil e totalmente digital!';
@@ -268,6 +274,18 @@ export default function LandingPage() {
                 </button>
 
                 <button
+                  onClick={goToLogin}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
+                    darkMode
+                      ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                      : 'text-gray-600 hover:text-orange-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <Lock size={18} />
+                  <span>Entrar</span>
+                </button>
+
+                <button
                   onClick={openWhats}
                   className="cursor-pointer px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold transition-all hover:scale-105 shadow-md"
                 >
@@ -294,18 +312,29 @@ export default function LandingPage() {
                 <NavLink mobile to="features">Funcionalidades</NavLink>
                 <NavLink mobile to="examples">Torneios</NavLink>
                 <NavLink mobile to="pricing">Planos</NavLink>
-                <button
-                  onClick={openWhats}
-                  className="mt-8 w-full py-4 bg-orange-600 text-white rounded-lg font-bold text-lg"
-                >
-                  Contato
-                </button>
+
+                <div>
+                  <button
+                    onClick={openWhats}
+                    className="mt-8 w-full py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-bold text-lg"
+                  >
+                    Contato
+                  </button>
+
+                  <button
+                      onClick={goToLogin}
+                      className={`mt-4 flex bg-orange-600 hover:bg-orange-700 text-white items-center justify-center gap-2 w-full py-4 mb-2 rounded-lg font-bold border-2`}
+                    >
+                      <Lock size={20} />
+                      Entrar
+                  </button>
+                </div>
               </div>
             </div>
           )}
         </nav>
 
-        {/* Hero Section - Adicionado pt-20 para compensar a navbar fixa */}
+        {/* Hero Section */}
         <div className="pt-20 min-h-screen flex flex-col justify-center relative overflow-hidden">
           <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
             <div className="text-center">

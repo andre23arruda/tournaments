@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import League from './League';
 import LeagueRanking from './League/Ranking';
 import LeagueRegister from './League/Register';
+import Login from './Login';
 import Main from './Main';
 import TournamentV1 from './TournamentV1';
 import Tournament from './Tournament';
@@ -20,6 +21,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/torneio-v1/:tournamentId" element={<TournamentV1 />} />
           <Route path="/torneio/:tournamentId" element={<Tournament />} />
           <Route path="/torneio/:tournamentId/inscricao" element={<TournamentRegister />} />
