@@ -644,7 +644,7 @@ export default function LandingPage() {
               <div className="relative pt-[56.25%]">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/N6G-DkHiEZ4?autoplay=1&controls=0&disablekb=1"
+                  src="https://www.youtube.com/embed/e9mw9iG_9LY?autoplay=1&controls=0&disablekb=1"
                   title="Demonstração Pódio Digital"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
