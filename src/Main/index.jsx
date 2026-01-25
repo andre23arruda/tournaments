@@ -17,11 +17,13 @@ import {
   Trophy,
   Users,
   X,
-} from 'lucide-react';import { openWhats } from '../utils';
+} from 'lucide-react';
+import { openWhats } from '../utils';
 
 export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false);
   const [showVideoModal, setShowVideoModal] = useState(false);
+  const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
@@ -35,12 +37,19 @@ export default function LandingPage() {
     const savedDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedDarkMode);
 
-    // Detectar scroll para mudar estilo da navbar
-    const handleScroll = () => {
+    const checkMobile = () => {
+      setIsMobileDevice(window.innerWidth < 768);
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    window.addEventListener('scroll', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('scroll', checkMobile);
+    };
   }, []);
 
   useEffect(() => {
@@ -65,6 +74,17 @@ export default function LandingPage() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const VIDEO_ID_DEMO = 'e9mw9iG_9LY';
+  const VIDEO_ID_SHORTS = '29bk25RGY6Y';
+
+  const handleWatchDemo = () => {
+    if (isMobileDevice) {
+      window.open(`https://www.youtube.com/shorts/${VIDEO_ID_SHORTS}`, '_blank');
+    } else {
+      setShowVideoModal(true);
     }
   };
 
@@ -363,7 +383,7 @@ export default function LandingPage() {
                 </button>
 
                 <button
-                  onClick={() => setShowVideoModal(true)}
+                  onClick={handleWatchDemo}
                   className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 cursor-pointer ${darkMode
                     ? 'border-2 border-gray-600 hover:bg-gray-800 text-gray-300'
                     : 'border-2 border-gray-300 hover:bg-gray-50 text-gray-700'
@@ -588,69 +608,79 @@ export default function LandingPage() {
 
         {/* Footer */}
         <footer className={`py-12 ${darkMode ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'} border-t`}>
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <div className="flex justify-center items-center gap-2 mb-4">
-              <Trophy className={`h-8 w-8 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
-              <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                Pódio
-                <span className={`ml-1 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
-                  Digital
-                </span>
-              </span>
-            </div>
-            <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} mb-6`}>
-              Torneios de um jeito fácil e totalmente digital!
-            </p>
+          <div className="max-w-7xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+              <div>
+                <div className="flex justify-center items-center gap-2 mb-1">
+                  <Trophy className={`h-8 w-8 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
 
-            <div className="flex justify-center gap-6">
-              <a
-                href="https://www.instagram.com/podiodigital.oficial"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`transition-transform hover:scale-110 ${darkMode ? 'text-gray-400 hover:text-orange-400' : 'text-gray-600 hover:text-orange-600'}`}
-                aria-label="Siga-nos no Instagram"
-              >
-                <Instagram className="h-6 w-6" />
-              </a>
-              <a
-                href="https://www.facebook.com/people/P%C3%B3dio-Digital/61583940248196/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`transition-transform hover:scale-110 ${darkMode ? 'text-gray-400 hover:text-orange-400' : 'text-gray-600 hover:text-orange-600'}`}
-                aria-label="Curta nossa página no Facebook"
-              >
-                <Facebook className="h-6 w-6" />
-              </a>
+                  <span className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    Pódio
+                    <span className={`ml-1 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
+                      Digital
+                    </span>
+                  </span>
+                </div>
+
+                <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Torneios de um jeito fácil e totalmente digital!
+                </p>
+              </div>
+
+              <div className="flex gap-6">
+                <a
+                  href="https://www.instagram.com/podiodigital.oficial"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`transition-transform hover:scale-110 ${darkMode ? 'text-gray-400 hover:text-orange-400' : 'text-gray-600 hover:text-orange-600'}`}
+                  aria-label="Siga-nos no Instagram"
+                >
+                  <Instagram className="h-6 w-6" />
+                </a>
+
+                <a
+                  href="https://www.facebook.com/people/P%C3%B3dio-Digital/61583940248196/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`transition-transform hover:scale-110 ${darkMode ? 'text-gray-400 hover:text-orange-400' : 'text-gray-600 hover:text-orange-600'}`}
+                  aria-label="Curta nossa página no Facebook"
+                >
+                  <Facebook className="h-6 w-6" />
+                </a>
+              </div>
+
+              <p className="text-sm opacity-60">
+                &copy; {new Date().getFullYear()} Pódio Digital. Todos os direitos reservados.
+              </p>
             </div>
           </div>
         </footer>
 
-        {showVideoModal && (
+        {showVideoModal && !isMobileDevice && (
           <div
-            className="fixed inset-0 bg-[#00000069] z-50 flex flex-col items-center justify-center p-4"
+            className="fixed inset-0 bg-black/90 z-50 flex flex-col items-center justify-center p-4 backdrop-blur-sm"
             onClick={() => setShowVideoModal(false)}
           >
             <button
               onClick={() => setShowVideoModal(false)}
-              className="z-10 bg-orange-400 bg-opacity-50 hover:bg-orange-600 text-white rounded-full p-2 transition-all mb-4 hover:cursor-pointer"
+              className="absolute top-4 right-4 z-[60] bg-orange-600 hover:bg-orange-700 text-white rounded-full p-3 shadow-2xl transition-all hover:scale-110 cursor-pointer"
               aria-label="Fechar modal"
             >
               <X className="h-6 w-6" />
             </button>
+
             <div
-              className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden"
+              className="relative w-full overflow-hidden rounded-3xl shadow-2xl bg-black border border-white/10 max-w-5xl aspect-video"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative pt-[56.25%]">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/e9mw9iG_9LY?autoplay=1&controls=0&disablekb=1"
-                  title="Demonstração Pódio Digital"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src={`https://www.youtube.com/embed/${VIDEO_ID_DEMO}?autoplay=1&controls=1&rel=0&modestbranding=1`}
+                title="Demonstração Pódio Digital"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
           </div>
         )}
