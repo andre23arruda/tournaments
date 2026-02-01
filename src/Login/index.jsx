@@ -8,8 +8,8 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
     return (
       <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl my-10 border border-gray-100">
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-extrabold text-gray-800 uppercase">Acesso Restrito</h2>
-          <p className="text-2xl text-gray-500 font-medium mt-2 tracking-tight">Área Administrativa</p>
+          <h2 className="text-3xl font-extrabold text-gray-800 uppercase">Hora do Jogo</h2>
+          <p className="text-2xl text-gray-500 font-medium mt-2 tracking-tight">Vai criar um torneio?</p>
         </div>
 
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
