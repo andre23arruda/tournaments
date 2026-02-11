@@ -162,7 +162,8 @@ export default function Login() {
     }
   };
 
-  const API_ROUTE = getApiRoute();
+  // const API_ROUTE = getApiRoute();
+  const API_ROUTE = '/api';
 
   useEffect(() => {
     const init = async () => {
@@ -183,7 +184,6 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         setCsrfToken(data.token);
-        localStorage.setItem('csrf_fallback', data.token);
       }
     } catch (error) {
       console.error('Erro ao buscar CSRF token:', error);
