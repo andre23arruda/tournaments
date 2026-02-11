@@ -247,7 +247,7 @@ export default function Login() {
         setTempUserId(data.user_id);
         setStep('otp');
       } else if (response.ok && data.success) {
-        window.location.href = `${API_ROUTE}${data.redirect_url}`;
+        window.location.replace = `${API_ROUTE}${data.redirect_url}`;
       } else {
         toast.error(data.message || 'Credenciais inválidas.');
       }
