@@ -278,8 +278,15 @@ export default function Login() {
       const data = await response.json();
       if (response.ok && data.success) {
         toast.success('Acesso autorizado!');
+        // setTimeout(() => {
+        //   window.location.href = `${API_ROUTE}${data.redirect_url}`;
+        // }, 1200);
+
+        const link = document.createElement('a');
+        link.href = `${API_ROUTE}${data.redirect_url}`;
+        document.body.appendChild(link);
         setTimeout(() => {
-          window.location.href = `${API_ROUTE}${data.redirect_url}`;
+          link.click();
         }, 1200);
       } else {
         toast.error(data.message || 'Código inválido ou expirado.');
