@@ -9,7 +9,7 @@
             "destination": "https://andre23arruda.pythonanywhere.com/:path*"
         },
         {
-            "source": "/(.*)",
+            "source": "/((?!api/).*)",
             "destination": "/"
         }
     ]
