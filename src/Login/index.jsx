@@ -280,8 +280,7 @@ export default function Login() {
       if (response.ok && data.success) {
         toast.success('Acesso autorizado!');
         setTimeout(() => {
-          // window.location.href = `${API_ROUTE}${data.redirect_url}`;
-          window.location.href = '/api/admin/';
+          window.location.href = '/admin';
         }, 1200);
       } else {
         toast.error(data.message || 'Código inválido ou expirado.');
