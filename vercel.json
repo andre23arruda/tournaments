@@ -1,11 +1,11 @@
 {
     "rewrites": [
         {
-            "source": "/api/admin/(.*)",
+            "source": "/admin/(.*)",
             "destination": "https://andre23arruda.pythonanywhere.com/admin/$1"
         },
         {
-            "source": "/api/admin",
+            "source": "/admin",
             "destination": "https://andre23arruda.pythonanywhere.com/admin/"
         },
         {
