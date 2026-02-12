@@ -1,16 +1,3 @@
 {
-    "rewrites": [
-        {
-            "source": "/api/admin/:path*",
-            "destination": "https://andre23arruda.pythonanywhere.com/admin/:path*"
-        },
-        {
-            "source": "/api/static/:path*",
-            "destination": "https://andre23arruda.pythonanywhere.com/static/:path*"
-        },
-        {
-            "source": "/api/:path*",
-            "destination": "https://andre23arruda.pythonanywhere.com/:path*"
-        }
-    ]
+    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
