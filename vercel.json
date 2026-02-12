@@ -9,11 +9,11 @@
             "destination": "https://andre23arruda.pythonanywhere.com/admin/"
         },
         {
-            "source": "/api/:path*",
-            "destination": "https://andre23arruda.pythonanywhere.com/:path*"
+            "source": "/api/(.*)",
+            "destination": "https://andre23arruda.pythonanywhere.com/api/$1"
         },
         {
-            "source": "/((?!api/).*)",
+            "source": "/((?!api/|admin/).*)",
             "destination": "/"
         }
     ]
