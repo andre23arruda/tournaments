@@ -1,0 +1,150 @@
+/* .inline-group .tabular tr td.original p{
+    display: none !important;
+}
+
+.inline-group .tabular tr.has_original td {
+    padding-top: 8px !important;
+}
+
+.inline-group .tabular tr.has_original td.field-placar_dupla1 {
+    text-align: center;
+}
+
+.inline-group .tabular tr.has_original th.column-ranking,
+.inline-group .tabular tr.has_original td.field-ranking {
+    width: 10px !important;
+}
+
+#torneio_form .submit-row input[type=submit]:nth-child(2),
+#torneio_form .submit-row input[type=submit]:nth-child(3) {
+    display: none !important;
+}
+
+.form-row.field-jogadores input.select2-search__field,
+.form-row.field-duplas input.select2-search__field {
+    min-width: 100px !important;
+}
+
+.form-row.field-jogadores .select2.select2-container.select2-container--admin-autocomplete,
+.form-row.field-duplas .select2.select2-container.select2-container--admin-autocomplete {
+    width: auto !important;
+}
+
+.form-row.field-jogadores label[for="id_jogadores"],
+.form-row.field-duplas label[for="id_duplas"] {
+    display: none !important;
+} */
+
+#jazzy-actions input[name="_addanother"],
+#jazzy-actions input[name="_continue"] {
+    display: none !important;
+}
+
+th.column-quadra,
+th.column-placar_dupla1,
+th.column-placar_dupla2 {
+    width: 0px;
+    max-width: 50px;
+    opacity: 0;
+    padding: 0;
+}
+
+th.column-dupla_1,
+th.column-dupla_2,
+td.field-dupla_1,
+td.field-dupla_2,
+td.field-placar_dupla1,
+td.field-placar_dupla2 {
+    text-align: center !important;
+    padding-right: 2px !important;
+    padding-left: 2px !important;
+}
+
+td.field-placar_dupla1 input.vIntegerField,
+td.field-placar_dupla2 input.vIntegerField {
+    max-width: 70px !important;
+}
+
+td.field-x,
+td.field-dupla_1,
+td.field-dupla_2 {
+    text-align: center !important;
+    vertical-align: middle !important;
+    padding: 0px !important;
+}
+
+td.field-concluido p,
+td.field-x p,
+td.field-dupla p,
+td.field-dupla_1 p,
+td.field-dupla_2 p,
+td.field-jogador p,
+td.field-dupla_nome p,
+td.field-fase p {
+    margin-bottom: 0px !important;
+}
+
+td.field-placar_dupla1 p,
+td.field-placar_dupla2 p {
+    margin-top: 1rem !important;
+}
+
+th.column-dupla_1,
+td.field-dupla_1 p {
+    text-align: right !important;
+    padding-right: 5px !important;
+}
+
+th.column-dupla_2,
+td.field-dupla_2 p {
+    text-align: left !important;
+    padding-left: 5px !important;
+}
+
+#jogos-tab table .original,
+#jogos-tab table.hide-phase .column-fase,
+#jogos-tab table.hide-phase .field-fase {
+    display: none !important;
+}
+
+td.field-fase,
+td.field-concluido {
+    vertical-align: middle !important;
+}
+td.field-fase select.select2-hidden-accessible,
+td.field-concluido select.select2-hidden-accessible {
+    width: 40px !important;
+    height: 25px !important;
+    clip: auto !important;
+    clip-path: none !important;
+    position: relative !important;
+    border-radius: 4px;
+    background-color: transparent;
+}
+td.field-fase span.select2.select2-container.select2-container--default,
+td.field-concluido span.select2.select2-container.select2-container--default {
+    display: none !important;
+}
+
+div.field-torneio .related-widget-wrapper .select2.select2-container.select2-container--default {
+    width: auto !important;
+}
+
+@media (max-width: 500px) {
+    td.field-placar_dupla1 input.vIntegerField,
+    td.field-placar_dupla2 input.vIntegerField {
+        max-width: 40px !important;
+    }
+
+    .content-wrapper>.content {
+        padding: .5rem !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-3 #jazzy-actions {
+        position: fixed !important;
+        width: -webkit-fill-available;
+        margin-right: 40px;
+    }
+}

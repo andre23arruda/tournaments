@@ -1,0 +1,22 @@
+/* #change-list-filters.col-12.pb-4 {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+#changelist-search details {
+    width: 100% !important;
+}
+
+div.admindatefilter {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between !important;
+}
+
+div.admindatefilter p:nth-child(1),
+div.admindatefilter p:nth-child(3),
+div.admindatefilter p:nth-child(4),
+div.admindatefilter p:nth-child(6) {
+    display: none !important;
+} */

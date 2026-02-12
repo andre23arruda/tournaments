@@ -1,0 +1,19 @@
+.form-row.has_original.dynamic-plantao_set td.original p {
+    display: none !important;
+}
+
+td.field-plantonista .related-widget-wrapper-link.add-related {
+    display: none !important;
+}
+
+td.field-data span.datetimeshortcuts {
+    display: none !important;
+}
+
+.inline-group .tabular tr.has_original td {
+    padding: 5px !important;
+}
+.inline-group .tabular tr.has_original td p,
+.inline-group .tabular tr.has_original td input {
+    margin: 0px !important;
+}
