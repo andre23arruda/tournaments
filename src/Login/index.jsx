@@ -185,7 +185,7 @@ export default function Login() {
         const data = await response.json();
         setCsrfToken(data.token);
         if (data.redirect_url) {
-          window.location.href = `${API_ROUTE}${data.redirect_url}`;
+          window.location.href = data.redirect_url;
         }
       }
     } catch (error) {
