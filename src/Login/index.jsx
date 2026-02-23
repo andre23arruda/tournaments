@@ -185,10 +185,7 @@ export default function Login() {
         const data = await response.json();
         setCsrfToken(data.token);
         if (data.redirect_url) {
-          toast.success('Você já está autenticado!');
-          setTimeout(() => {
-            window.location.href = data.redirect_url;
-          }, 2000)
+          window.location.href = data.redirect_url;
         }
       }
     } catch (error) {
