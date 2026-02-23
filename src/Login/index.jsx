@@ -169,7 +169,7 @@ export default function Login() {
     const init = async () => {
       await new Promise(resolve => setTimeout(resolve, 800));
       await fetchCsrfToken();
-      setIsLoading(false);
+      // setIsLoading(false);
     };
     init();
   }, []);
@@ -186,10 +186,13 @@ export default function Login() {
         setCsrfToken(data.token);
         if (data.is_auth) {
           window.location.href = '/admin';
+        } else {
+          setIsLoading(false);
         }
       }
     } catch (error) {
       console.error('Erro ao buscar CSRF token:', error);
+      setIsLoading(false);
     }
   }
 
