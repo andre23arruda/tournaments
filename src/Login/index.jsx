@@ -184,6 +184,9 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         setCsrfToken(data.token);
+        if (data.redirect_url) {
+          window.location.href = `${API_ROUTE}${data.redirect_url}`;
+        }
       }
     } catch (error) {
       console.error('Erro ao buscar CSRF token:', error);
