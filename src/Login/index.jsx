@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Loader2, Lock, LogIn, ShieldCheck, Mail, User } from 'lucide-react';
 import { Footer, Loading, LogoHeader } from '../Components';
@@ -147,7 +146,6 @@ export default function Login() {
     password: '',
     otp_code: '',
   });
-  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -187,7 +185,7 @@ export default function Login() {
         const data = await response.json();
         setCsrfToken(data.token);
         if (data.is_auth) {
-          navigate('/admin');
+          window.location.href = '/admin';
         }
       }
     } catch (error) {
@@ -255,7 +253,7 @@ export default function Login() {
           setStep('otp');
         }, 2000)
       } else if (response.ok && data.success) {
-        navigate('/admin');
+        window.location.replace = '/admin';
       } else {
         toast.error(data.message || 'Credenciais inválidas.');
       }
@@ -287,7 +285,7 @@ export default function Login() {
       if (response.ok && data.success) {
         toast.success('Acesso autorizado!');
         setTimeout(() => {
-          navigate('/admin');
+          window.location.href = '/admin';
         }, 1200);
       } else {
         toast.error(data.message || 'Código inválido ou expirado.');
