@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Loader2, Lock, LogIn, ShieldCheck, Mail, User } from 'lucide-react';
 import { Footer, Loading, LogoHeader } from '../Components';
@@ -146,6 +147,7 @@ export default function Login() {
     password: '',
     otp_code: '',
   });
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -184,8 +186,8 @@ export default function Login() {
       if (response.ok) {
         const data = await response.json();
         setCsrfToken(data.token);
-        if (data.redirect_url) {
-          window.location.href = data.redirect_url;
+        if (data.is_auth) {
+          navigate('/admin');
         }
       }
     } catch (error) {
@@ -247,11 +249,13 @@ export default function Login() {
 
       const data = await response.json();
       if (response.ok && data.otp_required) {
-        toast.success('Código enviado para o seu e-mail!');
-        setTempUserId(data.user_id);
-        setStep('otp');
+        setTimeout(() => {
+          toast.success('Código enviado para o seu e-mail!');
+          setTempUserId(data.user_id);
+          setStep('otp');
+        }, 2000)
       } else if (response.ok && data.success) {
-        window.location.replace = `${API_ROUTE}${data.redirect_url}`;
+        navigate('/admin');
       } else {
         toast.error(data.message || 'Credenciais inválidas.');
       }
@@ -283,7 +287,7 @@ export default function Login() {
       if (response.ok && data.success) {
         toast.success('Acesso autorizado!');
         setTimeout(() => {
-          window.location.href = '/admin';
+          navigate('/admin');
         }, 1200);
       } else {
         toast.error(data.message || 'Código inválido ou expirado.');
