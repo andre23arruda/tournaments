@@ -162,8 +162,8 @@ export default function Login() {
     }
   };
 
-  // const API_ROUTE = getApiRoute();
-  const API_ROUTE = '/api';
+  const API_ROUTE = getApiRoute();
+  // const API_ROUTE = '/api';
 
   useEffect(() => {
     const init = async () => {
@@ -254,15 +254,16 @@ export default function Login() {
           toast.success('Código enviado para o seu e-mail!');
           setTempUserId(data.user_id);
           setStep('otp');
+          setLoading(false);
         }, 2000)
       } else if (response.ok && data.success) {
         window.location.replace = '/admin';
       } else {
         toast.error(data.message || 'Credenciais inválidas.');
+        setLoading(false);
       }
     } catch (error) {
       toast.error('Erro de comunicação. Tente novamente mais tarde.');
-    } finally {
       setLoading(false);
     }
   }
