@@ -162,8 +162,8 @@ export default function Login() {
     }
   };
 
-  const API_ROUTE = getApiRoute();
-  // const API_ROUTE = '/api';
+  // const API_ROUTE = getApiRoute();
+  const API_ROUTE = '/api';
 
   useEffect(() => {
     const init = async () => {
