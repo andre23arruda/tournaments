@@ -302,7 +302,7 @@ export default function Login() {
   }
 
   if (isLoading) {
-    return <Loading pageTitle="Acessar Painel" />;
+    return <Loading pageTitle="Pódio Digital | Acessar Painel" />;
   }
 
   return (
