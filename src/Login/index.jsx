@@ -293,10 +293,10 @@ export default function Login() {
         }, 1200);
       } else {
         toast.error(data.message || 'Código inválido ou expirado.');
+        setLoading(false);
       }
     } catch (error) {
       toast.error('Erro na verificação. Tente novamente.');
-    } finally {
       setLoading(false);
     }
   }
