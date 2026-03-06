@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Loader2, Lock, LogIn, ShieldCheck, Mail, User } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff, Loader2, Lock, LogIn, Mail, ShieldCheck, User } from 'lucide-react';
 import { Footer, Loading, LogoHeader } from '../Components';
 
 function LoginForm({ formData, handleChange, handleBlur, errors, loading, handleSubmit, csrfToken, step, setStep }) {
+  const [showPassword, setShowPassword] = useState(false);
+
   if (step === 'credentials') {
     return (
       <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl my-10 border border-gray-100">
@@ -51,16 +53,24 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
-                  className={`w-full pl-11 pr-4 py-3 bg-white border rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all ${errors.password ? 'border-red-500' : 'border-gray-200'}`}
+                  className={`w-full pl-11 pr-12 py-3 bg-white border rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all ${errors.password ? 'border-red-500' : 'border-gray-200'}`}
                   placeholder="••••••••"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors cursor-pointer"
+                  aria-label={showPassword ? 'Ocultar senha' : 'Exibir senha'}
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
               </div>
               {errors.password && <p className="text-red-500 text-xs mt-1.5 font-medium ml-1">{errors.password}</p>}
             </div>
