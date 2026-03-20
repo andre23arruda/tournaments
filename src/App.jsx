@@ -6,6 +6,7 @@ import LeagueRanking from './League/Ranking';
 import LeagueRegister from './League/Register';
 import Login from './Login';
 import Main from './Main';
+import FutevoleiTournament from './Futevolei';
 import TournamentV1 from './TournamentV1';
 import Tournament from './Tournament';
 import TournamentRanking from './Tournament/Ranking';
@@ -22,6 +23,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/futevolei/:tournamentId" element={<FutevoleiTournament />} />
           <Route path="/torneio-v1/:tournamentId" element={<TournamentV1 />} />
           <Route path="/torneio/:tournamentId" element={<Tournament />} />
           <Route path="/torneio/:tournamentId/inscricao" element={<TournamentRegister />} />
