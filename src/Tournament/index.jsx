@@ -77,21 +77,31 @@ export default function Tournament() {
     setDarkMode(newDarkMode);
     localStorage.setItem('darkMode', newDarkMode)
   };
+  const abbreviateName = (name) => {
+    const parts = name.trim().split(/\s+/);
+    if (parts.length > 1) {
+      return `${parts[0][0]}. ${parts.slice(1).join(' ')}`;
+    }
+    return name;
+  };
 
   const formatTeamName = (dupla) => {
-    return dupla.replace('<br/>', '\n');
+    if (!dupla) return '';
+    const result = dupla.replace(/<br\/>/g, '\n');
+    return result.split('\n').map(abbreviateName).join('\n');
   };
 
   const formatTeamNameHelp = (dupla, jogo, index) => {
     if (jogo.dupla1 === null && jogo.dupla2 === null) {
       const help_text = jogo.help_text
-      if (help_text.includes('G')) {
+      if (help_text && help_text.includes('G')) {
         return help_text.split('x')[index]
       } else {
         return 'A definir'
       }
     }
-    return (dupla || 'BYE').replace('<br/>', '\n');
+    const duplaName = dupla || 'BYE';
+    return duplaName.replace(/<br\/>/g, '\n').split('\n').map(abbreviateName).join('\n');
   };
 
   const getWinnerClass = (isWinner, isLoser) => {
@@ -207,6 +217,31 @@ export default function Tournament() {
             </div>
           </div>
 
+          {/* Rules Accordion */}
+          <div className={`mb-8 p-4 rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+            <details className="group">
+              <summary className="flex justify-between items-center font-medium cursor-pointer list-none text-lg">
+                <span>Regras de classificação</span>
+                <span className="transition group-open:rotate-180">
+                  <svg fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </summary>
+
+              <div className={`mt-3 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                <p className="mb-2">Classificação no grupo de acordo com número de vitórias <strong>(V)</strong>, saldo <strong>(S)</strong> e pontos <strong>(P)</strong></p>
+                <ul className="list-disc list-inside space-y-1">
+                  {Object.keys(fases_finais).length > 0 && torneio.regras && torneio.regras.map((regraObj, index) => {
+                    const phase = Object.keys(regraObj)[0];
+                    const description = regraObj[phase];
+                    return (
+                      <li key={index}><strong>{phase}:</strong> {description}</li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </details>
+          </div>
+
           {/* Groups Section */}
           <div>
             {Object.keys(fases_finais).length > 0 && (
@@ -246,6 +281,7 @@ export default function Tournament() {
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
+
                                   <td
                                     className={classNames(
                                       "py-2 px-3 border border-gray-300", {
@@ -258,6 +294,7 @@ export default function Tournament() {
                                     {jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : ''}
                                     {jogo.obs ? <><br/><span className="text-xs text-blue-300">ℹ️</span></> : ''}
                                   </td>
+
                                   <td className={`py-2 px-3 border border-gray-300`}>
                                     {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
                                       <div className={`${getWinnerClass(
@@ -266,6 +303,7 @@ export default function Tournament() {
                                       )}`} key={i}>{line}</div>
                                     ))}
                                   </td>
+
                                   <td className="border border-gray-300">
                                     <span className={`flex items-center justify-center`}>
                                       <StatusIcon status={jogo.concluido} />
