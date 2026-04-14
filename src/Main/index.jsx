@@ -1,11 +1,8 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  BarChart3,
-  Calendar,
   CheckCircle,
   Clock,
-  Crown,
   Facebook,
   Instagram,
   Lock,
@@ -19,176 +16,18 @@ import {
   X,
 } from 'lucide-react';
 import { InstagramEmbed } from 'react-social-media-embed';
+import {
+  EXAMPLES,
+  FEATURES,
+  INSTAGRAM_POSTS,
+  MOBILE_BREAKPOINT,
+  PRICING,
+  SCROLL_THRESHOLD,
+  VIDEO_ID_DEMO,
+  VIDEO_ID_SHORTS,
+} from './constants'
 import { openWhats } from '../utils';
 
-const VIDEO_ID_DEMO = 'e9mw9iG_9LY';
-const VIDEO_ID_SHORTS = '29bk25RGY6Y';
-const MOBILE_BREAKPOINT = 768;
-const SCROLL_THRESHOLD = 20;
-
-const FEATURES = [
-  {
-    icon: Trophy,
-    title: 'Gestão de Torneios',
-    description: 'Crie e gerencie torneios de forma simples e eficiente',
-    color: 'text-yellow-500'
-  },
-  {
-    icon: Users,
-    title: 'Rankings Dinâmicos',
-    description: 'Acompanhe classificações do jogadores',
-    color: 'text-orange-500'
-  },
-  {
-    icon: BarChart3,
-    title: 'Estatísticas Detalhadas',
-    description: 'Visualize vitórias, derrotas, pontos e saldo de cada participante',
-    color: 'text-green-500'
-  },
-  {
-    icon: Calendar,
-    title: 'Histórico Completo',
-    description: 'Mantenha registro de todos os torneios e resultados',
-    color: 'text-purple-500'
-  }
-];
-
-const EXAMPLES = [
-  {
-    title: 'OPEN FEMININO 2025',
-    subtitle: '15/11/2025',
-    status: 'Finalizado',
-    participants: '8 duplas',
-    games: 15,
-    link: '/torneio/open-feminino-2025_bbEmdkwj'
-  },
-  {
-    title: 'Mista Sorteada CBS',
-    subtitle: '14/11/2025',
-    status: 'Finalizado',
-    participants: '14 duplas',
-    games: 26,
-    link: '/torneio/mista-sorteada-cbs_pa7b24Ew'
-  },
-  {
-    title: 'Torneio Interno Masculino PNA - Etapa Chiquinho',
-    subtitle: '24/10/2025',
-    status: 'Finalizado',
-    participants: '5 duplas',
-    games: 11,
-    link: '/torneio/torneio-interno-masculino-pna_ujDgztsJ'
-  },
-  {
-    title: '1º OPEN MASCULINO ARENA BEACH SPORTS',
-    subtitle: '13/09/2025',
-    status: 'Finalizado',
-    participants: '8 duplas',
-    games: 15,
-    link: '/torneio-v1/1o-open-masculino-arena-beach-sports_cFB5efcx'
-  },
-  {
-    title: '1° TORNEIO DE FUTEVÔLEI - PRIME BEACH - Misto',
-    subtitle: '13/09/2025',
-    status: 'Finalizado',
-    participants: '13 duplas',
-    games: 23,
-    link: '/torneio-v1/1-torneio-de-futevolei-prime-beach-misto_QL5CBq3y'
-  },
-  {
-    title: '1° TORNEIO DE FUTEVÔLEI - PRIME BEACH - Masculino',
-    subtitle: '13/09/2025',
-    status: 'Finalizado',
-    participants: '13 duplas',
-    games: 23,
-    link: '/torneio-v1/1-torneio-de-futevolei-prime-beach-masculino_u8rN6D6Z'
-  },
-  {
-    title: 'SUPER SEXTA ARENA BEACH SPORTS',
-    subtitle: '12/09/2025',
-    status: 'Finalizado',
-    participants: '7 duplas',
-    games: 12,
-    link: '/torneio-v1/super-sexta-arena-beach-sports_DjovRQBr'
-  },
-  {
-    title: 'TORNEIO RELÂMPAGO ARENA BEACH SPORTS',
-    subtitle: '06/09/2025',
-    status: 'Finalizado',
-    participants: '8 duplas',
-    games: 15,
-    link: '/torneio-v1/torneio-relampago-arena-beach-sports_zQhCZXFP'
-  },
-  {
-    title: 'REI DA QUADRA OPEN',
-    subtitle: '26/07/2025',
-    status: 'Finalizado',
-    participants: '12 jogadores',
-    games: 33,
-    link: '/rei-rainha/rei-da-quadra-open_aVikY52a'
-  },
-];
-
-const PRICING = [
-  {
-    name: 'Torneio Avulso',
-    sub: 'Sem compromisso',
-    price: 'R$ 1,00',
-    per: 'por participante',
-    icon: Trophy,
-    color: 'text-blue-500',
-    features: [
-      'Organização de 1 torneio',
-      'Cálculo automático de pontuações',
-      'Classificações de grupos automáticas',
-      'Mata-mata gerado automaticamente',
-      'Link para participantes acompanharem os jogos',
-    ],
-    highlight: false,
-    buttonText: 'Contratar Avulso',
-  },
-  {
-    name: 'Mensalidade Premium',
-    sub: 'Perfeito para arenas',
-    price: 'R$ 80,00',
-    per: 'por mês',
-    icon: Crown,
-    color: 'text-orange-500',
-    features: [
-      'Torneios ilimitados',
-      'Rei/Rainha ilimitados',
-      'Jogos gerados automaticamente',
-      'Cálculo automático de pontuações',
-      'Classificação automática',
-      'Mata-mata gerado automaticamente',
-      'Link para participantes acompanharem os jogos',
-    ],
-    highlight: true,
-    buttonText: 'Assinar Mensalidade',
-  },
-  {
-    name: 'Rei/Rainha Avulso',
-    sub: 'Fácil e Rápido',
-    price: 'R$ 2,00',
-    per: 'por participante',
-    icon: Medal,
-    color: 'text-green-500',
-    features: [
-      'Organização de 1 evento Rei/Rainha',
-      'Jogos gerados automaticamente',
-      'Cálculo automático de pontuações',
-      'Classificação automática',
-      'Link para participantes acompanharem os jogos',
-    ],
-    highlight: false,
-    buttonText: 'Contratar Avulso',
-  },
-];
-
-const INSTAGRAM_POSTS = [
-  'https://www.instagram.com/p/DVGXWrukbPh/',
-  'https://www.instagram.com/p/DT6ZYEeEQPc/',
-  'https://www.instagram.com/p/DUyj8eNkbO0/',
-];
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -709,6 +548,7 @@ export default function LandingPage() {
                 <InstagramEmbed
                   url={url}
                   width="100%"
+                  lazyLoad
                   captioned
                 />
               </div>
