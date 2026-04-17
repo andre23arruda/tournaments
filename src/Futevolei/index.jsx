@@ -77,7 +77,7 @@ export default function FutevoleiTournament() {
   };
 
   const formatTeamNameHelp = (dupla, jogo, index) => {
-    if (jogo.dupla1 === null && jogo.dupla2 === null) {
+    if (jogo.dupla1 === null || jogo.dupla2 === null) {
       const help_text = jogo.help_text
       if (help_text) {
         return help_text.split('x')[index]
