@@ -30,6 +30,7 @@ export default function Tournament() {
   const [darkMode, setDarkMode] = useState(false);
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
+  const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const scrollPositionRef = useRef(0);
@@ -114,6 +115,27 @@ export default function Tournament() {
     if (obs) {
       alert(obs);
     }
+  };
+
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const cleanTeam = (dupla) => {
+    if (!dupla) return '';
+    return dupla.replace(/<br\/>/g, '\n').replace(/<span>/g, '').replace(/<\/span>/g, '')
+  }
+
+  const filterGames = (games, searchTerm) => {
+    if (!searchTerm) return games;
+
+    return games.filter(jogo => {
+      const dupla1 = cleanTeam(jogo.dupla1).toLowerCase();
+      const dupla2 = cleanTeam(jogo.dupla2).toLowerCase();
+      const searchLower = searchTerm.toLowerCase();
+
+      return dupla1.includes(searchLower) || dupla2.includes(searchLower);
+    });
   };
 
   if (isLoading) {
@@ -248,75 +270,106 @@ export default function Tournament() {
               <h3 className="text-center text-2xl mb-6">Grupos e Classificação</h3>
             )}
 
-            {Object.entries(grupos).map(([grupoNome, grupoData]) => (
-              <div key={grupoNome} className="mb-8">
-                <div className="grid md:grid-cols-2 gap-6">
-                  {/* Games */}
-                  <div>
-                    <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
-                      <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
-                        {Object.keys(grupos).length > 1 ? `${grupoNome} - Jogos` : 'Jogos'}
-                      </h5>
+            {Object.entries(grupos).map(([grupoNome, grupoData]) => {
+              const displayJogos = Object.keys(grupos).length === 1 ? filterGames(grupoData.jogos, search) : grupoData.jogos;
+              
+              return (
+                <div key={grupoNome} className="mb-8">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Games */}
+                    <div>
+                      <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                        <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
+                          {Object.keys(grupos).length > 1 ? `${grupoNome} - Jogos` : 'Jogos'}
+                        </h5>
 
-                      <div className="p-4">
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-center">
-                            <thead>
-                              <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
-                                <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio, 1)}</th>
-                                <th className="py-2 px-3 border border-gray-300">Placar</th>
-                                <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio, 2)}</th>
-                                <th className="py-2 px-5 md:px-3 border border-gray-300" />
-                              </tr>
-                            </thead>
+                        <div className="p-4">
+                          <div className="overflow-x-auto">
+                            {Object.keys(grupos).length === 1 && (
+                              <input
+                                type="text"
+                                placeholder="Buscar jogador..."
+                                className="w-full mb-4 p-2 rounded border border-gray-300 focus:outline-sky-400 placeholder:text-gray-400"
+                                value={search}
+                                onChange={handleSearch}
+                              />
+                            )}
 
-                            <tbody>
-                              {grupoData.jogos.map((jogo, index) => (
-                                <tr key={jogo.id} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
-                                  <td className={`py-2 px-3 border border-gray-300`}>
-                                    {formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
-                                      <div className={`${getWinnerClass(
-                                        jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
-                                        jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
-                                      )}`} key={i}>{line}</div>
-                                    ))}
-                                  </td>
-
-                                  <td
-                                    className={classNames(
-                                      "py-2 px-3 border border-gray-300", {
-                                        'cursor-pointer': jogo.obs,
-                                    })}
-                                    onClick={() => handleScoreClick(jogo.obs)}
-                                  >
-                                    {jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : ''}
-                                    {' ✕ ' }
-                                    {jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : ''}
-                                    {jogo.obs ? <><br/><span className="text-xs text-blue-300">ℹ️</span></> : ''}
-                                  </td>
-
-                                  <td className={`py-2 px-3 border border-gray-300`}>
-                                    {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
-                                      <div className={`${getWinnerClass(
-                                        jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
-                                        jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
-                                      )}`} key={i}>{line}</div>
-                                    ))}
-                                  </td>
-
-                                  <td className="border border-gray-300">
-                                    <span className={`flex items-center justify-center`}>
-                                      <StatusIcon status={jogo.concluido} />
-                                    </span>
-                                  </td>
+                            <table className="w-full text-center">
+                              <thead>
+                                <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
+                                  <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio, 1)}</th>
+                                  <th className="py-2 px-3 border border-gray-300">Placar</th>
+                                  <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio, 2)}</th>
+                                  <th className="py-2 px-5 md:px-3 border border-gray-300" />
                                 </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                              </thead>
+
+                              <tbody>
+                                {displayJogos.length === 0 ? (
+                                  <tr>
+                                    <td colSpan="4" className={`py-6 text-center ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                                      Jogador não encontrado
+                                    </td>
+                                  </tr>
+                                ) : (
+                                  displayJogos.map((jogo, index) => (
+                                    <tr key={jogo.id} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
+                                      <td className={`py-2 px-3 border border-gray-300`}>
+                                        {formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
+                                          <div 
+                                            className={`${getWinnerClass(
+                                              jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
+                                              jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
+                                            )}`} 
+                                            key={i}
+                                          >
+                                            {line} { i === 0 && torneio.tipo === 'D' ? '&' : ''}
+                                          </div>
+                                        ))}
+                                      </td>
+
+                                      <td
+                                        className={classNames(
+                                          "py-2 px-3 border border-gray-300", {
+                                            'cursor-pointer': jogo.obs,
+                                        })}
+                                        onClick={() => handleScoreClick(jogo.obs)}
+                                      >
+                                        {jogo.pontos_dupla1 || jogo.pontos_dupla1 === 0 ? jogo.pontos_dupla1 : ''}
+                                        {' ✕ ' }
+                                        {jogo.pontos_dupla2 || jogo.pontos_dupla2 === 0 ? jogo.pontos_dupla2 : ''}
+                                        {jogo.obs ? <><br/><span className="text-xs text-blue-300">ℹ️</span></> : ''}
+                                      </td>
+
+                                      <td className={`py-2 px-3 border border-gray-300`}>
+                                        {formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
+                                          <div 
+                                            className={`${getWinnerClass(
+                                              jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
+                                              jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
+                                            )}`} 
+                                            key={i}
+                                          >
+                                            {line} { i === 0 && torneio.tipo === 'D' ? '&' : ''}
+                                          </div>
+                                        ))}
+                                      </td>
+
+                                      <td className="border border-gray-300">
+                                        <span className={`flex items-center justify-center`}>
+                                          <StatusIcon status={jogo.concluido} />
+                                        </span>
+                                      </td>
+                                    </tr>
+                                  ))
+                                )}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
                   {/* Classification */}
                   <div>
@@ -372,7 +425,7 @@ export default function Tournament() {
                   </div>
                 </div>
               </div>
-            ))}
+            )})}
           </div>
 
           {/* Playoffs Section */}
