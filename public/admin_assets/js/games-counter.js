@@ -1,44 +1,44 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const jogosInline = document.querySelector('#jogos-tab .js-inline-admin-formset.inline-group')
+    const jogosInline = document.querySelector('#jogos-tab .js-inline-admin-formset.inline-group');
     const jogoInlineGroup = document.querySelector('#jogo_set-group');
-    if (!jogoInlineGroup) return;
+    if (!jogoInlineGroup || !jogosInline) return;
 
     // Coleta dados dos jogos
     const jogosRows = jogoInlineGroup.querySelectorAll('.form-row:not(.add-row, .empty-form)');
     const totalJogos = jogosRows.length;
     let jogosConcluidos = 0;
-    let jogosPendentes = 0;
 
     // Conta jogos concluídos
     jogosRows.forEach(row => {
-        const concluidoCheckbox = row.querySelector('select[id*="-concluido"]');
-        if (concluidoCheckbox && concluidoCheckbox.value === 'C') {
+        const concluidoSelect = row.querySelector('select[id*="-concluido"]');
+        if (concluidoSelect && concluidoSelect.value === 'C') {
             jogosConcluidos++;
         }
 
         const concluidoText = row.querySelector('.field-concluido p');
-        if (concluidoText && concluidoText.textContent === '✅') {
+        if (concluidoText && concluidoText.textContent.includes('✅')) {
             jogosConcluidos++;
         }
     });
-    jogosPendentes = totalJogos - jogosConcluidos;
+    const jogosPendentes = totalJogos - jogosConcluidos;
 
     if (jogosInline) {
-        const html = jogosInline.innerHTML
-        jogosInline.innerHTML = `
-            <div class="row mx-2">
-                <div class="col-4 text-center text-bold">
-                    Jogos: ${totalJogos}
-                </div>
-
-                <div class="col-4 text-center text-bold">
-                    Concluídos: <span id="text-concluidos">${jogosConcluidos}</span>
-                </div>
-
-                <div class="col-4 text-center text-bold">
-                    Pendentes: <span id="text-pendentes">${jogosPendentes}</span>
-                </div>
+        // Criar o container do contador
+        const counterDiv = document.createElement('div');
+        counterDiv.className = 'row mx-2 mb-3';
+        
+        counterDiv.innerHTML = `
+            <div class="col-4 text-center text-bold">
+                Jogos: ${totalJogos}
             </div>
-        ` + html
+            <div class="col-4 text-center text-bold">
+                Concluídos: <span id="text-concluidos">${jogosConcluidos}</span>
+            </div>
+            <div class="col-4 text-center text-bold">
+                Pendentes: <span id="text-pendentes">${jogosPendentes}</span>
+            </div>
+        `;
+
+        jogosInline.prepend(counterDiv);
     }
-})
+});
