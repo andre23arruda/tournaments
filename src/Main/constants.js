@@ -41,6 +41,14 @@ export const FEATURES = [
 
 export const EXAMPLES = [
   {
+    title: 'Liga Clubinho CBS',
+    subtitle: '31/10/2026',
+    status: 'Em andamento',
+    participants: '27 jogadores',
+    games: 351,
+    link: 'https://podiodigital.app.br/torneio/liga-clubinho-cbs_qdq2xegD'
+  },
+  {
     title: 'BT da Lu',
     subtitle: '14/03/2026',
     status: 'Finalizado',
@@ -86,7 +94,7 @@ export const EXAMPLES = [
     status: 'Finalizado',
     participants: '10 duplas',
     games: 15,
-    link: 'https://podiodigital.app.br/torneio/olimpiadas-maconicas-beach-tennis-masculino_DFQXXVwH'
+    link: 'https://podiodigital.app.br/torneio/olimpiadas-maconicas-bt-masculino_DFQXXVwH'
   },
     {
     title: 'Mista Sorteada CBS',
