@@ -218,7 +218,7 @@ export default function LandingPage() {
   const PricingCard = useCallback(({ plan, index }) => (
     <div
       key={index}
-      className={`p-8 rounded-xl shadow-2xl transition-all duration-300 ${
+      className={`p-8 rounded-xl shadow-2xl transition-all duration-300 flex flex-col ${
         plan.highlight
           ? 'bg-orange-600 text-white transform scale-105 ring-4 ring-orange-500/50'
           : darkMode
@@ -263,7 +263,7 @@ export default function LandingPage() {
         </span>
       </div>
 
-      <ul className="space-y-3 mb-10">
+      <ul className="space-y-3 mb-10 flex-1">
         {plan.features.map((feature, i) => (
           <li key={i} className="flex items-center">
             <CheckCircle className={`h-5 w-5 mr-3 flex-shrink-0 ${
@@ -279,8 +279,22 @@ export default function LandingPage() {
           </li>
         ))}
       </ul>
+
+      <button
+        onClick={() => navigate(`/contratar?plano=${index}`)}
+        className={`w-full py-3 rounded-xl font-bold text-base transition-all hover:scale-105 shadow-md cursor-pointer ${
+          plan.highlight
+            ? 'bg-white text-orange-600 hover:bg-orange-50'
+            : darkMode
+              ? 'bg-orange-500 hover:bg-orange-600 text-white'
+              : 'bg-orange-600 hover:bg-orange-700 text-white'
+        }`}
+      >
+        {plan.buttonText}
+      </button>
     </div>
-  ), [darkMode]);
+  ), [darkMode, navigate]);
+
 
   return (
     <div className={mainContainerClasses}>
