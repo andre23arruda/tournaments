@@ -1,13 +1,9 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import {
-  ArrowLeft, CheckCircle, Crown, 
-  FileBadge, Lock, Medal,  Menu, Moon, 
-  MessageCircle, Sun, Trophy, X,
-  
-} from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
+import Footer from '../Footer';
+import Header from '../Header';
+import { CheckCircle, FileBadge, MessageCircle } from 'lucide-react';
 import { PRICING, MOBILE_BREAKPOINT, SCROLL_THRESHOLD } from '../Main/constants';
-import { openWhats } from '../utils';
 
 function buildWhatsAppMessage(planName, userName) {
   const text = `Olá, tudo bem? Gostaria de contratar o plano *${planName}* do Pódio Digital.\n\nMeu nome é *${userName}*.`;
@@ -16,30 +12,18 @@ function buildWhatsAppMessage(planName, userName) {
 
 export default function Checkout() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-
   const planIndex = parseInt(searchParams.get('plano') ?? '0', 10);
   const plan = PRICING[planIndex] ?? PRICING[0];
 
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
   
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  const goToLogin = useCallback(() => {
-    navigate('/login');
-  }, [navigate]);
-
-  const toggleTheme = useCallback(() => {
-    setDarkMode(prev => {
-      const newValue = !prev;
-      localStorage.setItem('darkMode', newValue.toString());
-      return newValue;
-    });
-  }, []);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -49,9 +33,6 @@ export default function Checkout() {
     const handleScroll = () => {
       setScrolled(window.scrollY > SCROLL_THRESHOLD);
     };
-
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-    setDarkMode(savedDarkMode);
 
     document.title = `Contratar ${plan.name} | Pódio Digital`;
     window.scrollTo({ top: 0 });
@@ -87,24 +68,6 @@ export default function Checkout() {
     }, 600);
   }, [name, plan.name]);
 
-  const navbarClasses = useMemo(() => {
-    const baseClasses = 'fixed w-full top-0 z-40 transition-all duration-300';
-
-    if (scrolled) {
-      return `${baseClasses} ${
-        darkMode
-          ? 'bg-gray-900/90 shadow-lg backdrop-blur-md border-b border-gray-800'
-          : 'bg-white/90 shadow-lg backdrop-blur-md border-b border-gray-200'
-      }`;
-    }
-
-    return `${baseClasses} ${
-      darkMode
-        ? 'bg-transparent border-gray-800'
-        : 'bg-transparent border-gray-200'
-    }`;
-  }, [scrolled, darkMode]);
-
   const mainContainerClasses = useMemo(() => {
     return `min-h-screen transition-colors duration-300 ${
       darkMode
@@ -113,175 +76,14 @@ export default function Checkout() {
     }`;
   }, [darkMode]);
 
-  const NavLink = useCallback(({ to, children, mobile }) => (
-    <button
-      onClick={() => {
-        setIsMobileMenuOpen(false);
-        navigate('/');
-        setTimeout(() => {
-          const element = document.getElementById(to);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }
-        }, 100);
-      }}
-      className={`font-medium transition-colors hover:text-orange-500 ${
-        mobile
-          ? 'block w-full text-left py-4 text-lg border-b border-gray-100 dark:border-gray-800'
-          : ''
-      } ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}
-    >
-      {children}
-    </button>
-  ), [navigate, darkMode]);
-
   const PlanIcon = plan.icon;
 
   return (
     <div className={mainContainerClasses}>
-      {/* NAVBAR */}
-      <nav className={navbarClasses}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <div
-              className="flex items-center gap-2 cursor-pointer"
-              onClick={() => navigate('/')}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  navigate('/');
-                }
-              }}
-            >
-              <Trophy className={`h-8 w-8 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`} />
-              <span className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                Pódio
-                <span className={`ml-1 ${darkMode ? 'text-orange-400' : 'text-orange-600'}`}>
-                  Digital
-                </span>
-              </span>
-            </div>
-
-            {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
-              <NavLink to="features">
-                <span className="cursor-pointer">Funcionalidades</span>
-              </NavLink>
-              <NavLink to="examples">
-                <span className="cursor-pointer">Torneios</span>
-              </NavLink>
-              <NavLink to="pricing">
-                <span className="cursor-pointer">Planos</span>
-              </NavLink>
-
-              <button
-                onClick={toggleTheme}
-                className={`cursor-pointer p-2 rounded-full transition-colors ${
-                  darkMode
-                    ? 'hover:bg-gray-800 text-yellow-400'
-                    : 'hover:bg-gray-100 text-gray-600'
-                }`}
-                aria-label={darkMode ? 'Ativar modo claro' : 'Ativar modo escuro'}
-              >
-                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
-
-              <button
-                onClick={goToLogin}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
-                  darkMode
-                    ? 'text-gray-300 hover:text-white hover:bg-gray-800'
-                    : 'text-gray-600 hover:text-orange-600 hover:bg-gray-100'
-                }`}
-              >
-                <Lock size={18} />
-                <span>Entrar</span>
-              </button>
-
-              <button
-                onClick={openWhats}
-                className="cursor-pointer px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold transition-all hover:scale-105 shadow-md"
-              >
-                Contato
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center gap-4">
-              <button
-                onClick={toggleTheme}
-                className={`p-2 rounded-full ${darkMode ? 'text-yellow-400' : 'text-gray-600'}`}
-                aria-label={darkMode ? 'Ativar modo claro' : 'Ativar modo escuro'}
-              >
-                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={darkMode ? 'text-white' : 'text-gray-900'}
-                aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
-              >
-                {isMobileMenuOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <div className={`md:hidden absolute top-20 left-0 w-full h-screen z-30 p-4 flex flex-col ${
-            darkMode ? 'bg-gray-900' : 'bg-white'
-          }`}>
-            <div className="flex flex-col space-y-2">
-              <NavLink mobile to="features">Funcionalidades</NavLink>
-              <NavLink mobile to="examples">Torneios</NavLink>
-              <NavLink mobile to="pricing">Planos</NavLink>
-
-              <div>
-                <button
-                  onClick={openWhats}
-                  className="mt-8 w-full py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-bold text-lg"
-                >
-                  Contato
-                </button>
-
-                <button
-                  onClick={goToLogin}
-                  className="mt-4 flex bg-orange-600 hover:bg-orange-700 text-white items-center justify-center gap-2 w-full py-4 mb-2 rounded-lg font-bold border-2"
-                >
-                  <Lock size={20} />
-                  Entrar
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
 
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-4 py-28">
-        <div className="mb-6">
-          <button
-            onClick={() => {
-              navigate('/');
-              setTimeout(() => {
-                const element = document.getElementById('pricing');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }, 100);
-            }}
-            className={`inline-flex items-center cursor-pointer gap-2 font-medium transition-colors hover:text-orange-500 ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
-            }`}
-          >
-            <ArrowLeft className="h-5 w-5" />
-            Voltar
-          </button>
-        </div>
-
         <div className="text-center mb-10">
           <h1 className={`text-3xl md:text-4xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Finalize sua contratação
@@ -430,6 +232,7 @@ export default function Checkout() {
           </div>
         </div>
       </main>
+      <Footer darkMode={darkMode} className="mt-12" />
     </div>
   );
 }

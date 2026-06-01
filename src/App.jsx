@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import About from './About';
 import Checkout from './Checkout';
+import FAQ from './FAQ';
 import FutevoleiTournament from './Futevolei';
 import League from './League';
 import LeagueRanking from './League/Ranking';
@@ -9,6 +11,8 @@ import LeagueRegister from './League/Register';
 import Login from './Login';
 import Main from './Main';
 import NotFound from './NotFound';
+import Privacy from './Privacy';
+import Terms from './Terms';
 import Tournament from './Tournament';
 import TournamentRanking from './Tournament/Ranking';
 import TournamentRegister from './Tournament/Register';
@@ -23,6 +27,10 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/sobre" element={<About />} />
+          <Route path="/ajuda" element={<FAQ />} />
+          <Route path="/termos" element={<Terms />} />
+          <Route path="/privacidade" element={<Privacy />} />
           <Route path="/contratar" element={<Checkout />} />
           <Route path="/futevolei/:tournamentId" element={<FutevoleiTournament />} />
           <Route path="/login" element={<Login />} />
