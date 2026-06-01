@@ -1,21 +1,21 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Eye, EyeOff, Loader2, Lock, LogIn, Mail, ShieldCheck, User } from 'lucide-react';
-import { Footer, Loading, LogoHeader } from '../Components';
+import { Footer, Loading, LogoHeader, ToggleTheme } from '../Components';
 
-function LoginForm({ formData, handleChange, handleBlur, errors, loading, handleSubmit, csrfToken, step, setStep }) {
+function LoginForm({ formData, handleChange, handleBlur, errors, loading, handleSubmit, csrfToken, step, setStep, darkMode }) {
   const [showPassword, setShowPassword] = useState(false);
 
   if (step === 'credentials') {
     return (
-      <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl my-10 border border-gray-100">
+      <div className={`rounded-lg shadow-sm p-8 w-full max-w-4xl my-10 border transition-colors ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'}`}>
         <div className="text-center mb-10">
-          <h2 className="text-3xl font-extrabold text-gray-800 uppercase">Hora do Jogo</h2>
-          <p className="text-2xl text-gray-500 font-medium mt-2 tracking-tight">Vai criar um torneio?</p>
+          <h2 className={`text-3xl font-extrabold uppercase ${darkMode ? 'text-white' : 'text-gray-800'}`}>Hora do Jogo</h2>
+          <p className={`text-2xl font-medium mt-2 tracking-tight ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Vai criar um torneio?</p>
         </div>
 
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-100">
-          <h3 className="text-xl font-bold text-gray-800">Identifique-se</h3>
+        <div className={`flex items-center justify-between mb-8 pb-4 border-b ${darkMode ? 'border-gray-700' : 'border-gray-100'}`}>
+          <h3 className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-800'}`}>Identifique-se</h3>
           {csrfToken ? (
             <div className="flex items-center gap-1.5 text-xs text-green-600 bg-green-50 px-3 py-1.5 rounded-full font-semibold border border-green-100 uppercase tracking-wider">
               <ShieldCheck size={14} /> CONEXÃO SEGURA
@@ -28,9 +28,9 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-5 p-6 bg-gray-50 rounded-2xl border border-gray-200">
+          <div className={`space-y-5 p-6 rounded-2xl border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
             <div>
-              <label htmlFor="username" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Usuário</label>
+              <label htmlFor="username" className={`block text-sm font-bold mb-2 uppercase tracking-wide ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Usuário</label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
@@ -41,7 +41,7 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
-                  className={`w-full pl-11 pr-4 py-3 bg-white border rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all ${errors.username ? 'border-red-500' : 'border-gray-200'}`}
+                  className={`w-full pl-11 pr-4 py-3 border rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all ${darkMode ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'} ${errors.username ? 'border-red-500' : ''}`}
                   placeholder="Ex: adm.torneio"
                 />
               </div>
@@ -49,7 +49,7 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Senha</label>
+              <label htmlFor="password" className={`block text-sm font-bold mb-2 uppercase tracking-wide ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Senha</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
                 <input
@@ -60,7 +60,7 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
                   onChange={handleChange}
                   onBlur={handleBlur}
                   required
-                  className={`w-full pl-11 pr-12 py-3 bg-white border rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all ${errors.password ? 'border-red-500' : 'border-gray-200'}`}
+                  className={`w-full pl-11 pr-12 py-3 border rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all ${darkMode ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-500' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-400'} ${errors.password ? 'border-red-500' : ''}`}
                   placeholder="••••••••"
                 />
                 <button
@@ -96,20 +96,20 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
 
   // step CODE
   return (
-    <div className="bg-white rounded-lg shadow-sm p-8 w-full max-w-4xl my-10 border border-gray-100 animate-in fade-in zoom-in duration-300">
+    <div className={`rounded-lg shadow-sm p-8 w-full max-w-4xl my-10 border animate-in fade-in zoom-in duration-300 transition-colors ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'}`}>
       <div className="text-center mb-10">
         <div className="flex justify-center mb-4">
           <div className="bg-orange-100 p-4 rounded-full text-orange-600">
             <Mail size={40} />
           </div>
         </div>
-        <h2 className="text-3xl font-extrabold text-gray-800 uppercase">Verifique seu e-mail</h2>
-        <p className="text-xl text-gray-500 font-medium mt-2">Enviamos um código de acesso de 6 dígitos para você</p>
+        <h2 className={`text-3xl font-extrabold uppercase ${darkMode ? 'text-white' : 'text-gray-800'}`}>Verifique seu e-mail</h2>
+        <p className={`text-xl font-medium mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Enviamos um código de acesso de 6 dígitos para você</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="p-8 bg-gray-50 rounded-2xl border border-gray-200 text-center">
-          <label htmlFor="otp_code" className="block text-sm font-bold text-gray-700 mb-4 uppercase tracking-widest">Código de Verificação</label>
+        <div className={`p-8 rounded-2xl border text-center ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'}`}>
+          <label htmlFor="otp_code" className={`block text-sm font-bold mb-4 uppercase tracking-widest ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>Código de Verificação</label>
           <input
             type="text"
             id="otp_code"
@@ -119,7 +119,7 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
             required
             maxLength={6}
             autoFocus
-            className="w-full max-w-xs mx-auto text-center text-4xl tracking-[1rem] py-4 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all shadow-inner"
+            className={`w-full max-w-xs mx-auto text-center text-4xl tracking-[1rem] py-4 border rounded-xl focus:ring-4 focus:ring-orange-100 focus:border-orange-500 outline-none transition-all shadow-inner ${darkMode ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-600' : 'bg-white border-gray-200 text-gray-900 placeholder-gray-300'}`}
             placeholder="000000"
           />
           <p className="text-gray-400 text-sm mt-4 italic">O código expira em 5 minutos.</p>
@@ -149,6 +149,9 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
 }
 
 export default function Login() {
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const [step, setStep] = useState('credentials');
   const [tempUserId, setTempUserId] = useState(null);
   const [formData, setFormData] = useState({
@@ -172,8 +175,8 @@ export default function Login() {
     }
   };
 
-  // const API_ROUTE = getApiRoute();
-  const API_ROUTE = '/api';
+  const API_ROUTE = getApiRoute();
+  // const API_ROUTE = '/api';
 
   useEffect(() => {
     const init = async () => {
@@ -312,13 +315,20 @@ export default function Login() {
   }
 
   if (isLoading) {
-    return <Loading pageTitle="Pódio Digital | Acessar Painel" />;
+    return <Loading pageTitle="Pódio Digital | Acessar Painel" darkMode={darkMode} />;
   }
 
+  const toggleTheme = () => {
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+    localStorage.setItem('darkMode', newDarkMode);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className={`min-h-screen flex flex-col transition-colors ${darkMode ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-900'}`}>
+      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
       <main className="flex-grow flex flex-col items-center justify-center p-4">
-        <LogoHeader />
+        <LogoHeader darkMode={darkMode} />
 
         <div className="w-full max-w-4xl flex justify-center">
           <LoginForm
@@ -331,11 +341,12 @@ export default function Login() {
             csrfToken={csrfToken}
             step={step}
             setStep={setStep}
+            darkMode={darkMode}
           />
         </div>
       </main>
 
-      <Footer />
+      <Footer darkMode={darkMode} />
     </div>
   );
 }

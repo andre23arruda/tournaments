@@ -10,7 +10,9 @@ import {
 import { formatDate } from '../utils';
 
 export default function LeagueRanking() {
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(() => {
+      return localStorage.getItem('darkMode') === 'true';
+    });
     const { rankingId } = useParams();
     const [rankingData, setRankingData] = useState(null);
     const [search, setSearch] = useState('');

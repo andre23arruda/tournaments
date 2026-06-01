@@ -21,7 +21,9 @@ function renderPoints(jogo, dupla) {
 }
 
 export default function FutevoleiTournament() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +64,7 @@ export default function FutevoleiTournament() {
   }, [tournamentId])
 
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
     setDarkMode(savedDarkMode);
   }, []);
 

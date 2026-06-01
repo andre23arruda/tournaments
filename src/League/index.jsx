@@ -14,7 +14,9 @@ import {
 import { formatDate } from '../utils';
 
 export default function League() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [search, setSearch] = useState('');

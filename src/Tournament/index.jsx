@@ -27,7 +27,9 @@ function renderPoints(jogo, dupla) {
 }
 
 export default function Tournament() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [search, setSearch] = useState('');

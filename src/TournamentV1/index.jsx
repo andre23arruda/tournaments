@@ -20,7 +20,9 @@ function renderTeam(torneio, number = '') {
 }
 
 export default function Tournament() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,8 +63,6 @@ export default function Tournament() {
   }, [tournamentId])
 
   useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
-    setDarkMode(savedDarkMode);
   }, []);
 
   const toggleTheme = () => {
