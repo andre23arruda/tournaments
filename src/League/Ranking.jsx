@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import {
     Footer,
     Loading,
+    LogoHeader,
     ShareLinkButton,
     ToggleTheme
 } from '../Components';
@@ -106,6 +107,8 @@ export default function LeagueRanking() {
             <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
 
             <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
+                <LogoHeader darkMode={darkMode} />
+
                 <div className="pt-20">
                     <div className="text-center mb-8">
                         <h1 className="text-4xl font-bold mb-2">{ranking.nome}</h1>
@@ -154,62 +157,64 @@ export default function LeagueRanking() {
                                             onChange={handleSearch}
                                         />
 
-                                        <table className="w-full text-center">
+                                        <table className="w-full text-center text-xs sm:text-sm">
                                             <thead>
                                                 <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
-                                                    <th className="py-2 px-3 border border-gray-300">#</th>
-                                                    <th className="py-2 px-3 border border-gray-300">Jogador</th>
-                                                    <th className="py-2 px-3 border border-gray-300">V</th>
-                                                    <th className="py-2 px-3 border border-gray-300">D</th>
-                                                    {/* <th className="py-2 px-3 border border-gray-300">%V</th> */}
-                                                    <th className="py-2 px-3 border border-gray-300">S</th>
-                                                    <th className="py-2 px-3 border border-gray-300">P</th>
-                                                    <th className="py-2 px-3 border border-gray-300">J</th>
+                                                    <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300 w-8 sm:w-auto">#</th>
+                                                    <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300">Jogador</th>
+                                                    <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300" title="Vitórias">V</th>
+                                                    <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300" title="Derrotas">D</th>
+                                                    {/* <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300">%V</th> */}
+                                                    <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300" title="Saldo">S</th>
+                                                    <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300" title="Pontos">P</th>
+                                                    <th className="py-1 sm:py-2 px-1 sm:px-3 border border-gray-300" title="Total de Jogos">J</th>
                                                 </tr>
                                             </thead>
 
                                             <tbody>
                                                 {filterPlayers(jogadores, search).map((jogador, index) => (
                                                     <tr key={jogador.id} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
-                                                        <td className={`py-2 px-3 border border-gray-300 ${getRankingColor(jogador.posicao)}`}>
-                                                            {jogador.posicao}
-                                                            {jogador.posicao <= 3 && (
-                                                                <span className="ml-1">
-                                                                    {jogador.posicao === 1 && '🥇'}
-                                                                    {jogador.posicao === 2 && '🥈'}
-                                                                    {jogador.posicao === 3 && '🥉'}
-                                                                </span>
-                                                            )}
+                                                        <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300 ${getRankingColor(jogador.posicao)}`}>
+                                                            <div className="flex items-center justify-center gap-1 flex-wrap">
+                                                                <span>{jogador.posicao}</span>
+                                                                {jogador.posicao <= 3 && (
+                                                                    <span className="text-[10px] sm:text-base">
+                                                                        {jogador.posicao === 1 && '🥇'}
+                                                                        {jogador.posicao === 2 && '🥈'}
+                                                                        {jogador.posicao === 3 && '🥉'}
+                                                                    </span>
+                                                                )}
+                                                            </div>
                                                         </td>
 
-                                                        <td className={`py-2 px-3 border border-gray-300 text-left font-medium`}>
-                                                            <div>{jogador.nome}</div>
-                                                            {/* <div className="text-xs text-gray-500 dark:text-gray-400">
+                                                        <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300 text-left font-medium min-w-[100px] sm:min-w-0 break-words`}>
+                                                            <div className="line-clamp-2 leading-tight">{jogador.nome}</div>
+                                                            {/* <div className="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                                                                 {jogador.nome_curto}
                                                             </div> */}
                                                         </td>
 
-                                                        <td className={`py-2 px-3 border border-gray-300 font-semibold text-green-600 dark:text-green-400`}>
+                                                        <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300 font-semibold text-green-600 dark:text-green-400`}>
                                                             {jogador.vitorias}
                                                         </td>
 
-                                                        <td className={`py-2 px-3 border border-gray-300 font-semibold text-red-500 dark:text-red-400`}>
+                                                        <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300 font-semibold text-red-500 dark:text-red-400`}>
                                                             {jogador.derrotas}
                                                         </td>
 
-                                                        <td className={`py-2 px-3 border border-gray-300 ${jogador.saldo_pontos >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
+                                                        <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300 ${jogador.saldo_pontos >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-500 dark:text-red-400'}`}>
                                                             {jogador.saldo_pontos > 0 ? '+' : ''}{jogador.saldo_pontos}
                                                         </td>
 
-                                                        {/* <td className={`py-2 px-3 border border-gray-300`}>
+                                                        {/* <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300`}>
                                                             {jogador.percentual_vitorias}%
                                                         </td> */}
 
-                                                        <td className={`py-2 px-3 border border-gray-300`}>
+                                                        <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300 font-medium`}>
                                                             {jogador.pontos_totais}
                                                         </td>
 
-                                                        <td className={`py-2 px-3 border border-gray-300`}>
+                                                        <td className={`py-1 sm:py-2 px-1 sm:px-3 border border-gray-300`}>
                                                             {jogador.jogos_total}
                                                         </td>
                                                     </tr>
@@ -278,8 +283,8 @@ export default function LeagueRanking() {
                                                     </span>
 
                                                     <div>
-                                                        <div className="font-medium text-sm">
-                                                            {jogador.nome_curto}
+                                                        <div className="font-medium text-sm line-clamp-2 leading-tight">
+                                                            {jogador.nome}
                                                         </div>
 
                                                         <div className="text-xs text-gray-600 dark:text-gray-400">
