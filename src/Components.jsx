@@ -92,7 +92,8 @@ const ShareLinkButton = ({ pageName, text='Acompanhe' }) => {
 
 function AdminButton({ route }) {
     function onClick() {
-        const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
+        // const API_ROUTE = import.meta.env.VITE_APP_ROUTE_API
+        const API_ROUTE = ''
         window.open(`${API_ROUTE}/admin/${route}`, '_blank');
     }
 
