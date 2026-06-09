@@ -6,6 +6,18 @@ import { openWhats } from '../utils';
 
 const FAQS = [
   {
+    q: "É realmente fácil de usar?",
+    a: "Sim! Criamos um ambiente intuitivo e amigável para que você possa gerenciar seus torneios de forma simples e rápida."
+  },
+  {
+    q: "Qual é a maior dificuldade?",
+    a: "O seu desafio é chamar a galera para jogar! O Pódio Digital cuida de todo o resto: classificação, chaveamento e exibição dos resultados."
+  },
+  {
+    q: "O quê é necessário para utilizar a plataforma?",
+    a: "Para utilizar a plataforma, você precisa apenas de um dispositivo com acesso à internet (celular ou computador)."
+  },
+  {
     q: "Como funciona a contratação avulsa?",
     a: "Na contratação avulsa, você paga um pequeno valor por cada participante do seu torneio. É ideal para eventos esporádicos. Ao finalizar, criamos o ambiente do seu torneio e você pode gerenciar tudo até o campeão ser definido."
   },
@@ -15,14 +27,14 @@ const FAQS = [
   },
   {
     q: "Os atletas precisam baixar algum aplicativo?",
-    a: "Não! O Pódio Digital funciona 100% no navegador (celular ou computador). Você simplesmente compartilha o link do torneio no WhatsApp e todos conseguem acompanhar os jogos, placares e classificação em tempo real."
+    a: "Não! O Pódio Digital funciona 100% no navegador (celular ou computador). Você simplesmente compartilha o link ou QR Code do torneio e todos conseguem acompanhar os jogos, placares e classificação em tempo real."
   },
   {
     q: "O sistema gera a chave mata-mata automaticamente?",
     a: "Sim. Ao encerrar a fase de grupos, o sistema verifica a classificação e monta a chave eliminatória (mata-mata) de forma automática, economizando seu tempo."
   },
   {
-    q: "Posso usar para outras modalidades além de Futevôlei e Beach Tennis?",
+    q: "Posso usar para outras modalidades além de Beach Tennis e Vôlei?",
     a: "Sim! Nossa plataforma é flexível e pode ser utilizada para diversas modalidades esportivas."
   }
 ];
@@ -44,7 +56,7 @@ export default function FAQ() {
 
       <main className="max-w-3xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className={`text-3xl md:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+          <h1 className={`text-center text-3xl md:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             Perguntas Frequentes
           </h1>
           <p className="text-lg">Tire suas dúvidas sobre o funcionamento do Pódio Digital</p>
@@ -57,7 +69,7 @@ export default function FAQ() {
               className={`rounded-xl overflow-hidden transition-all duration-300 ${darkMode ? 'bg-gray-800' : 'bg-white shadow-sm'}`}
             >
               <button
-                className={`w-full px-6 py-4 flex items-center justify-between font-semibold text-left focus:outline-none ${darkMode ? 'text-white hover:bg-gray-700' : 'text-gray-900 hover:bg-gray-50'}`}
+                className={`cursor-pointer w-full px-6 py-4 flex items-center justify-between font-semibold text-left focus:outline-none ${darkMode ? 'text-white hover:bg-gray-700' : 'text-gray-900 hover:bg-gray-50'}`}
                 onClick={() => setOpenIndex(openIndex === index ? -1 : index)}
               >
                 <span>{faq.q}</span>
@@ -83,7 +95,7 @@ export default function FAQ() {
           <p className="mb-4">Não encontrou o que procurava?</p>
           <button 
             onClick={openWhats}
-            className="px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-all shadow-md hover:scale-105"
+            className="cursor-pointer px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-all shadow-md hover:scale-105"
           >
             Falar com Suporte
           </button>

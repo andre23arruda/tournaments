@@ -17,7 +17,7 @@ export default function Terms() {
       <Header darkMode={darkMode} setDarkMode={setDarkMode} />
 
       <main className="max-w-3xl mx-auto px-4 py-12">
-        <h1 className={`text-3xl font-bold mb-8 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Termos de Uso</h1>
+        <h1 className={`text-center text-3xl font-bold mb-8 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Termos de Uso</h1>
         
         <div className={`space-y-6 p-8 rounded-2xl shadow-sm ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
           <section>
@@ -46,7 +46,7 @@ export default function Terms() {
           </section>
 
           <p className="text-sm opacity-75 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-            Última atualização: {new Date().toLocaleDateString('pt-BR')}
+            Última atualização: 06/2026
           </p>
         </div>
       </main>
