@@ -229,7 +229,7 @@ export default function Tournament() {
                 {Object.keys(grupos).length}
               </h3>
 
-              <p className="text-gray-600 dark:text-gray-400">Grupos</p>
+              <p className="text-gray-600 dark:text-gray-400">Grupo{Object.keys(grupos).length > 1 ? 's' : ''}</p>
             </div>
 
             <div className={`rounded-lg shadow p-6 text-center ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
