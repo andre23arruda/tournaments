@@ -20,12 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Configuração da Interface (UI) ---
     const controlsDiv = document.createElement('div');
-    controlsDiv.className = 'row mx-2 mb-3 align-items-center';
+    controlsDiv.className = 'row mx-2 align-items-center';
     controlsDiv.innerHTML = `
-        <div class="col-md-6">
+        <div class="col-md-6 pt-2">
             <input type="text" id="inline-search-input" class="form-control" placeholder="🔍 Buscar por jogador..." style="width: 100%; border-radius: 4px; padding: 10px;">
         </div>
-        <div class="col-md-6 d-flex justify-content-end align-items-center" id="pagination-controls">
+        <div class="col-md-6 pt-2 d-flex justify-content-end align-items-center" id="pagination-controls">
             <!-- Os botões de paginação serão injetados aqui -->
         </div>
     `;

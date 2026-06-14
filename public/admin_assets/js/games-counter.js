@@ -25,16 +25,16 @@ document.addEventListener('DOMContentLoaded', function() {
     if (jogosInline) {
         // Criar o container do contador
         const counterDiv = document.createElement('div');
-        counterDiv.className = 'row mx-2 mb-3';
+        counterDiv.className = 'row mx-2';
         
         counterDiv.innerHTML = `
-            <div class="col-4 text-center text-bold">
+            <div class="col-12 col-md-4 text-center text-bold text-sm">
                 Jogos: ${totalJogos}
             </div>
-            <div class="col-4 text-center text-bold">
+            <div class="col-12 col-md-4 text-center text-bold text-sm">
                 Concluídos: <span id="text-concluidos">${jogosConcluidos}</span>
             </div>
-            <div class="col-4 text-center text-bold">
+            <div class="col-12 col-md-4 text-center text-bold text-sm">
                 Pendentes: <span id="text-pendentes">${jogosPendentes}</span>
             </div>
         `;

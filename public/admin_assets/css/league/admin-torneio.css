@@ -1,5 +1,6 @@
 #jazzy-actions input[name="_addanother"],
-#jazzy-actions input[name="_continue"] {
+#jazzy-actions input[name="_continue"],
+#jazzy-actions .object-tools a {
     display: none !important;
 }
 
