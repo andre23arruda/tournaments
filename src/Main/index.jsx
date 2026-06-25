@@ -5,6 +5,7 @@ import Header from '../Header';
 import {
   CheckCircle,
   Clock,
+  Heart,
   Instagram,
   Medal,
   Target,
@@ -12,11 +13,10 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import { InstagramEmbed } from 'react-social-media-embed';
 import {
   EXAMPLES,
   FEATURES,
-  INSTAGRAM_POSTS,
+  INSTAGRAM_CARDS,
   MOBILE_BREAKPOINT,
   PRICING,
   VIDEO_ID_DEMO,
@@ -175,6 +175,56 @@ const PricingCard = memo(({ plan, index, darkMode }) => {
   );
 });
 PricingCard.displayName = 'PricingCard';
+
+const InstagramCard = memo(({ card, darkMode }) => {
+  return (
+    <div
+      className={`w-full md:w-[328px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.01] flex flex-col cursor-pointer ${
+        darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
+      }`}
+      onClick={() => window.open(card.post, '_blank')}
+    >
+      {/* Header */}
+      <div className="p-3 flex items-center gap-3 border-b border-gray-100 dark:border-gray-700">
+        <div className="h-6 w-6 rounded-full bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-600 flex items-center justify-center p-[2px]">
+          <div className="h-full w-full rounded-full bg-white dark:bg-gray-800 flex items-center justify-center overflow-hidden">
+            <img src="/insta/ig-logo.jpg" alt="Instagram" className="h-full w-full object-cover rounded-full" />
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <span className={`text-sm font-normal leading-none ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            podiodigital.oficial
+          </span>
+        </div>
+      </div>
+
+      {/* Image */}
+      <div className="relative aspect-square w-full overflow-hidden bg-gray-100 dark:bg-gray-900">
+        <img
+          src={card.url}
+          alt="Instagram post"
+          className="w-full h-full object-cover transition-transform duration-500"
+          loading="lazy"
+        />
+      </div>
+
+      {/* Caption / Content */}
+      <div className="p-4 flex-1 flex flex-col justify-between">
+        <p className={`text-sm leading-relaxed whitespace-pre-line mb-1 ${
+          darkMode ? 'text-gray-300' : 'text-gray-600'
+        }`}>
+          {card.text.trim()}
+        </p>
+        
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 dark:text-gray-400 pt-2 border-t border-[#9191913d]">
+          <Heart className="h-4 w-4 text-red-500 fill-red-500" />
+          <span>{card.likes}</span>
+        </div>
+      </div>
+    </div>
+  );
+});
+InstagramCard.displayName = 'InstagramCard';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -370,19 +420,8 @@ export default function LandingPage() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-8">
-            {INSTAGRAM_POSTS.map((url, index) => (
-              <div
-                key={index}
-                className="w-full md:w-[328px] rounded-xl overflow-hidden shadow-xl bg-white"
-                style={{ minHeight: '480px' }}
-              >
-                <InstagramEmbed
-                  url={url}
-                  width="100%"
-                  lazyLoad
-                  captioned
-                />
-              </div>
+            {INSTAGRAM_CARDS.map((card, index) => (
+              <InstagramCard key={index} card={card} darkMode={darkMode} />
             ))}
           </div>
 

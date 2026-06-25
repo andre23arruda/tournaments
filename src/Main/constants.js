@@ -178,8 +178,41 @@ export const PRICING = [
   },
 ];
 
-export const INSTAGRAM_POSTS = [
-  'https://www.instagram.com/p/DVGXWrukbPh/',
-  'https://www.instagram.com/p/DT6ZYEeEQPc/',
-  'https://www.instagram.com/p/DUyj8eNkbO0/',
+export const INSTAGRAM_CARDS = [
+  { 
+    'url': '/insta/img-1.jpg',
+    'post': 'https://www.instagram.com/p/DVGXWrukbPh/',
+    'likes': 'Curtido por marianassanto e outros',
+    'text': `
+      Super 8 relâmpago pegando fogo em Xanxerê! 🔥🏖️
+
+      A galera da Areal Beach @arealbeachxxe entregou tudo em quadra. Foram 14 jogos extremamente disputados, rolando a todo em 2 quadras simultâneas!
+      
+      ​#podiodigital #beachtennis #torneios #xanxeresc
+    `
+  },
+  { 
+    'url': '/insta/img-2.jpg',
+    'post': 'https://www.instagram.com/p/DT6ZYEeEQPc/',
+    'likes': 'Curtido por jehcarruda e outros',
+    'text': `
+      32 jogadoras. 4 grupos. Uma Rainha da Quadra gigante! 👑🚀
+
+      ​Imagina só o tanto de jogo, conta e cruzamento de dados. 🤯
+
+      ​#podiodigital #arenaprimebeach #rainhadaquadra #super8 #torneiofeminino
+    `
+  },
+  { 
+    'url': '/insta/img-3.jpg',
+    'post': 'https://www.instagram.com/p/DUyj8eNkbO0/',
+    'likes': 'Curtido por claudiomuller07 e outros',
+    'text': `
+      Resenha boa e jogo sério! 👊🔥
+
+      ​O Clubinho Masculino da Arena Corumbá Beach (@corumbabeach ) sabe como aproveitar a quadra. 
+
+      ​#PodioDigital #Masculino #torneiointerno #beachtennisbrasil
+    `
+  },
 ];
