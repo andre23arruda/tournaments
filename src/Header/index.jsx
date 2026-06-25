@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from 'react';
+import { useState, useEffect, memo, startTransition } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Trophy, Sun, Moon, Lock, Menu, X } from 'lucide-react';
 import { openWhats } from '../utils';
@@ -46,16 +46,19 @@ export default function Header({ darkMode, setDarkMode }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const shouldScroll = window.scrollY > 20;
+      setScrolled((prev) => (prev !== shouldScroll ? shouldScroll : prev));
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleTheme = () => {
     const newTheme = !darkMode;
-    setDarkMode(newTheme);
-    localStorage.setItem('darkMode', String(newTheme));
+    startTransition(() => {
+      setDarkMode(newTheme);
+      localStorage.setItem('darkMode', String(newTheme));
+    });
   };
 
   const scrollToTop = () => {
