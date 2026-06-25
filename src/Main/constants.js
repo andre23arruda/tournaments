@@ -44,8 +44,8 @@ export const EXAMPLES = [
     title: 'Liga Clubinho CBS',
     subtitle: '31/10/2026',
     status: 'Em andamento',
-    participants: '27 jogadores',
-    games: 351,
+    participants: '23 jogadores',
+    games: 253,
     link: 'https://podiodigital.app.br/torneio/liga-clubinho-cbs_qdq2xegD'
   },
   {

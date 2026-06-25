@@ -1,7 +1,42 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Trophy, Sun, Moon, Lock, Menu, X } from 'lucide-react';
 import { openWhats } from '../utils';
+
+const NavLink = memo(({ to, children, mobile, darkMode, setIsMobileMenuOpen }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: to } });
+    } else {
+      const element = document.getElementById(to);
+      if (element) {
+        const y = element.getBoundingClientRect().top + window.pageYOffset - 80;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+    if (mobile && setIsMobileMenuOpen) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  return (
+    <span
+      onClick={handleClick}
+      className={`font-semibold cursor-pointer transition-colors ${
+        mobile
+          ? `block px-3 py-2 text-base ${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-900 hover:text-orange-600'}`
+          : `${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-orange-600'}`
+      }`}
+    >
+      {children}
+    </span>
+  );
+});
+NavLink.displayName = 'NavLink';
 
 export default function Header({ darkMode, setDarkMode }) {
   const navigate = useNavigate();
@@ -33,30 +68,6 @@ export default function Header({ darkMode, setDarkMode }) {
 
   const goToLogin = () => navigate('/login');
 
-  const NavLink = useCallback(({ to, children, mobile }) => (
-    <span
-      onClick={(e) => {
-        e.preventDefault();
-        if (location.pathname !== '/') {
-          navigate('/', { state: { scrollTo: to } });
-        } else {
-          const element = document.getElementById(to);
-          if (element) {
-            const y = element.getBoundingClientRect().top + window.pageYOffset - 80;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-          }
-        }
-        if (mobile) setIsMobileMenuOpen(false);
-      }}
-      className={`font-semibold cursor-pointer transition-colors ${
-        mobile
-          ? `block px-3 py-2 text-base ${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-900 hover:text-orange-600'}`
-          : `${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-orange-600'}`
-      }`}
-    >
-      {children}
-    </span>
-  ), [darkMode, location.pathname, navigate]);
 
   const isHome = location.pathname === '/';
   
@@ -95,13 +106,13 @@ export default function Header({ darkMode, setDarkMode }) {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              <NavLink to="features">
+              <NavLink to="features" darkMode={darkMode}>
                 Funcionalidades
               </NavLink>
-              <NavLink to="examples">
+              <NavLink to="examples" darkMode={darkMode}>
                 Torneios
               </NavLink>
-              <NavLink to="pricing">
+              <NavLink to="pricing" darkMode={darkMode}>
                 Planos
               </NavLink>
 
@@ -163,9 +174,9 @@ export default function Header({ darkMode, setDarkMode }) {
             darkMode ? 'bg-gray-900' : 'bg-white'
           }`}>
             <div className="flex flex-col space-y-2">
-              <NavLink mobile to="features">Funcionalidades</NavLink>
-              <NavLink mobile to="examples">Torneios</NavLink>
-              <NavLink mobile to="pricing">Planos</NavLink>
+              <NavLink mobile to="features" darkMode={darkMode} setIsMobileMenuOpen={setIsMobileMenuOpen}>Funcionalidades</NavLink>
+              <NavLink mobile to="examples" darkMode={darkMode} setIsMobileMenuOpen={setIsMobileMenuOpen}>Torneios</NavLink>
+              <NavLink mobile to="pricing" darkMode={darkMode} setIsMobileMenuOpen={setIsMobileMenuOpen}>Planos</NavLink>
 
               <div>
                 <button
