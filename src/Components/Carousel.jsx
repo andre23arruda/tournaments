@@ -77,7 +77,7 @@ export default function Carousel({ items, renderItem, responsive = { mobile: 1, 
     <div className="relative w-full group">
       {/* Viewport container */}
       <div 
-        className="overflow-hidden w-full -mx-3 px-3"
+        className="overflow-hidden w-full px-3"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
