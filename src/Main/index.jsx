@@ -24,6 +24,7 @@ import {
 } from './constants'
 import { openWhats } from '../utils';
 import AdBanner from '../Components/AdBanner';
+import Carousel from '../Components/Carousel';
 
 const FeatureCard = memo(({ feature, darkMode }) => (
   <div
@@ -48,11 +49,11 @@ FeatureCard.displayName = 'FeatureCard';
 
 const ExampleCard = memo(({ example, darkMode }) => (
   <div
-    className={`rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105 ${
+    className={`rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105 h-full flex flex-col ${
       darkMode ? 'bg-gray-800' : 'bg-white'
     }`}
   >
-    <Link to={example.link}>
+    <Link to={example.link} className="flex flex-col h-full">
       <div className={`p-6 ${
         darkMode ? 'bg-gray-700' : 'bg-gradient-to-r from-orange-600 to-yellow-500'
       } text-white`}>
@@ -60,7 +61,7 @@ const ExampleCard = memo(({ example, darkMode }) => (
         <p className="text-orange-100">{example.subtitle}</p>
       </div>
 
-      <div className="p-4">
+      <div className="p-4 flex flex-col justify-between flex-1">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4" />
@@ -179,7 +180,7 @@ PricingCard.displayName = 'PricingCard';
 const InstagramCard = memo(({ card, darkMode }) => {
   return (
     <div
-      className={`w-full md:w-[328px] rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.01] flex flex-col cursor-pointer ${
+      className={`w-full h-full rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-[1.01] flex flex-col cursor-pointer ${
         darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
       }`}
       onClick={() => window.open(card.post, '_blank')}
@@ -377,15 +378,18 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {EXAMPLES.map((example, index) => (
-              <ExampleCard key={index} example={example} darkMode={darkMode} />
-            ))}
-          </div>
+          <Carousel
+            items={EXAMPLES}
+            renderItem={(example) => (
+              <ExampleCard example={example} darkMode={darkMode} />
+            )}
+            responsive={{ mobile: 1, tablet: 2, desktop: 3 }}
+            darkMode={darkMode}
+          />
         </div>
       </div>
 
-      <AdBanner slot="4419106208" format="horizontal" className="m-6 px-4" />
+      {/* <AdBanner slot="4419106208" format="horizontal" className="m-6 px-4" /> */}
 
       {/* Pricing Section */}
       <div id="pricing" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
@@ -419,18 +423,21 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8">
-            {INSTAGRAM_CARDS.map((card, index) => (
-              <InstagramCard key={index} card={card} darkMode={darkMode} />
-            ))}
-          </div>
+          <Carousel
+            items={INSTAGRAM_CARDS}
+            renderItem={(card) => (
+              <InstagramCard card={card} darkMode={darkMode} />
+            )}
+            responsive={{ mobile: 1, tablet: 2, desktop: 3 }}
+            darkMode={darkMode}
+          />
 
           <div className="text-center mt-12">
             <a
               href="https://www.instagram.com/podiodigital.oficial"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg"
             >
               <Instagram className="h-5 w-5" />
               Seguir @podiodigital.oficial

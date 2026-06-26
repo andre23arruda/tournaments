@@ -215,4 +215,62 @@ export const INSTAGRAM_CARDS = [
       ​#PodioDigital #Masculino #torneiointerno #beachtennisbrasil
     `
   },
+  { 
+    'url': '/insta/img-4.jpg',
+    'post': 'https://www.instagram.com/p/DV6qVtBEe87/',
+    'likes': 'Curtido por lcn.nunes e outros',
+    'text': `
+      Esse post tem um gostinho especial! 🎉🎾
+
+      No dia do seu próprio aniversário, a última coisa que você quer é ficar quebrando a cabeça com papel, caneta, cálculo de placar e tabelas, né? O negócio é curtir a quadra e a resenha.
+
+      #podiodigital #beachtennis #aniversárionaareia #torneiodeaniversário
+    `
+  },
+  { 
+    'url': '/insta/img-5.jpg',
+    'post': 'https://www.instagram.com/p/DXCTCzMEc_h/',
+    'likes': 'Curtido por dudak.ig e outros',
+    'text': `
+      Torneio de Duplas Mistas organizado em segundos! ⏱️⚡
+
+      Parabéns aos campeões e vice-campeões pelo show nas quadras! 🏆
+
+     #podiodigital #esportesdeareia #torneiorapido #organizadordetorneio #praticidadeétudo
+    `
+  },
+  { 
+    'url': '/insta/img-6.jpg',
+    'post': 'https://www.instagram.com/p/DV4k7oFkS-B/',
+    'likes': 'Curtido por beachtennis_cleangirls e outros',
+    'text': `
+      Novas parceiras na área! 🤝🎾
+
+      As @beachtennis_cleangirls são as mais novas parceiras do Pódio Digital. O mais legal dessa história? Elas testaram a plataforma, deram sugestões de melhoria e agora estão rodando o sistema com tudo!
+
+      ​#podiodigital #beachtennisfeminino #diadasmulheres
+    `
+  },
+  { 
+    'url': '/insta/img-7.jpg',
+    'post': 'https://www.instagram.com/p/DV3_kEmETon/',
+    'likes': 'Curtido por arenabeachguarapuava e outros',
+    'text': `
+      Para celebrar o Dia das Mulheres, a Arena Beach (@arenabeachguarapuava ) preparou algo muito especial: um torneio Super Iniciante exclusivo para elas. 
+
+      Parabéns a todas que entraram em quadra! 
+
+      #podiodigital #diadasmulheres #beachtennisfeminino  #torneioiniciante
+    `
+  },
 ];
+
+export const INSTAGRAM_POSTS = [
+  'https://www.instagram.com/p/DVGXWrukbPh/',
+  'https://www.instagram.com/p/DT6ZYEeEQPc/',
+  'https://www.instagram.com/p/DUyj8eNkbO0/',
+  'https://www.instagram.com/p/DV6qVtBEe87/',
+  'https://www.instagram.com/p/DXCTCzMEc_h/',
+  'https://www.instagram.com/p/DV4k7oFkS-B/',
+  'https://www.instagram.com/p/DV3_kEmETon/',
+]
