@@ -1,0 +1,47 @@
+#jogo_set-group .related-widget-wrapper {
+    display: block;
+    margin-bottom: 4px;
+}
+#jogo_set-group .related-widget-wrapper:last-child {
+    margin-bottom: 0;
+}
+#jogo_set-group .related-widget-wrapper-link {
+    display: none !important;
+}
+
+/* Align Dupla 1 column to the right */
+#jogo_set-group th.column-dupla1_jogador1,
+#jogo_set-group td.field-dupla1_jogador1 {
+    text-align: right !important;
+}
+
+#jogo_set-group td.field-dupla1_jogador1 .related-widget-wrapper,
+#jogo_set-group td.field-dupla1_jogador1 select,
+#jogo_set-group td.field-dupla1_jogador1 .select2-container {
+    margin-left: auto !important;
+}
+
+#jogo_set-group p.datetime {
+    margin: 0;
+}
+
+/* Center score fields vertically */
+#jogo_set-group td.field-placar_dupla1,
+#jogo_set-group td.field-placar_dupla2 {
+    vertical-align: middle !important;
+}
+
+#jogo_set-group td.field-placar_dupla1 p,
+#jogo_set-group td.field-placar_dupla2 p,
+#jogo_set-group td.field-placar_dupla1 input,
+#jogo_set-group td.field-placar_dupla2 input {
+    margin: 0 !important;
+}
+
+#jogo_set-group tr.add-row a.btn.btn-sm.btn-default {
+    float: none !important;
+}
+
+a.related-widget-wrapper-link.view-related {
+    display: none !important;
+}
