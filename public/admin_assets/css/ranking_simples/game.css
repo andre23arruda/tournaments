@@ -25,9 +25,10 @@
     margin: 0;
 }
 
-/* Center score fields vertically */
+/* Center score fields and delete button vertically */
 #jogo_set-group td.field-placar_dupla1,
-#jogo_set-group td.field-placar_dupla2 {
+#jogo_set-group td.field-placar_dupla2,
+#jogo_set-group td.delete {
     vertical-align: middle !important;
 }
 
@@ -42,6 +43,8 @@
     float: none !important;
 }
 
-a.related-widget-wrapper-link.view-related {
-    display: none !important;
+#jogo_set-group p.datetime input.vDateField,
+#jogo_set-group p.datetime input.vTimeField {
+    width: 100px;
+    min-width: 100px;
 }

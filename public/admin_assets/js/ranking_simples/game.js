@@ -35,6 +35,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 j2_1.appendChild(container);
                 j2_2.style.display = 'none';
             }
+
+            // Customize the delete button
+            const deleteLink = row.querySelector('td.delete a.inline-deletelink');
+            if (deleteLink) {
+                deleteLink.textContent = 'Sim';
+                deleteLink.style.fontSize = '10pt';
+            }
         });
         
         // Hide the table headers for the second players

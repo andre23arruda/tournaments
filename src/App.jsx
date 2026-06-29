@@ -12,6 +12,7 @@ import Login from './Login';
 import Main from './Main';
 import NotFound from './NotFound';
 import Privacy from './Privacy';
+import SimpleRanking from './Ranking';
 import Terms from './Terms';
 import Tournament from './Tournament';
 import TournamentRanking from './Tournament/Ranking';
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/rei-rainha/:tournamentId" element={<League />} />
           <Route path="/rei-rainha/:tournamentId/inscricao" element={<LeagueRegister />} />
           <Route path="/rei-rainha/:rankingId/ranking" element={<LeagueRanking />} />
+          <Route path="/ranking/:rankingId" element={<SimpleRanking />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
