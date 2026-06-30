@@ -84,7 +84,7 @@ export default function Ranking() {
   const renderTeam = (duplaStr) => {
     if (!duplaStr) return null;
     const cleanStr = duplaStr.replace(/<\/?span>/g, '');
-    const names = cleanStr.split('<br/>');
+    const names = cleanStr.split('<br/>').map(name => name.trim()).filter(name => name && name !== 'null');
     
     return names.map((name, index) => (
       <div key={index}>
@@ -96,11 +96,13 @@ export default function Ranking() {
   const renderGameTeam = (duplaStr, j1, j2) => {
     if (duplaStr) return renderTeam(duplaStr);
     if (!j1 && !j2) return null;
+    
+    const hasJ2 = j2 && j2.nome && j2.nome !== 'null';
     return (
       <div>
         {j1?.nome}
-        {j1 && j2 ? ' &' : ''}
-        {j2 && <div className="mt-0.5">{j2.nome}</div>}
+        {j1 && hasJ2 ? ' &' : ''}
+        {hasJ2 && <div className="mt-0.5">{j2.nome}</div>}
       </div>
     );
   };
@@ -304,10 +306,10 @@ export default function Ranking() {
                       <table className="w-full text-center">
                         <thead>
                           <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
-                            <th className="py-2 px-3 border border-gray-300 w-[30%]">Dupla 1</th>
+                            <th className="py-2 px-3 border border-gray-300 w-[30%]">A</th>
                             <th className="py-2 px-3 border border-gray-300">Placar</th>
-                            <th className="py-2 px-3 border border-gray-300 w-[30%]">Dupla 2</th>
-                            <th className="py-2 px-3 border border-gray-300"></th>
+                            <th className="py-2 px-3 border border-gray-300 w-[30%]">B</th>
+                            <th className="py-2 px-3 border border-gray-300">Data</th>
                           </tr>
                         </thead>
 

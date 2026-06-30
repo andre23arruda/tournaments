@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Rename columns to make the inline header simpler and clean
         const header1_1 = document.querySelector('#jogo_set-group thead th.column-dupla1_jogador1');
-        if (header1_1) header1_1.textContent = 'Dupla 1';
+        if (header1_1) header1_1.textContent = 'A';
         
         const header2_1 = document.querySelector('#jogo_set-group thead th.column-dupla2_jogador1');
-        if (header2_1) header2_1.textContent = 'Dupla 2';
+        if (header2_1) header2_1.textContent = 'B';
     }
 
     adjustRows();

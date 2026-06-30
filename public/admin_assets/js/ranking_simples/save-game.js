@@ -191,9 +191,9 @@
 
         if (!jogoId) {
             jogoId = 'new';
-            // Se for jogo novo, só salvamos se todos os jogadores estiverem selecionados
-            if (!data.dupla1_jogador1 || !data.dupla1_jogador2 || !data.dupla2_jogador1 || !data.dupla2_jogador2) {
-                console.warn('Selecione todos os jogadores antes de alterar o status');
+            // Se for jogo novo, só salvamos se os jogadores principais estiverem selecionados
+            if (!data.dupla1_jogador1 || !data.dupla2_jogador1) {
+                console.warn('Selecione os jogadores principais antes de alterar o status');
                 return;
             }
         }
