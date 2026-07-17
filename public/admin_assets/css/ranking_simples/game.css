@@ -39,10 +39,6 @@
     margin: 0 !important;
 }
 
-#jogo_set-group tr.add-row a.btn.btn-sm.btn-default {
-    float: none !important;
-}
-
 #jogo_set-group p.datetime input.vDateField,
 #jogo_set-group p.datetime input.vTimeField {
     width: 100px;
