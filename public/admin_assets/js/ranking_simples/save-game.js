@@ -1,6 +1,20 @@
 (function() {
     'use strict';
 
+    // Converte a data do formato DD/MM/YYYY HH:mm para YYYY-MM-DD HH:mm
+    function strToDateTime(dataInput, timeInput) {
+        try {
+            const parts = dataInput.value.split('/');
+            const dateFormatted = parts.length === 3
+                ? `${parts[2]}-${parts[1]}-${parts[0]}`
+                : dataInput.value;
+            return `${dateFormatted} ${timeInput.value}`;
+        } catch (error) {
+            console.error('Erro ao converter data:', error);
+            return null;
+        }
+    }
+
     // Função para extrair o índice do jogo do name do input
     function getJogoIndex(element) {
         const name = element.name || element.getAttribute('name');
@@ -24,6 +38,8 @@
         const dupla2Jogador2 = document.querySelector(`select[name="jogo_set-${index}-dupla2_jogador2"]`);
         const pontosDupla1Input = document.querySelector(`input[name="jogo_set-${index}-placar_dupla1"]`) || document.querySelector(`input[name="jogo_set-${index}-pontos_dupla1"]`);
         const pontosDupla2Input = document.querySelector(`input[name="jogo_set-${index}-placar_dupla2"]`) || document.querySelector(`input[name="jogo_set-${index}-pontos_dupla2"]`);
+        const dataInput = document.querySelector(`input[name="jogo_set-${index}-data_0"]`);
+        const timeInput = document.querySelector(`input[name="jogo_set-${index}-data_1"]`);
 
         if (!statusSelect) return null;
 
@@ -41,7 +57,8 @@
             pontos_dupla1: pontosDupla1Input ? pontosDupla1Input.value : null,
             pontos_dupla2: pontosDupla2Input ? pontosDupla2Input.value : null,
             placar_dupla1: pontosDupla1Input ? pontosDupla1Input.value : null,
-            placar_dupla2: pontosDupla2Input ? pontosDupla2Input.value : null
+            placar_dupla2: pontosDupla2Input ? pontosDupla2Input.value : null,
+            data_jogo: strToDateTime(dataInput, timeInput)
         };
     }
 
@@ -202,36 +219,6 @@
         autoSaveJogo(jogoId, data, row, index);
     }
 
-    // Handler para mudança nos inputs de pontuação
-    function handlePontosChange(event) {
-        const input = event.target;
-        const index = getJogoIndex(input);
-        if (!index) return;
-
-        // Verifica se o status é 'A' ou 'C'
-        const statusSelect = document.querySelector(`select[name="jogo_set-${index}-concluido"]`);
-        if (!statusSelect) return;
-
-        // const status = statusSelect.value;
-        // if (status !== 'A' && status !== 'C') {
-        //     return;
-        // }
-
-        const jogoId = getJogoId(index);
-        if (!jogoId) return;
-
-        const data = getJogoData(index);
-        if (!data) return;
-
-        const row = findRow(input);
-
-        // Debounce: aguarda 1 segundo após a última digitação
-        clearTimeout(input.saveTimeout);
-        input.saveTimeout = setTimeout(() => {
-            autoSaveJogo(jogoId, data, row);
-        }, 1000);
-    }
-
     // Inicializar quando DOM estiver pronto
     function init() {
         // Observar mudanças nos selects de status
@@ -240,13 +227,6 @@
                 handleStatusChange(e);
             }
         });
-
-        // Observar mudanças nos inputs de pontuação
-        // document.addEventListener('input', function(e) {
-        //     if (e.target.matches('input[name*="jogo_set-"][name*="-pontos_dupla"]') || e.target.matches('input[name*="jogo_set-"][name*="-placar_dupla"]')) {
-        //         handlePontosChange(e);
-        //     }
-        // });
 
         // Para Select2 (se estiver usando)
         document.addEventListener('DOMContentLoaded', function() {
