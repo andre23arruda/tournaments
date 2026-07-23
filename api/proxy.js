@@ -44,7 +44,12 @@ export default async function handler(req, res) {
 
     // Forward headers from PythonAnywhere to the client
     response.headers.forEach((value, key) => {
-      if (key.toLowerCase() !== 'transfer-encoding') {
+      const lowerKey = key.toLowerCase();
+      if (
+        lowerKey !== 'transfer-encoding' &&
+        lowerKey !== 'content-encoding' &&
+        lowerKey !== 'content-length'
+      ) {
         res.setHeader(key, value);
       }
     });
