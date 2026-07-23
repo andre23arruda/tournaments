@@ -4,6 +4,14 @@ export const config = {
   },
 };
 
+async function getRawBody(readable) {
+  const chunks = [];
+  for await (const chunk of readable) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+  }
+  return Buffer.concat(chunks);
+}
+
 export default async function handler(req, res) {
   const { path } = req.query;
 
@@ -31,12 +39,14 @@ export default async function handler(req, res) {
   const fetchOptions = {
     method: req.method,
     headers,
-    duplex: 'half',
   };
 
-  // Only pass body for non-GET/HEAD methods
+  // Read body as Buffer for non-GET/HEAD methods
   if (req.method !== 'GET' && req.method !== 'HEAD') {
-    fetchOptions.body = req;
+    const rawBody = await getRawBody(req);
+    if (rawBody.length > 0) {
+      fetchOptions.body = rawBody;
+    }
   }
 
   try {
