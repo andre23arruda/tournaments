@@ -2,15 +2,15 @@
     "rewrites": [
         {
             "source": "/admin/(.*)",
-            "destination": "https://andre23arruda.pythonanywhere.com/admin/$1"
+            "destination": "/api/proxy?path=admin/$1"
         },
         {
             "source": "/admin",
-            "destination": "https://andre23arruda.pythonanywhere.com/admin/"
+            "destination": "/api/proxy?path=admin/"
         },
         {
-            "source": "/api/(.*)",
-            "destination": "https://andre23arruda.pythonanywhere.com/api/$1"
+            "source": "/api/((?!proxy).*)",
+            "destination": "/api/proxy?path=api/$1"
         },
         {
             "source": "/((?!api/|admin/).*)",
