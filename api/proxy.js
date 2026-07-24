@@ -39,6 +39,7 @@ export default async function handler(req, res) {
   const fetchOptions = {
     method: req.method,
     headers,
+    redirect: 'manual', // don't auto-follow redirects — we rewrite them first
   };
 
   // Read body as Buffer for non-GET/HEAD methods
@@ -60,6 +61,10 @@ export default async function handler(req, res) {
         lowerKey !== 'content-encoding' &&
         lowerKey !== 'content-length'
       ) {
+        // Rewrite Location headers so the browser stays inside the proxy
+        if (lowerKey === 'location') {
+          value = value.replace('https://andre23arruda.pythonanywhere.com', '');
+        }
         res.setHeader(key, value);
       }
     });
