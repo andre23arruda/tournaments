@@ -26,11 +26,22 @@ export default async function handler(req, res) {
   
   const targetUrl = `https://andre23arruda.pythonanywhere.com/${path}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
 
-  // Clone headers
+  // Clone headers and exclude hop-by-hop/restricted headers
   const headers = new Headers();
+  const excludedHeaders = new Set([
+    'host',
+    'connection',
+    'keep-alive',
+    'content-length',
+    'transfer-encoding',
+    'content-encoding',
+    'te',
+    'trailer',
+    'upgrade'
+  ]);
+
   for (const [key, value] of Object.entries(req.headers)) {
-    // Avoid forwarding the original host and connection headers
-    if (key.toLowerCase() !== 'host' && key.toLowerCase() !== 'connection') {
+    if (!excludedHeaders.has(key.toLowerCase())) {
       headers.set(key, value);
     }
   }
@@ -78,7 +89,8 @@ export default async function handler(req, res) {
     res.status(502).json({
       error: 'ROUTER_EXTERNAL_TARGET_CONNECTION_ERROR_BYPASSED',
       message: 'Failed to connect to backend via serverless function proxy',
-      details: error.message
+      details: error.message,
+      cause: error.cause ? (error.cause.message || String(error.cause)) : undefined
     });
   }
 }
