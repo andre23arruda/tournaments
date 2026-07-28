@@ -47,8 +47,11 @@ export default async function handler(req, res) {
   }
   headers.set('host', 'andre23arruda.pythonanywhere.com');
 
+  const isHead = req.method === 'HEAD';
+  const fetchMethod = isHead ? 'GET' : req.method;
+
   const fetchOptions = {
-    method: req.method,
+    method: fetchMethod,
     headers,
     redirect: 'manual', // don't auto-follow redirects — we rewrite them first
   };
@@ -82,8 +85,12 @@ export default async function handler(req, res) {
 
     res.status(response.status);
 
-    const data = await response.arrayBuffer();
-    res.send(Buffer.from(data));
+    if (isHead) {
+      res.end();
+    } else {
+      const data = await response.arrayBuffer();
+      res.send(Buffer.from(data));
+    }
   } catch (error) {
     console.error('Vercel serverless proxy error:', error);
     res.status(502).json({
