@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
 :root {
     --lightgray: #a3a3a3;
     --gray-less-opacity: #c1c1c169;
     --blue-white: #d9f8ff;
     --dark-blue: #3f6791;
     --border-color: #ced4da;
+}
+
+body *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]) {
+    font-family: Oswald, sans-serif !important;
 }
 
 /* main content height */

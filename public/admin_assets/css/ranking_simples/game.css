@@ -44,3 +44,27 @@
     width: 100px;
     min-width: 100px;
 }
+
+#jogo_set-group th.column-data,
+#jogo_set-group td.field-data {
+    display: none !important;
+}
+
+#jogo_set-group td.field-dupla1_jogador1 select,
+#jogo_set-group td.field-dupla1_jogador2 select,
+#jogo_set-group td.field-dupla2_jogador1 select,
+#jogo_set-group td.field-dupla2_jogador2 select,
+#jogo_set-group td.field-dupla1_jogador1 .select2-container,
+#jogo_set-group td.field-dupla1_jogador2 .select2-container,
+#jogo_set-group td.field-dupla2_jogador1 .select2-container,
+#jogo_set-group td.field-dupla2_jogador2 .select2-container {
+    width: 100px !important;
+    display: inline;
+}
+
+td.field-dupla1_jogador1 .related-widget-wrapper,
+td.field-dupla1_jogador2 .related-widget-wrapper,
+#jogo_set-group span.selection,
+#jogo_set-group span.select2-selection.select2-selection--single {
+    width: 100px !important;
+}
