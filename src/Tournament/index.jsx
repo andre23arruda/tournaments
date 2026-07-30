@@ -435,7 +435,7 @@ export default function Tournament() {
             <>
               <hr className="my-8" />
               <div>
-                <h3 className="text-center text-2xl mb-6">Playoffs</h3>
+                <h3 className="text-center text-2xl mb-6">Fase Final</h3>
                 <div className="flex flex-wrap items-center justify-center">
                   {/* Oitavas */}
                   {fases_finais.OITAVAS && (

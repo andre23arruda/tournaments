@@ -41,12 +41,12 @@ export const FEATURES = [
 
 export const EXAMPLES = [
   {
-    title: 'Liga Clubinho CBS',
-    subtitle: '31/10/2026',
-    status: 'Em andamento',
-    participants: '23 jogadores',
-    games: 253,
-    link: 'https://podiodigital.app.br/torneio/liga-clubinho-cbs_qdq2xegD'
+    title: 'Rainha do PNA',
+    subtitle: '10/07/2026',
+    status: 'Finalizado',
+    participants: '8 jogadores',
+    games: 14,
+    link: 'https://podiodigital.app.br/rei-rainha/rainha-do-pna_ZBQycLEM'
   },
   {
     title: 'BT da Lu',

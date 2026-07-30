@@ -347,7 +347,7 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section */}
-      <div id="features" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div id="funcionalidades" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -367,7 +367,7 @@ export default function LandingPage() {
       </div>
 
       {/* Examples Section */}
-      <div id="examples" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div id="exemplos" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -392,7 +392,7 @@ export default function LandingPage() {
       {/* <AdBanner slot="4419106208" format="horizontal" className="m-6 px-4" /> */}
 
       {/* Pricing Section */}
-      <div id="pricing" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div id="planos" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>

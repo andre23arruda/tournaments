@@ -7,17 +7,26 @@ const NavLink = memo(({ to, children, mobile, darkMode, setIsMobileMenuOpen }) =
   const navigate = useNavigate();
   const location = useLocation();
 
+  const scroll = (to) => {
+    const element = document.getElementById(to);
+    if (element) {
+      const y = element.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
+
   const handleClick = (e) => {
     e.preventDefault();
     if (location.pathname !== '/') {
       navigate('/', { state: { scrollTo: to } });
+      setTimeout(() => {
+        scroll(to);
+      }, 300);
     } else {
-      const element = document.getElementById(to);
-      if (element) {
-        const y = element.getBoundingClientRect().top + window.pageYOffset - 80;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-      }
+      scroll(to);
     }
+    window.history.replaceState(null, null, `#${to}`);
+
     if (mobile && setIsMobileMenuOpen) {
       setIsMobileMenuOpen(false);
     }
@@ -109,13 +118,15 @@ export default function Header({ darkMode, setDarkMode }) {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              <NavLink to="features" darkMode={darkMode}>
+              <NavLink to="funcionalidades" darkMode={darkMode}>
                 Funcionalidades
               </NavLink>
-              <NavLink to="examples" darkMode={darkMode}>
+
+              <NavLink to="exemplos" darkMode={darkMode}>
                 Torneios
               </NavLink>
-              <NavLink to="pricing" darkMode={darkMode}>
+
+              <NavLink to="planos" darkMode={darkMode}>
                 Planos
               </NavLink>
 
@@ -177,9 +188,32 @@ export default function Header({ darkMode, setDarkMode }) {
             darkMode ? 'bg-gray-900' : 'bg-white'
           }`}>
             <div className="flex flex-col space-y-2">
-              <NavLink mobile to="features" darkMode={darkMode} setIsMobileMenuOpen={setIsMobileMenuOpen}>Funcionalidades</NavLink>
-              <NavLink mobile to="examples" darkMode={darkMode} setIsMobileMenuOpen={setIsMobileMenuOpen}>Torneios</NavLink>
-              <NavLink mobile to="pricing" darkMode={darkMode} setIsMobileMenuOpen={setIsMobileMenuOpen}>Planos</NavLink>
+              <NavLink 
+                mobile 
+                to="funcionalidades" 
+                darkMode={darkMode} 
+                setIsMobileMenuOpen={setIsMobileMenuOpen}
+              >
+                Funcionalidades
+              </NavLink>
+
+              <NavLink 
+                mobile 
+                to="exemplos" 
+                darkMode={darkMode} 
+                setIsMobileMenuOpen={setIsMobileMenuOpen}
+              >
+                Torneios
+              </NavLink>
+
+              <NavLink 
+                mobile 
+                to="planos" 
+                darkMode={darkMode} 
+                setIsMobileMenuOpen={setIsMobileMenuOpen}
+              >
+                Planos
+              </NavLink>
 
               <div>
                 <button
