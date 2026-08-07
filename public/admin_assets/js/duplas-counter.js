@@ -35,6 +35,16 @@
         if (th && isSimples) th.textContent = 'Jogador';
     }
 
+    function onJogadorChange(select) {
+        var container = select.nextElementSibling;
+        if (!container || !container.classList.contains('select2')) return;
+
+        var selection = container.querySelector('.select2-selection');
+        if (!selection) return;
+
+        selection.style.setProperty('border', '2px solid #00cfff', 'important');
+    }
+
     function init() {
         updateLabel();
         updateColumnHeader();
@@ -52,6 +62,13 @@
                 updateLabel();
             }
         });
+
+        // Destaca borda ao alterar jogador (Select2)
+        if (typeof jQuery !== 'undefined') {
+            jQuery(group).on('select2:select', 'select[name$="-jogador1"], select[name$="-jogador2"]', function () {
+                onJogadorChange(this);
+            });
+        }
     }
 
     if (document.readyState === 'loading') {
