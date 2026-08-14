@@ -211,7 +211,13 @@ export default function TournamentHeader({ darkMode, setDarkMode, loadData, link
           }`}>
             <div className="flex flex-col space-y-2">
               {links.map((link, index) => (
-                <NavLink key={index} to={link.to} darkMode={darkMode}>
+                <NavLink 
+                  mobile 
+                  key={index} 
+                  to={link.to} 
+                  darkMode={darkMode}
+                  setIsMobileMenuOpen={setIsMobileMenuOpen}
+                >
                   {link.label}
                 </NavLink>
               ))}
