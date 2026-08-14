@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
+import { useTheme } from '../ThemeContext';
+
 
 export default function Privacy() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
-
+  const { darkMode } = useTheme();
   useEffect(() => {
     document.title = 'Política de Privacidade | Pódio Digital';
     window.scrollTo({ top: 0 });
@@ -14,7 +13,7 @@ export default function Privacy() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-700'}`}>
-      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Header />
 
       <main className="max-w-3xl mx-auto px-4 py-12">
         <h1 className={`text-center text-3xl font-bold mb-8 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Política de Privacidade</h1>

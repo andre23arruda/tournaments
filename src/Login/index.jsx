@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Eye, EyeOff, Loader2, Lock, LogIn, Mail, ShieldCheck, User } from 'lucide-react';
-import { Footer, Loading, LogoHeader, ToggleTheme } from '../Components';
+import { Footer, Loading } from '../Components';
+import Header from '../Components/MainHeader';
+import { useTheme } from '../ThemeContext';
 
 function LoginForm({ formData, handleChange, handleBlur, errors, loading, handleSubmit, csrfToken, step, setStep, darkMode }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -149,9 +151,7 @@ function LoginForm({ formData, handleChange, handleBlur, errors, loading, handle
 }
 
 export default function Login() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const [step, setStep] = useState('credentials');
   const [tempUserId, setTempUserId] = useState(null);
   const [formData, setFormData] = useState({
@@ -317,17 +317,10 @@ export default function Login() {
     return <Loading pageTitle="Pódio Digital | Acessar Painel" darkMode={darkMode} />;
   }
 
-  const toggleTheme = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode);
-  };
-
   return (
     <div className={`min-h-screen flex flex-col transition-colors ${darkMode ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-900'}`}>
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
       <main className="flex-grow flex flex-col items-center justify-center p-4">
-        <LogoHeader darkMode={darkMode} />
+        <Header loginLink={false} />
 
         <div className="w-full max-w-4xl flex justify-center">
           <LoginForm

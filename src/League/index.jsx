@@ -1,23 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import toast from 'react-hot-toast';
-import {
-  AdminButton,
-  Footer,
-  Loading,
-  LogoHeader,
-  ReloadButton,
-  ShareLinkButton,
-  StatusIcon,
-  ToggleTheme
-} from '../Components';
+import { Footer, Loading, StatusIcon } from '../Components';
 import TournamentHeader from '../Components/TournamentHeader';
+import { useTheme } from '../ThemeContext';
 import { formatDate } from '../utils';
 
 export default function League() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [search, setSearch] = useState('');
@@ -61,17 +51,6 @@ export default function League() {
     loadData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tournamentId])
-
-  useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
-    setDarkMode(savedDarkMode);
-  }, []);
-
-  const toggleTheme = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode)
-  };
 
   const cleanTeam = (dupla) => {
     return dupla.replace(/<br\/>/g, '\n').replace(/<span>/g, '').replace(/<\/span>/g, '')
@@ -147,12 +126,7 @@ export default function League() {
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-      <TournamentHeader 
-        darkMode={darkMode} 
-        setDarkMode={setDarkMode} 
-        loadData={loadData} 
-        links={headerLinks}
-      />
+      <TournamentHeader loadData={loadData} links={headerLinks} />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-10">

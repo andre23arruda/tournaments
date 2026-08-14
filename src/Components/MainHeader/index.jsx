@@ -1,9 +1,11 @@
-import { useState, useEffect, memo, startTransition } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Trophy, Sun, Moon, Lock, Menu, X } from 'lucide-react';
+import { useTheme } from '../../ThemeContext';
 import { openWhats } from '../../utils';
 
-const NavLink = memo(({ to, children, mobile, darkMode, setIsMobileMenuOpen }) => {
+const NavLink = memo(({ to, children, mobile, setIsMobileMenuOpen }) => {
+  const { darkMode } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -47,7 +49,8 @@ const NavLink = memo(({ to, children, mobile, darkMode, setIsMobileMenuOpen }) =
 });
 NavLink.displayName = 'NavLink';
 
-export default function Header({ darkMode, setDarkMode }) {
+export default function Header({loginLink=true}) {
+  const { darkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -61,14 +64,6 @@ export default function Header({ darkMode, setDarkMode }) {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !darkMode;
-    startTransition(() => {
-      setDarkMode(newTheme);
-      localStorage.setItem('darkMode', String(newTheme));
-    });
-  };
 
   const scrollToTop = () => {
     if (location.pathname !== '/') {
@@ -118,15 +113,15 @@ export default function Header({ darkMode, setDarkMode }) {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
-              <NavLink to="funcionalidades" darkMode={darkMode}>
+              <NavLink to="funcionalidades">
                 Funcionalidades
               </NavLink>
 
-              <NavLink to="exemplos" darkMode={darkMode}>
+              <NavLink to="exemplos">
                 Torneios
               </NavLink>
 
-              <NavLink to="planos" darkMode={darkMode}>
+              <NavLink to="planos">
                 Planos
               </NavLink>
 
@@ -142,24 +137,28 @@ export default function Header({ darkMode, setDarkMode }) {
                 {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </button>
 
-              <button
-                onClick={goToLogin}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
-                  darkMode
-                    ? 'text-gray-300 hover:text-white hover:bg-gray-800'
-                    : 'text-gray-600 hover:text-orange-600 hover:bg-gray-100'
-                }`}
-              >
-                <Lock size={18} />
-                <span>Entrar</span>
-              </button>
+              {loginLink && (
+                <>
+                  <button
+                    onClick={goToLogin}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all cursor-pointer ${
+                      darkMode
+                        ? 'text-gray-300 hover:text-white hover:bg-gray-800'
+                        : 'text-gray-600 hover:text-orange-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    <Lock size={18} />
+                    <span>Entrar</span>
+                  </button>
 
-              <button
-                onClick={openWhats}
-                className="cursor-pointer px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold transition-all hover:scale-105 shadow-md"
-              >
-                Contato
-              </button>
+                  <button
+                    onClick={openWhats}
+                    className="cursor-pointer px-6 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-semibold transition-all hover:scale-105 shadow-md"
+                  >
+                    Contato
+                  </button>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
@@ -191,7 +190,6 @@ export default function Header({ darkMode, setDarkMode }) {
               <NavLink 
                 mobile 
                 to="funcionalidades" 
-                darkMode={darkMode} 
                 setIsMobileMenuOpen={setIsMobileMenuOpen}
               >
                 Funcionalidades
@@ -200,7 +198,6 @@ export default function Header({ darkMode, setDarkMode }) {
               <NavLink 
                 mobile 
                 to="exemplos" 
-                darkMode={darkMode} 
                 setIsMobileMenuOpen={setIsMobileMenuOpen}
               >
                 Torneios
@@ -209,28 +206,29 @@ export default function Header({ darkMode, setDarkMode }) {
               <NavLink 
                 mobile 
                 to="planos" 
-                darkMode={darkMode} 
                 setIsMobileMenuOpen={setIsMobileMenuOpen}
               >
                 Planos
               </NavLink>
 
-              <div>
-                <button
-                  onClick={openWhats}
-                  className="mt-8 w-full py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-bold text-lg cursor-pointer"
-                >
-                  Contato
-                </button>
+              {loginLink && (
+                <div>
+                  <button
+                    onClick={openWhats}
+                    className="mt-8 w-full py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-bold text-lg cursor-pointer"
+                  >
+                    Contato
+                  </button>
 
-                <button
-                  onClick={goToLogin}
-                  className="mt-4 flex bg-orange-600 hover:bg-orange-700 text-white items-center justify-center gap-2 w-full py-4 mb-2 rounded-lg font-bold border-2 cursor-pointer"
-                >
-                  <Lock size={20} />
-                  Entrar
-                </button>
-              </div>
+                  <button
+                    onClick={goToLogin}
+                    className="mt-4 flex bg-orange-600 hover:bg-orange-700 text-white items-center justify-center gap-2 w-full py-4 mb-2 rounded-lg font-bold border-2 cursor-pointer"
+                  >
+                    <Lock size={20} />
+                    Entrar
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}

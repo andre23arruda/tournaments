@@ -1,21 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import toast from 'react-hot-toast';
-import {
-  AdminButton,
-  Footer,
-  Loading,
-  LogoHeader,
-  ReloadButton,
-  ShareLinkButton,
-  ToggleTheme
-} from '../Components';
+import { Footer, Loading } from '../Components';
+import TournamentHeader from '../Components/TournamentHeader';
+import { useTheme } from '../ThemeContext'
 import { formatDate } from '../utils';
 
 export default function Ranking() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const { rankingId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [search, setSearch] = useState('');
@@ -65,17 +57,6 @@ export default function Ranking() {
     loadData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rankingId])
-
-  useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
-    setDarkMode(savedDarkMode);
-  }, []);
-
-  const toggleTheme = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode)
-  };
 
   const cleanTeam = (dupla) => {
     return dupla.replace(/<br\/>/g, '\n').replace(/<span>/g, '').replace(/<\/span>/g, '')
@@ -207,27 +188,17 @@ export default function Ranking() {
   ];
 
   const filteredJogos = filterGames(jogos, search);
+  const headerLinks = [
+    { to: 'jogos', label: 'Jogos' },
+    { to: 'classificacao', label: 'Classificação' },
+  ]
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-
-      {can_edit && (
-        <AdminButton route={`bt_league/torneio/${rankingInfo.id}/change/#jogos-tab`} />
-      )}
-
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
-
-      {isAtivo && (
-        <>
-          <ReloadButton loadData={loadData} />
-          <ShareLinkButton pageName={rankingInfo.nome} />
-        </>
-      )}
+      <TournamentHeader loadData={loadData} links={headerLinks} />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
-        <LogoHeader darkMode={darkMode} />
-
-        <div className="pt-20">
+        <div className="pt-10">
           {/* Title */}
           <h1 className="text-center text-3xl mb-2 font-bold">
             {rankingInfo.nome}
@@ -287,7 +258,7 @@ export default function Ranking() {
           {/* Games */}
           <div>
             <div className="grid md:grid-cols-2 gap-6">
-              <div>
+              <div id="jogos">
                 <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                   <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                     Jogos
@@ -364,7 +335,7 @@ export default function Ranking() {
               </div>
 
               {/* Classification */}
-              <div>
+              <div id="classificacao">
                 <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                   <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                     Classificação

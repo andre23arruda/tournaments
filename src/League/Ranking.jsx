@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import toast from 'react-hot-toast';
-import {
-    Footer,
-    Loading,
-    LogoHeader,
-    ShareLinkButton,
-    ToggleTheme
-} from '../Components';
+import { Footer, Loading } from '../Components';
+import TournamentHeader from '../Components/TournamentHeader';
+import { useTheme } from '../ThemeContext';
 import { formatDate } from '../utils';
 
 export default function LeagueRanking() {
-    const [darkMode, setDarkMode] = useState(() => {
-      return localStorage.getItem('darkMode') === 'true';
-    });
+    const { darkMode } = useTheme();
     const { rankingId } = useParams();
     const [rankingData, setRankingData] = useState(null);
     const [search, setSearch] = useState('');
@@ -45,17 +39,6 @@ export default function LeagueRanking() {
         loadData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rankingId])
-
-    useEffect(() => {
-        const savedDarkMode = localStorage.getItem('darkMode') === 'true'
-        setDarkMode(savedDarkMode);
-    }, []);
-
-    const toggleTheme = () => {
-        const newDarkMode = !darkMode;
-        setDarkMode(newDarkMode);
-        localStorage.setItem('darkMode', newDarkMode)
-    };
 
     const filterPlayers = (players, searchTerm) => {
         if (!searchTerm) return players;
@@ -100,15 +83,16 @@ export default function LeagueRanking() {
 
     const { ranking, estatisticas, jogadores } = rankingData;
 
+    const headerLinks = [
+        { to: 'classificacao', label: 'Classificação' },
+        { to: 'torneios', label: 'Torneios' }
+    ]
+
     return (
         <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-            <ShareLinkButton pageName={ranking.nome} />
-
-            <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
+            <TournamentHeader loadData={loadData} links={headerLinks} />
 
             <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
-                <LogoHeader darkMode={darkMode} />
-
                 <div className="pt-20">
                     <div className="text-center mb-8">
                         <h1 className="text-4xl font-bold mb-2">{ranking.nome}</h1>
@@ -141,7 +125,7 @@ export default function LeagueRanking() {
                     </div>
 
                     <div className="grid lg:grid-cols-3 gap-6">
-                        <div className="lg:col-span-2">
+                        <div id="classificacao" className="lg:col-span-2">
                             <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                                 <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                                     Classificação Geral
@@ -228,7 +212,7 @@ export default function LeagueRanking() {
 
                         {/* Torneios do Ranking */}
                         <div>
-                            <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                            <div id="torneios" className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                                 <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                                     Torneios
                                 </h5>

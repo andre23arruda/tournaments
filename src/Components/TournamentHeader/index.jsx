@@ -1,9 +1,11 @@
-import { useState, useEffect, memo, startTransition } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, Moon, RefreshCw, Share2, Sun, Trophy, X } from 'lucide-react';
+import { useTheme } from '../../ThemeContext';
 
 
-const NavLink = memo(({ to, children, mobile, darkMode, setIsMobileMenuOpen }) => {
+const NavLink = memo(({ to, children, mobile, setIsMobileMenuOpen }) => {
+  const { darkMode } = useTheme();
   const scroll = (to) => {
     const element = document.getElementById(to);
     if (element) {
@@ -38,7 +40,8 @@ const NavLink = memo(({ to, children, mobile, darkMode, setIsMobileMenuOpen }) =
 NavLink.displayName = 'NavLink';
 
 
-export default function TournamentHeader({ darkMode, setDarkMode, loadData, links }) {
+export default function TournamentHeader({ loadData, links = [] }) {
+  const { darkMode, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -53,13 +56,7 @@ export default function TournamentHeader({ darkMode, setDarkMode, loadData, link
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = !darkMode;
-    startTransition(() => {
-      setDarkMode(newTheme);
-      localStorage.setItem('darkMode', String(newTheme));
-    });
-  };
+  // toggleTheme is consumed directly from useTheme context
 
   const handleShare = async () => {
     const currentUrl = window.location.href;
@@ -120,7 +117,7 @@ export default function TournamentHeader({ darkMode, setDarkMode, loadData, link
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8">
               {links.map((link, index) => (
-                <NavLink key={index} to={link.to} darkMode={darkMode}>
+                <NavLink key={index} to={link.to}>
                   {link.label}
                 </NavLink>
               ))}
@@ -215,7 +212,6 @@ export default function TournamentHeader({ darkMode, setDarkMode, loadData, link
                   mobile 
                   key={index} 
                   to={link.to} 
-                  darkMode={darkMode}
                   setIsMobileMenuOpen={setIsMobileMenuOpen}
                 >
                   {link.label}

@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Trophy, Target, Users, Zap } from 'lucide-react';
 import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
-import { Trophy, Target, Users, Zap } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
+
 
 export default function About() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
-
+  const { darkMode } = useTheme();
   useEffect(() => {
     document.title = 'Sobre Nós | Pódio Digital';
     window.scrollTo({ top: 0 });
@@ -21,7 +20,7 @@ export default function About() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-700'}`}>
-      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Header />
 
       <main className="max-w-4xl mx-auto px-4 py-16">
         <div className="text-center mb-16">

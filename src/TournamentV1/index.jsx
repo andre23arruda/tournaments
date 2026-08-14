@@ -8,6 +8,7 @@ import {
   StatusIcon,
 } from '../Components';
 import TournamentHeader from '../Components/TournamentHeader';
+import { useTheme } from '../ThemeContext';
 import { formatDate } from '../utils';
 
 function renderTeam(torneio, number = '') {
@@ -16,9 +17,7 @@ function renderTeam(torneio, number = '') {
 }
 
 export default function Tournament() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -60,12 +59,6 @@ export default function Tournament() {
 
   useEffect(() => {
   }, []);
-
-  const toggleTheme = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode)
-  };
 
   const formatTeamName = (dupla) => {
     return dupla.replace('<br/>', '\n');
@@ -115,12 +108,7 @@ export default function Tournament() {
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-      <TournamentHeader 
-        darkMode={darkMode} 
-        setDarkMode={setDarkMode} 
-        loadData={loadData} 
-        links={headerLinks}
-      />
+      <TournamentHeader loadData={loadData} links={headerLinks} />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-10">

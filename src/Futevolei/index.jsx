@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import classNames from 'classnames';
 import {Footer, Loading} from '../Components';
 import TournamentHeader from '../Components/TournamentHeader';
+import { useTheme } from '../ThemeContext';
 import { formatDate } from '../utils';
 
 function renderPoints(jogo, dupla) {
@@ -14,9 +15,7 @@ function renderPoints(jogo, dupla) {
 }
 
 export default function FutevoleiTournament() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,17 +54,6 @@ export default function FutevoleiTournament() {
     loadData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tournamentId])
-
-  useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-    setDarkMode(savedDarkMode);
-  }, []);
-
-  const toggleTheme = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode)
-  };
 
   const formatTeamName = (dupla) => {
     return dupla.replace('<br/>', '\n');
@@ -129,18 +117,13 @@ export default function FutevoleiTournament() {
     'md:w-1/6': card_style === '1/6',
   })
 
-   const headerLinks = [
+  const headerLinks = [
     { to: 'jogos-GRUPO 1', label: 'Jogos' },
   ]
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-      <TournamentHeader 
-        darkMode={darkMode} 
-        setDarkMode={setDarkMode} 
-        loadData={loadData} 
-        links={headerLinks}
-      />
+      <TournamentHeader loadData={loadData} links={headerLinks} />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-10">

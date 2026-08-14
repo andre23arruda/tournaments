@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import classNames from 'classnames';
 import { Footer, Loading, StatusIcon } from '../Components';
 import TournamentHeader from '../Components/TournamentHeader';
+import { useTheme } from '../ThemeContext';
 import { formatDate } from '../utils';
 
 function renderTeam(torneio, number = '') {
@@ -19,9 +20,7 @@ function renderPoints(jogo, dupla) {
 }
 
 export default function Tournament() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const { tournamentId } = useParams();
   const [tournamentData, setTournamentData] = useState(null);
   const [search, setSearch] = useState('');
@@ -61,11 +60,6 @@ export default function Tournament() {
     loadData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tournamentId])
-
-  useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode') === 'true'
-    setDarkMode(savedDarkMode);
-  }, []);
 
   const abbreviateName = (name) => {
     const parts = name.trim().split(/\s+/);
@@ -169,12 +163,7 @@ export default function Tournament() {
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-      <TournamentHeader 
-        darkMode={darkMode} 
-        setDarkMode={setDarkMode} 
-        loadData={loadData} 
-        links={headerLinks}
-      />
+      <TournamentHeader loadData={loadData} links={headerLinks} />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
         <div className="pt-10">

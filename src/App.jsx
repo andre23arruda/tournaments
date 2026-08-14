@@ -1,6 +1,6 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { ThemeProvider } from './ThemeContext';
 import About from './About';
 import Checkout from './Checkout';
 import FAQ from './FAQ';
@@ -22,7 +22,7 @@ import TournamentV1 from './TournamentV1';
 
 const App = () => {
   return (
-    <React.Fragment>
+    <ThemeProvider>
       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
       <BrowserRouter>
@@ -46,7 +46,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
-    </React.Fragment>
+    </ThemeProvider>
   );
 };
 

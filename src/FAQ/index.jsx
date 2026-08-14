@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useTheme } from '../ThemeContext';
 import { openWhats } from '../utils';
 
 const FAQS = [
@@ -40,9 +41,7 @@ const FAQS = [
 ];
 
 export default function FAQ() {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const [openIndex, setOpenIndex] = useState(0);
 
   useEffect(() => {
@@ -52,7 +51,7 @@ export default function FAQ() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? 'bg-gray-900 text-gray-300' : 'bg-gray-50 text-gray-700'}`}>
-      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Header />
 
       <main className="max-w-3xl mx-auto px-4 py-12">
         <div className="text-center mb-12">

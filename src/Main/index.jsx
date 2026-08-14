@@ -1,18 +1,14 @@
 import { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import {
+  CheckCircle, Clock, Heart, Instagram,
+  Medal, Target, Trophy, Users, X,
+} from 'lucide-react';
+import AdBanner from '../Components/AdBanner';
 import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
-import {
-  CheckCircle,
-  Clock,
-  Heart,
-  Instagram,
-  Medal,
-  Target,
-  Trophy,
-  Users,
-  X,
-} from 'lucide-react';
+import Carousel from '../Components/Carousel';
+import { useTheme } from '../ThemeContext';
 import {
   EXAMPLES,
   FEATURES,
@@ -23,8 +19,7 @@ import {
   VIDEO_ID_SHORTS,
 } from './constants'
 import { openWhats } from '../utils';
-import AdBanner from '../Components/AdBanner';
-import Carousel from '../Components/Carousel';
+
 
 const FeatureCard = memo(({ feature, darkMode }) => (
   <div
@@ -228,11 +223,7 @@ const InstagramCard = memo(({ card, darkMode }) => {
 InstagramCard.displayName = 'InstagramCard';
 
 export default function LandingPage() {
-  const navigate = useNavigate();
-
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
+  const { darkMode } = useTheme();
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
 
@@ -283,7 +274,7 @@ export default function LandingPage() {
 
   return (
     <div className={mainContainerClasses}>
-      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Header />
 
       {/* Hero Section */}
       <div className="pt-20 min-h-screen flex flex-col justify-center relative overflow-hidden">

@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { CheckCircle, FileBadge, MessageCircle } from 'lucide-react';
 import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
-import { CheckCircle, FileBadge, MessageCircle } from 'lucide-react';
-import { PRICING, MOBILE_BREAKPOINT, SCROLL_THRESHOLD } from '../Main/constants';
+import { PRICING } from '../Main/constants';
+import { useTheme } from '../ThemeContext';
 
 function buildWhatsAppMessage(planName, userName) {
   const text = `Olá, tudo bem? Gostaria de contratar o plano *${planName}* do Pódio Digital.\n\nMeu nome é *${userName}*.`;
@@ -11,6 +12,7 @@ function buildWhatsAppMessage(planName, userName) {
 }
 
 export default function Checkout() {
+  const { darkMode } = useTheme();
   const [searchParams] = useSearchParams();
   const planIndex = parseInt(searchParams.get('plano') ?? '0', 10);
   const plan = PRICING[planIndex] ?? PRICING[0];
@@ -18,43 +20,10 @@ export default function Checkout() {
   const [name, setName] = useState('');
   const [submitted, setSubmitted] = useState(false);
   
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem('darkMode') === 'true';
-  });
-  const [isMobileDevice, setIsMobileDevice] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobileDevice(window.innerWidth < MOBILE_BREAKPOINT);
-    };
-
-    const handleScroll = () => {
-      setScrolled(window.scrollY > SCROLL_THRESHOLD);
-    };
-
     document.title = `Contratar ${plan.name} | Pódio Digital`;
     window.scrollTo({ top: 0 });
-
-    checkMobile();
-    handleScroll();
-
-    window.addEventListener('resize', checkMobile);
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, [plan.name]);
-
-  useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'unset';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -80,7 +49,7 @@ export default function Checkout() {
 
   return (
     <div className={mainContainerClasses}>
-      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-4 py-28">
