@@ -2,16 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
-import {
-  AdminButton,
-  Footer,
-  Loading,
-  LogoHeader,
-  ReloadButton,
-  ShareLinkButton,
-  StatusIcon,
-  ToggleTheme
-} from '../Components';
+import { Footer, Loading, StatusIcon } from '../Components';
+import TournamentHeader from '../Components/TournamentHeader';
 import { formatDate } from '../utils';
 
 function renderTeam(torneio, number = '') {
@@ -75,11 +67,6 @@ export default function Tournament() {
     setDarkMode(savedDarkMode);
   }, []);
 
-  const toggleTheme = () => {
-    const newDarkMode = !darkMode;
-    setDarkMode(newDarkMode);
-    localStorage.setItem('darkMode', newDarkMode)
-  };
   const abbreviateName = (name) => {
     const parts = name.trim().split(/\s+/);
     if (parts.length > 1) {
@@ -172,27 +159,25 @@ export default function Tournament() {
     'md:w-1/4': card_style === '1/4',
   })
 
+  const headerLinks = [
+    { to: 'jogos-GRUPO 1', label: 'Jogos' },
+    { to: 'classificacao-GRUPO 1', label: 'Classificação' }
+  ]
+  if (Object.keys(fases_finais).length > 0) {
+    headerLinks.push({ to: 'fase-final', label: 'Finais' })
+  }
+
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-
-      {can_edit && (
-        <AdminButton route={`cup/torneio/${torneio.id}/change/#jogos-tab`} />
-      )}
-
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
-
-      {torneio.ativo && (
-        <>
-          <ReloadButton loadData={loadData} />
-          <ShareLinkButton pageName={torneio.nome} />
-        </>
-      )}
+      <TournamentHeader 
+        darkMode={darkMode} 
+        setDarkMode={setDarkMode} 
+        loadData={loadData} 
+        links={headerLinks}
+      />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
-        <LogoHeader darkMode={darkMode} />
-
-        <div className="pt-20">
-          {/* Title */}
+        <div className="pt-10">
           <h1 className="text-center text-3xl mb-2">
             {torneio.nome}
           </h1>
@@ -279,7 +264,7 @@ export default function Tournament() {
                 <div key={grupoNome} className="mb-8">
                   <div className="grid md:grid-cols-2 gap-6">
                     {/* Games */}
-                    <div>
+                    <div id={`jogos-${grupoNome}`}>
                       <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                         <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                           {Object.keys(grupos).length > 1 ? `${grupoNome} - Jogos` : 'Jogos'}
@@ -373,68 +358,69 @@ export default function Tournament() {
                       </div>
                     </div>
 
-                  {/* Classification */}
-                  <div>
-                    <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
-                      <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
-                        {Object.keys(grupos).length > 1 ? `${grupoNome} - Classificação` : 'Classificação'}
-                      </h5>
+                    {/* Classification */}
+                    <div id={`classificacao-${grupoNome}`}>
+                      <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
+                        <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
+                          {Object.keys(grupos).length > 1 ? `${grupoNome} - Classificação` : 'Classificação'}
+                        </h5>
 
-                      <div className="p-4">
-                        <div className="overflow-x-auto">
-                          <table className="w-full text-center">
-                            <thead>
-                              <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
-                                <th className="py-2 px-3 border border-gray-300">#</th>
-                                <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio)}</th>
-                                <th className="py-2 px-3 border border-gray-300">V</th>
-                                <th className="py-2 px-3 border border-gray-300">S</th>
-                                <th className="py-2 px-3 border border-gray-300">P</th>
-                                <th className="py-2 px-3 border border-gray-300">J</th>
-                              </tr>
-                            </thead>
-
-                            <tbody>
-                              {grupoData.classificacao.map((dupla, index) => (
-                                <tr key={index} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
-                                    {dupla.posicao}
-                                  </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
-                                    {formatTeamName(dupla.dupla).split('\n').map((line, i) => (
-                                      <div key={i}>{line}</div>
-                                    ))}
-                                  </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
-                                    {dupla.vitorias}
-                                  </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
-                                    {dupla.saldo}
-                                  </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
-                                    {dupla.pontos}
-                                  </td>
-                                  <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
-                                    {dupla.jogos}
-                                  </td>
+                        <div className="p-4">
+                          <div className="overflow-x-auto">
+                            <table className="w-full text-center">
+                              <thead>
+                                <tr className={darkMode ? 'bg-gray-600' : 'bg-gray-100'}>
+                                  <th className="py-2 px-3 border border-gray-300">#</th>
+                                  <th className="py-2 px-3 border border-gray-300">{renderTeam(torneio)}</th>
+                                  <th className="py-2 px-3 border border-gray-300">V</th>
+                                  <th className="py-2 px-3 border border-gray-300">S</th>
+                                  <th className="py-2 px-3 border border-gray-300">P</th>
+                                  <th className="py-2 px-3 border border-gray-300">J</th>
                                 </tr>
-                              ))}
-                            </tbody>
-                          </table>
+                              </thead>
+
+                              <tbody>
+                                {grupoData.classificacao.map((dupla, index) => (
+                                  <tr key={index} className={index % 2 === 0 ? (darkMode ? 'bg-gray-600' : 'bg-gray-50') : ''}>
+                                    <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
+                                      {dupla.posicao}
+                                    </td>
+                                    <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
+                                      {formatTeamName(dupla.dupla).split('\n').map((line, i) => (
+                                        <div key={i}>{line}</div>
+                                      ))}
+                                    </td>
+                                    <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
+                                      {dupla.vitorias}
+                                    </td>
+                                    <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
+                                      {dupla.saldo}
+                                    </td>
+                                    <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
+                                      {dupla.pontos}
+                                    </td>
+                                    <td className={`py-2 px-3 border border-gray-300 ${groups_finished && dupla.posicao < 3 ? 'bg-green-300 border-green-500 font-bold text-black' : ''}`}>
+                                      {dupla.jogos}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            )})}
+              )
+            })}
           </div>
 
           {/* Playoffs Section */}
           {Object.keys(fases_finais).length > 0 && (
             <>
               <hr className="my-8" />
-              <div>
+              <div id="fase-final">
                 <h3 className="text-center text-2xl mb-6">Fase Final</h3>
                 <div className="flex flex-wrap items-center justify-center">
                   {/* Oitavas */}

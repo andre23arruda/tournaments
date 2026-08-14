@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Footer from '../Footer';
-import Header from '../Header';
+import Footer from '../Components/MainFooter';
+import Header from '../Components/MainHeader';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { openWhats } from '../utils';
 

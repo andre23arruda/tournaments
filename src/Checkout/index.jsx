@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Footer from '../Footer';
-import Header from '../Header';
+import Footer from '../Components/MainFooter';
+import Header from '../Components/MainHeader';
 import { CheckCircle, FileBadge, MessageCircle } from 'lucide-react';
 import { PRICING, MOBILE_BREAKPOINT, SCROLL_THRESHOLD } from '../Main/constants';
 

@@ -3,15 +3,11 @@ import { useParams } from 'react-router-dom'
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
 import {
-  AdminButton,
   Footer,
   Loading,
-  LogoHeader,
-  ReloadButton,
-  ShareLinkButton,
   StatusIcon,
-  ToggleTheme
 } from '../Components';
+import TournamentHeader from '../Components/TournamentHeader';
 import { formatDate } from '../utils';
 
 function renderTeam(torneio, number = '') {
@@ -113,23 +109,21 @@ export default function Tournament() {
     'md:w-1/4': card_style === '1/4',
   })
 
+  const headerLinks = [
+    { to: 'jogos-GRUPO 1', label: 'Jogos' }
+  ]
+
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
-
-      {torneio.ativo && (
-        <>
-          <ShareLinkButton pageName={torneio.nome} />
-          <ReloadButton loadData={loadData} />
-        </>
-      )}
-
+      <TournamentHeader 
+        darkMode={darkMode} 
+        setDarkMode={setDarkMode} 
+        loadData={loadData} 
+        links={headerLinks}
+      />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
-        <LogoHeader darkMode={darkMode} />
-
-        <div className="pt-20">
+        <div className="pt-10">
           {/* Title */}
           <h1 className="text-center text-3xl mb-2">
             {torneio.nome}
@@ -184,7 +178,7 @@ export default function Tournament() {
             )}
 
             {Object.entries(grupos).map(([grupoNome, grupoData]) => (
-              <div key={grupoNome} className="mb-8">
+              <div id={`jogos-${grupoNome}`} key={grupoNome} className="mb-8">
                 <div className="grid md:grid-cols-2 gap-6">
                   {/* Games */}
                   <div>
@@ -303,7 +297,7 @@ export default function Tournament() {
           {/* Playoffs Section */}
           {Object.keys(fases_finais).length > 0 && (
             <>
-              <hr className="my-8" />
+              <hr id="fase-final" className="my-8" />
               <div>
                 <h3 className="text-center text-2xl mb-6">Fase Final</h3>
                 <div className="flex flex-wrap items-center justify-center">

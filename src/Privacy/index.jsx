@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Footer from '../Footer';
-import Header from '../Header';
+import Footer from '../Components/MainFooter';
+import Header from '../Components/MainHeader';
 
 export default function Privacy() {
   const [darkMode, setDarkMode] = useState(() => {

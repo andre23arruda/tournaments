@@ -2,15 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom'
 import toast from 'react-hot-toast';
 import classNames from 'classnames';
-import {
-  AdminButton,
-  Footer,
-  Loading,
-  LogoHeader,
-  ReloadButton,
-  ShareLinkButton,
-  ToggleTheme
-} from '../Components';
+import {Footer, Loading} from '../Components';
+import TournamentHeader from '../Components/TournamentHeader';
 import { formatDate } from '../utils';
 
 function renderPoints(jogo, dupla) {
@@ -136,26 +129,21 @@ export default function FutevoleiTournament() {
     'md:w-1/6': card_style === '1/6',
   })
 
+   const headerLinks = [
+    { to: 'jogos-GRUPO 1', label: 'Jogos' },
+  ]
+
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-
-      {can_edit && (
-        <AdminButton route={`cup/torneio/${torneio.id}/change/#jogos-tab`} />
-      )}
-
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
-
-      {torneio.ativo && (
-        <>
-          <ReloadButton loadData={loadData} />
-          <ShareLinkButton pageName={torneio.nome} />
-        </>
-      )}
+      <TournamentHeader 
+        darkMode={darkMode} 
+        setDarkMode={setDarkMode} 
+        loadData={loadData} 
+        links={headerLinks}
+      />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
-        <LogoHeader darkMode={darkMode} />
-
-        <div className="pt-20">
+        <div className="pt-10">
           {/* Title */}
           <h1 className="text-center text-3xl mb-2">
             {torneio.nome}
@@ -207,7 +195,7 @@ export default function FutevoleiTournament() {
 
           {/* GAMES */}
           {Object.keys(jogos).length > 0 && (
-            <div>
+            <div id="jogos-GRUPO 1">
               <div className="flex flex-wrap items-center justify-center">
                 {Object.entries(jogos).map(([faseNome, jogos]) => (
                   <div className={playoffClass} key={faseNome}>

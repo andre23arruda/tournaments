@@ -11,6 +11,7 @@ import {
   StatusIcon,
   ToggleTheme
 } from '../Components';
+import TournamentHeader from '../Components/TournamentHeader';
 import { formatDate } from '../utils';
 
 export default function League() {
@@ -139,26 +140,22 @@ export default function League() {
   const { torneio, jogos, ranking, estatisticas, can_edit } = tournamentData;
   const filteredJogos = filterGames(jogos, search);
 
+  const headerLinks = [
+    { to: 'jogos-GRUPO 1', label: 'Jogos' },
+    { to: 'classificacao-GRUPO 1', label: 'Classificação' }
+  ]
+
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-
-      {can_edit && (
-        <AdminButton route={`bt_league/torneio/${torneio.id}/change/#jogos-tab`} />
-      )}
-
-      <ToggleTheme darkMode={darkMode} toggleTheme={toggleTheme} />
-
-      {torneio.ativo && (
-        <>
-          <ReloadButton loadData={loadData} />
-          <ShareLinkButton pageName={torneio.nome} />
-        </>
-      )}
+      <TournamentHeader 
+        darkMode={darkMode} 
+        setDarkMode={setDarkMode} 
+        loadData={loadData} 
+        links={headerLinks}
+      />
 
       <div className="max-w-8xl container mx-auto px-4 min-h-screen flex flex-col justify-between">
-        <LogoHeader darkMode={darkMode} />
-
-        <div className="pt-20">
+        <div className="pt-10">
           {/* Title */}
           <h1 className="text-center text-3xl mb-2">
             {torneio.nome}
@@ -230,7 +227,7 @@ export default function League() {
           {/* Games */}
           <div>
             <div className="grid md:grid-cols-2 gap-6">
-              <div>
+              <div id="jogos-GRUPO 1">
                 <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                   <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                     Jogos
@@ -311,7 +308,7 @@ export default function League() {
               </div>
 
               {/* Classification */}
-              <div>
+              <div id="classificacao-GRUPO 1">
                 <div className={`rounded-lg shadow ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'}`}>
                   <h5 className={`text-center py-3 px-4 rounded-t-lg font-semibold ${darkMode ? 'bg-gray-600' : 'bg-gray-100'}`}>
                     Classificação

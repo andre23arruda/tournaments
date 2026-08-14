@@ -17,6 +17,7 @@ import {
   EXAMPLES,
   FEATURES,
   INSTAGRAM_CARDS,
+  INSTAGRAM_POSTS,
   MOBILE_BREAKPOINT,
   PRICING,
   VIDEO_ID_DEMO,
@@ -25,6 +26,7 @@ import {
 import { openWhats } from '../utils';
 import AdBanner from '../Components/AdBanner';
 import Carousel from '../Components/Carousel';
+import { InstagramEmbed } from 'react-social-media-embed';
 
 const FeatureCard = memo(({ feature, darkMode }) => (
   <div
@@ -49,11 +51,11 @@ FeatureCard.displayName = 'FeatureCard';
 
 const ExampleCard = memo(({ example, darkMode }) => (
   <div
-    className={`rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105 h-full flex flex-col ${
+    className={`rounded-xl overflow-hidden shadow-lg transition-all hover:scale-105 ${
       darkMode ? 'bg-gray-800' : 'bg-white'
     }`}
   >
-    <Link to={example.link} className="flex flex-col h-full">
+    <Link to={example.link}>
       <div className={`p-6 ${
         darkMode ? 'bg-gray-700' : 'bg-gradient-to-r from-orange-600 to-yellow-500'
       } text-white`}>
@@ -61,7 +63,7 @@ const ExampleCard = memo(({ example, darkMode }) => (
         <p className="text-orange-100">{example.subtitle}</p>
       </div>
 
-      <div className="p-4 flex flex-col justify-between flex-1">
+      <div className="p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4" />
@@ -347,7 +349,7 @@ export default function LandingPage() {
       </div>
 
       {/* Features Section */}
-      <div id="funcionalidades" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div id="features" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -367,7 +369,7 @@ export default function LandingPage() {
       </div>
 
       {/* Examples Section */}
-      <div id="exemplos" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div id="examples" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -392,7 +394,7 @@ export default function LandingPage() {
       {/* <AdBanner slot="4419106208" format="horizontal" className="m-6 px-4" /> */}
 
       {/* Pricing Section */}
-      <div id="planos" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div id="pricing" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -432,12 +434,29 @@ export default function LandingPage() {
             darkMode={darkMode}
           />
 
+          {/* <div className="flex flex-wrap justify-center gap-8">
+            {INSTAGRAM_POSTS.map((url, index) => (
+              <div
+                key={index}
+                className="w-full md:w-[328px] rounded-xl overflow-hidden shadow-xl bg-white"
+                style={{ minHeight: '480px' }}
+              >
+                <InstagramEmbed
+                  url={url}
+                  width="100%"
+                  lazyLoad
+                  captioned
+                />
+              </div>
+            ))}
+          </div> */}
+
           <div className="text-center mt-12">
             <a
               href="https://www.instagram.com/podiodigital.oficial"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full font-bold hover:scale-105 transition-transform shadow-lg"
             >
               <Instagram className="h-5 w-5" />
               Seguir @podiodigital.oficial

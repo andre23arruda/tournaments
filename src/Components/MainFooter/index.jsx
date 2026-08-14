@@ -1,6 +1,7 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { Trophy, Instagram, Facebook } from 'lucide-react';
 
+
 export default function Footer({ darkMode, className = '' }) {
   const navigate = useNavigate();
 
