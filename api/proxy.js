@@ -61,11 +61,7 @@ export default async function handler(req, res) {
       // Forward headers from PythonAnywhere to the client
       Object.entries(proxyRes.headers).forEach(([key, value]) => {
         const lowerKey = key.toLowerCase();
-        if (
-          lowerKey !== 'transfer-encoding' &&
-          lowerKey !== 'content-encoding' &&
-          lowerKey !== 'content-length'
-        ) {
+        if (lowerKey !== 'transfer-encoding') {
           // Rewrite Location headers so the browser stays inside the proxy
           if (lowerKey === 'location' && typeof value === 'string') {
             value = value.replace('https://andre23arruda.pythonanywhere.com', '');
