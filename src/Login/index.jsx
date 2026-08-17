@@ -313,8 +313,7 @@ export default function Login() {
       if (response.ok && data.success) {
         toast.success('Acesso autorizado!');
         setTimeout(() => {
-          console.log('Acesso autorizado!', ADMIN_ROUTE);
-          // window.location.href = ADMIN_ROUTE;
+          window.location.href = ADMIN_ROUTE;
         }, 1200);
       } else {
         toast.error(data.message || 'Código inválido ou expirado.');
