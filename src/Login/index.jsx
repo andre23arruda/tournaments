@@ -175,7 +175,19 @@ export default function Login() {
     }
   };
 
+  const getAdminRoute = () => {
+    try {
+      // @ts-ignore
+      return (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_APP_ADMIN_URL)
+        ? import.meta.env.VITE_APP_ADMIN_URL
+        : '/admin';
+    } catch (e) {
+      return '/admin';
+    }
+  };
+
   const API_ROUTE = getApiRoute();
+  const ADMIN_ROUTE = getAdminRoute();
 
   useEffect(() => {
     const init = async () => {
@@ -197,7 +209,7 @@ export default function Login() {
         const data = await response.json();
         setCsrfToken(data.token);
         if (data.is_auth) {
-          window.location.href = '/admin';
+          window.location.href = ADMIN_ROUTE;
         } else {
           setIsLoading(false);
         }
@@ -269,7 +281,7 @@ export default function Login() {
           setLoading(false);
         }, 2000)
       } else if (response.ok && data.success) {
-        window.location.replace = '/admin';
+        window.location.replace = ADMIN_ROUTE;
       } else {
         toast.error(data.message || 'Credenciais inválidas.');
         setLoading(false);
@@ -301,7 +313,8 @@ export default function Login() {
       if (response.ok && data.success) {
         toast.success('Acesso autorizado!');
         setTimeout(() => {
-          window.location.href = '/admin';
+          console.log('Acesso autorizado!', ADMIN_ROUTE);
+          // window.location.href = ADMIN_ROUTE;
         }, 1200);
       } else {
         toast.error(data.message || 'Código inválido ou expirado.');
