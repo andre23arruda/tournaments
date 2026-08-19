@@ -1,0 +1,4 @@
+label[for=id_dupla1_jogador2],
+label[for=id_dupla2_jogador2] {
+    display: none !important;
+}

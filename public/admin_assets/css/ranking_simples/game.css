@@ -59,7 +59,7 @@
 #jogo_set-group td.field-dupla2_jogador1 .select2-container,
 #jogo_set-group td.field-dupla2_jogador2 .select2-container {
     width: 100px !important;
-    display: inline;
+    min-width: 100px;
 }
 
 td.field-dupla1_jogador1 .related-widget-wrapper,
