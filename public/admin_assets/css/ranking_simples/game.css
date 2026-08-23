@@ -45,9 +45,8 @@
     min-width: 100px;
 }
 
-#jogo_set-group th.column-data,
 #jogo_set-group td.field-data {
-    display: none !important;
+    vertical-align: middle !important;
 }
 
 #jogo_set-group td.field-dupla1_jogador1 select,

@@ -38,8 +38,7 @@
         const dupla2Jogador2 = document.querySelector(`select[name="jogo_set-${index}-dupla2_jogador2"]`);
         const pontosDupla1Input = document.querySelector(`input[name="jogo_set-${index}-placar_dupla1"]`) || document.querySelector(`input[name="jogo_set-${index}-pontos_dupla1"]`);
         const pontosDupla2Input = document.querySelector(`input[name="jogo_set-${index}-placar_dupla2"]`) || document.querySelector(`input[name="jogo_set-${index}-pontos_dupla2"]`);
-        const dataInput = document.querySelector(`input[name="jogo_set-${index}-data_0"]`);
-        const timeInput = document.querySelector(`input[name="jogo_set-${index}-data_1"]`);
+        const dataInput = document.querySelector(`input[name="jogo_set-${index}-data"]`);
 
         if (!statusSelect) return null;
 
@@ -58,7 +57,8 @@
             pontos_dupla2: pontosDupla2Input ? pontosDupla2Input.value : null,
             placar_dupla1: pontosDupla1Input ? pontosDupla1Input.value : null,
             placar_dupla2: pontosDupla2Input ? pontosDupla2Input.value : null,
-            data_jogo: strToDateTime(dataInput, timeInput)
+            data_jogo: dataInput ? dataInput.value : null,
+            // data_jogo: strToDateTime(dataInput, timeInput)
         };
     }
 
