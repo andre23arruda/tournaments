@@ -41,6 +41,14 @@ export const FEATURES = [
 
 export const EXAMPLES = [
   {
+    title: 'Torneio Relâmpago de Futevôlei - PNA',
+    subtitle: '28/08/2026',
+    status: 'Finalizado',
+    participants: '4 duplas',
+    games: 7,
+    link: 'https://podiodigital.app.br/futevolei/1-torneio-ftv-pna_fVhdNJrf'
+  },
+  {
     title: 'Rainha do PNA',
     subtitle: '10/07/2026',
     status: 'Finalizado',
