@@ -8,10 +8,10 @@ import { useTheme } from '../ThemeContext';
 import { formatDate } from '../utils';
 
 function renderPoints(jogo, dupla) {
-  if (jogo.help_text.includes('BYE')) {
-    return '-';
-  } 
-  return jogo[dupla] || jogo[dupla] === 0 ? jogo[dupla] : '-'
+  if (jogo?.[dupla] !== null && jogo?.[dupla] !== undefined && jogo?.[dupla] !== '') {
+    return jogo[dupla];
+  }
+  return '-';
 }
 
 export default function FutevoleiTournament() {
@@ -55,20 +55,46 @@ export default function FutevoleiTournament() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tournamentId])
 
+  const isValidTeam = (team) => {
+    if (team === null || team === undefined) return false;
+    const str = String(team).trim();
+    return str !== '' && str !== 'None' && str !== 'null' && str !== 'undefined';
+  };
+
+  const isPlaceholderTeam = (team) => {
+    if (!team) return true;
+    const str = String(team);
+    return str.startsWith('Vencedor de ') || str.startsWith('Perdedor de ') || str === 'BYE' || str === 'A definir';
+  };
+
   const formatTeamName = (dupla) => {
-    return dupla.replace('<br/>', '\n');
+    if (dupla === null || dupla === undefined) return '';
+    return String(dupla).replace(/<br\/>/g, '\n');
   };
 
   const formatTeamNameHelp = (dupla, jogo, index) => {
-    if (jogo.dupla1 === null || jogo.dupla2 === null) {
-      const help_text = jogo.help_text
-      if (help_text) {
-        return help_text.split('x')[index]
+    if (jogo.dupla1 === null || jogo.dupla2 === null || jogo.dupla1 === undefined || jogo.dupla2 === undefined) {
+      const help_text = jogo.help_text;
+      if (help_text && typeof help_text === 'string') {
+        return help_text.split('x')[index] || 'A definir';
       } else {
-        return 'A definir'
+        return 'A definir';
       }
     }
-    return (dupla || 'A definir').replace('<br/>', '\n');
+    return String(dupla || 'A definir').replace(/<br\/>/g, '\n');
+  };
+
+  const renderTeamDisplay = (team, fallbackHelp) => {
+    if (!isValidTeam(team)) {
+      return <span className="text-gray-500 dark:text-gray-400 text-xs">{fallbackHelp}</span>;
+    }
+    const str = String(team);
+    if (isPlaceholderTeam(str)) {
+      return <span className="text-gray-500 dark:text-gray-400 text-xs italic">{str}</span>;
+    }
+    return formatTeamName(str).split('\n').map((line, i) => (
+      <div key={i}>{line}</div>
+    ));
   };
 
   const getWinnerClass = (isWinner, isLoser) => {
@@ -107,7 +133,17 @@ export default function FutevoleiTournament() {
     );
   }
 
-  const { torneio, jogos, can_edit, card_style } = tournamentData;
+  const { torneio, template, jogos, can_edit, card_style } = tournamentData;
+  const templateData = template || (!Array.isArray(jogos) && jogos ? { 'Jogos': jogos } : {});
+
+  const jogosMap = {};
+  if (Array.isArray(jogos)) {
+    jogos.forEach((j) => {
+      if (j && j.id !== undefined) {
+        jogosMap[j.id] = j;
+      }
+    });
+  }
 
   const playoffClass = classNames({
     'w-1/2 flex flex-col justify-center items-center gap-4 p-2': true,
@@ -115,11 +151,14 @@ export default function FutevoleiTournament() {
     'md:w-1/4': card_style === '1/4',
     'md:w-1/5': card_style === '1/5',
     'md:w-1/6': card_style === '1/6',
-  })
+  });
 
-  const headerLinks = [
-    { to: 'jogos-GRUPO 1', label: 'Jogos' },
-  ]
+  const getSectionId = (chaveNome) => `chave-${String(chaveNome).toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+
+  const headerLinks = Object.keys(templateData).map((chaveNome) => ({
+    to: getSectionId(chaveNome),
+    label: chaveNome,
+  }));
 
   return (
     <div className={`min-h-screen  ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
@@ -177,46 +216,86 @@ export default function FutevoleiTournament() {
           </div>
 
           {/* GAMES */}
-          {Object.keys(jogos).length > 0 && (
-            <div id="jogos-GRUPO 1">
-              <div className="flex flex-wrap items-center justify-center">
-                {Object.entries(jogos).map(([faseNome, jogos]) => (
-                  <div className={playoffClass} key={faseNome}>
-                    <h5 className="text-center font-semibold opacity-0">{faseNome}</h5>
+          {Object.keys(templateData).length > 0 && (
+            <div className="space-y-12">
+              {Object.entries(templateData).map(([chaveNome, fases]) => (
+                <div key={chaveNome} id={getSectionId(chaveNome)} className="pt-4">
+                  <hr className={`mb-8 ${darkMode ? 'border-gray-700' : 'border-gray-300'}`} />
+                  <h3 className="text-center text-2xl font-bold mb-6 text-orange-500 dark:text-orange-400">
+                    {chaveNome}
+                  </h3>
 
-                    {jogos.map((jogo) => (
-                      <div key={jogo.id} className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}>
-                        <div style={{transform: 'translateY(-1.3rem)', height: '0', textAlign: 'center', fontSize: '.75rem'}}>Jogo {jogo.playoff_number}</div>
-                        {jogo.obs && <div onClick={() => handleScoreClick(jogo.obs)} className="text-center cursor-pointer hover:transform hover:scale-110">ℹ️</div>}
+                  <div className="flex flex-wrap items-center justify-center">
+                    {Object.entries(fases || {}).map(([faseNome, rodadaData]) => {
+                      const jogosList = Array.isArray(rodadaData)
+                        ? rodadaData
+                        : (rodadaData ? [rodadaData] : []);
 
-                        <div className="flex justify-between items-center py-1 border-b border-gray-300">
-                          <span className={getWinnerClass(
-                            jogo.concluido === 'C' && jogo.pontos_dupla1 > jogo.pontos_dupla2,
-                            jogo.concluido === 'C' && jogo.pontos_dupla1 < jogo.pontos_dupla2
-                          )}>
-                            {jogo.dupla1 ? formatTeamName(jogo.dupla1).split('\n').map((line, i) => (
-                              <div key={i}>{line}</div>
-                            )) : <span className="text-gray-500">{formatTeamNameHelp(jogo.dupla1, jogo, 0)}</span>}
-                          </span>
-                          <span className="font-bold">{renderPoints(jogo, 'pontos_dupla1')}</span>
+                      return (
+                        <div className={playoffClass} key={faseNome}>
+                          <h5 className="text-center font-semibold mb-2">
+                            {faseNome}
+                          </h5>
+
+                          {jogosList.map((templateJogo) => {
+                            const realJogo = jogosMap[templateJogo.id];
+                            const dupla1 = isValidTeam(realJogo?.dupla1) ? realJogo.dupla1 : templateJogo.dupla1;
+                            const dupla2 = isValidTeam(realJogo?.dupla2) ? realJogo.dupla2 : templateJogo.dupla2;
+
+                            const jogo = {
+                              ...templateJogo,
+                              ...realJogo,
+                              referencia: templateJogo.referencia || realJogo?.referencia,
+                              dupla1,
+                              dupla2,
+                            };
+
+                            return (
+                              <div
+                                key={jogo.id}
+                                className={`rounded-lg shadow p-3 w-full ${darkMode ? 'bg-gray-700' : 'bg-white border border-gray-300'} ${jogo.concluido === 'A' ? 'border-2 animate-border' : ''}`}
+                              >
+                                <div className="text-center text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">
+                                  {jogo.referencia || (jogo.playoff_number ? `Jogo ${jogo.playoff_number}` : `Jogo ${jogo.id}`)}
+                                </div>
+
+                                {jogo.obs && (
+                                  <div
+                                    onClick={() => handleScoreClick(jogo.obs)}
+                                    className="text-center cursor-pointer hover:transform hover:scale-110 mb-1"
+                                  >
+                                    ℹ️
+                                  </div>
+                                )}
+
+                                <div className="flex justify-between items-center py-1 border-b border-gray-300 dark:border-gray-600 gap-2">
+                                  <span className={`text-sm min-w-0 flex-1 ${getWinnerClass(
+                                    jogo.concluido === 'C' && Number(jogo.pontos_dupla1) > Number(jogo.pontos_dupla2),
+                                    jogo.concluido === 'C' && Number(jogo.pontos_dupla1) < Number(jogo.pontos_dupla2)
+                                  )}`}>
+                                    {renderTeamDisplay(jogo.dupla1, formatTeamNameHelp(jogo.dupla1, jogo, 0))}
+                                  </span>
+                                  <span className="font-bold text-sm shrink-0">{renderPoints(jogo, 'pontos_dupla1')}</span>
+                                </div>
+
+                                <div className="flex justify-between items-center py-1 gap-2">
+                                  <span className={`text-sm min-w-0 flex-1 ${getWinnerClass(
+                                    jogo.concluido === 'C' && Number(jogo.pontos_dupla2) > Number(jogo.pontos_dupla1),
+                                    jogo.concluido === 'C' && Number(jogo.pontos_dupla2) < Number(jogo.pontos_dupla1)
+                                  )}`}>
+                                    {renderTeamDisplay(jogo.dupla2, formatTeamNameHelp(jogo.dupla2, jogo, 1))}
+                                  </span>
+                                  <span className="font-bold text-sm shrink-0">{renderPoints(jogo, 'pontos_dupla2')}</span>
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-
-                        <div className="flex justify-between items-center py-1">
-                          <span className={getWinnerClass(
-                            jogo.concluido === 'C' && jogo.pontos_dupla2 > jogo.pontos_dupla1,
-                            jogo.concluido === 'C' && jogo.pontos_dupla2 < jogo.pontos_dupla1
-                          )}>
-                            {jogo.dupla2 ? formatTeamName(jogo.dupla2).split('\n').map((line, i) => (
-                              <div key={i}>{line}</div>
-                            )) : <span className="text-gray-500">{formatTeamNameHelp(jogo.dupla2, jogo, 1)}</span>}
-                          </span>
-                          <span className="font-bold">{renderPoints(jogo, 'pontos_dupla2')}</span>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           )}
         </div>
