@@ -8,6 +8,7 @@ import AdBanner from '../Components/AdBanner';
 import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
 import Carousel from '../Components/Carousel';
+import WhatsButton from '../Components/WhatsButton';
 import { useTheme } from '../ThemeContext';
 import {
   EXAMPLES,
@@ -470,6 +471,8 @@ export default function LandingPage() {
           </button>
         </div>
       </div>
+
+      <WhatsButton />
 
       {/* Footer */}
       <Footer darkMode={darkMode} />

@@ -160,7 +160,6 @@ export default function Checkout() {
                   </div>
 
                   <div className={`rounded-xl p-4 flex gap-3 ${darkMode ? 'bg-gray-700' : 'bg-orange-50'}`}>
-                    <MessageCircle className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
                     <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                       Ao clicar em <strong>Continuar no WhatsApp</strong>, você será redirecionado para uma conversa com nossa equipe para finalizar a contratação do plano <strong>{plan.name}</strong>.
                     </p>
@@ -171,7 +170,7 @@ export default function Checkout() {
                     disabled={!name.trim()}
                     className="cursor-pointer w-full flex items-center justify-center gap-3 py-4 rounded-xl font-bold text-lg bg-green-500 hover:bg-green-600 text-white transition-all hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
-                    <MessageCircle className="h-6 w-6" />
+                    <img src="whatsapp.svg" alt="Whatsapp logo" className="h-6 w-6" />
                     Continuar no WhatsApp
                   </button>
                 </form>
