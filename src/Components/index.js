@@ -1,5 +1,6 @@
 import AdBanner from "./AdBanner"
 import AdminButton from "./AdminButton"
+import AnimatedCounter from "./AnimatedCounter"
 import Carousel from "./Carousel"
 import Footer from "./Footer"
 import Loading from "./Loading"
@@ -12,6 +13,7 @@ import ToggleTheme from "./ToggleTheme"
 export {
     AdBanner,
     AdminButton,
+    AnimatedCounter,
     Carousel,
     Footer,
     Loading,
@@ -21,3 +23,4 @@ export {
     StatusIcon,
     ToggleTheme
 }
+

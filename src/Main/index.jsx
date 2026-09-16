@@ -5,6 +5,7 @@ import {
   Medal, Target, Trophy, Users, X,
 } from 'lucide-react';
 import AdBanner from '../Components/AdBanner';
+import AnimatedCounter from '../Components/AnimatedCounter';
 import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
 import Carousel from '../Components/Carousel';
@@ -451,15 +452,21 @@ export default function LandingPage() {
           </p>
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div className="text-center">
-              <div className="text-3xl font-bold mb-2">50+</div>
+              <div className="text-3xl font-bold mb-2">
+                <AnimatedCounter target={300} suffix="+" />
+              </div>
               <div className="opacity-90">Torneios Criados</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold mb-2">300+</div>
+              <div className="text-3xl font-bold mb-2">
+                <AnimatedCounter target={1000} suffix="+" />
+              </div>
               <div className="opacity-90">Participantes</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold mb-2">1000+</div>
+              <div className="text-3xl font-bold mb-2">
+                <AnimatedCounter target={4000} suffix="+" />
+              </div>
               <div className="opacity-90">Jogos Realizados</div>
             </div>
           </div>
