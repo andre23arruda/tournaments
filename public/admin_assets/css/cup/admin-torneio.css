@@ -140,3 +140,22 @@ div#jogos-tab {
         margin-right: 40px;
     }
 }
+
+#duplas-group tr.add-row a.btn.btn-sm.btn-default,
+#jogo_set-group tr.add-row a.btn.btn-sm.btn-default {
+    float: none !important;
+    font-size: 0 !important;
+}
+
+#duplas-group tr.add-row a.btn.btn-sm.btn-default::after,
+#jogo_set-group tr.add-row a.btn.btn-sm.btn-default::after {
+  content: ""; 
+  display: inline-block; 
+  width: 16px;  
+  height: 16px; 
+  background-image: url('/static/admin/img/icon-addlink.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
