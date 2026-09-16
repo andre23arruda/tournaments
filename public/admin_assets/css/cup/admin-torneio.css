@@ -153,7 +153,8 @@ div#jogos-tab {
   display: inline-block; 
   width: 16px;  
   height: 16px; 
-  background-image: url('/static/admin/img/icon-addlink.svg');
+  /* background-image: url('/static/admin/img/icon-addlink.svg'); */
+  background-image: url('https://podiodigital.app.br/admin_assets/admin/img/icon-addlink.svg');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
