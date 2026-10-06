@@ -1,0 +1,577 @@
+/* Dashboard Sports Analytics Styles for Jazzmin / AdminLTE 3 */
+
+.dashboard-hero {
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .dashboard-title-bar,
+body.theme-dark .dashboard-title-bar {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-title-bar h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body.dark-mode .dashboard-title-bar h2,
+body.theme-dark .dashboard-title-bar h2 {
+    color: #f3f4f6;
+}
+
+.dashboard-subtitle {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.15rem;
+}
+
+body.dark-mode .dashboard-subtitle,
+body.theme-dark .dashboard-subtitle {
+    color: #9ca3af;
+}
+
+/* KPI Summary Cards */
+.kpi-row {
+    margin-bottom: 1.25rem;
+}
+
+.kpi-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.15rem 1.25rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+body.dark-mode .kpi-card,
+body.theme-dark .kpi-card {
+    background: #343a40;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.kpi-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.kpi-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: #6b7280;
+}
+
+body.dark-mode .kpi-label,
+body.theme-dark .kpi-label {
+    color: #9ca3af;
+}
+
+.kpi-icon-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.kpi-icon-badge.orange {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    box-shadow: 0 4px 10px rgba(249, 115, 22, 0.35);
+}
+
+.kpi-icon-badge.emerald {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.35);
+}
+
+.kpi-icon-badge.blue {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.35);
+}
+
+.kpi-icon-badge.purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.35);
+}
+
+.kpi-value {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+body.dark-mode .kpi-value,
+body.theme-dark .kpi-value {
+    color: #f9fafb;
+}
+
+.kpi-footer {
+    font-size: 0.8rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+body.dark-mode .kpi-footer,
+body.theme-dark .kpi-footer {
+    color: #9ca3af;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 0 rgba(16, 185, 129, 0.6);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* App Specific Cards */
+.apps-row {
+    margin-bottom: 1.5rem;
+}
+
+.app-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dark-mode .app-card,
+body.theme-dark .app-card {
+    background: #343a40;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.app-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.app-card-header {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+body.dark-mode .app-card-header,
+body.theme-dark .app-card-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.app-card.cup .app-card-header {
+    background: linear-gradient(to right, rgba(249, 115, 22, 0.08), transparent);
+    border-left: 4px solid #f97316;
+}
+
+.app-card.bt_league .app-card-header {
+    background: linear-gradient(to right, rgba(139, 92, 246, 0.08), transparent);
+    border-left: 4px solid #8b5cf6;
+}
+
+.app-card.futevolei .app-card-header {
+    background: linear-gradient(to right, rgba(16, 185, 129, 0.08), transparent);
+    border-left: 4px solid #10b981;
+}
+
+.app-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.app-icon {
+    font-size: 1.25rem;
+}
+
+.app-card.cup .app-icon {
+    color: #f97316;
+}
+.app-card.bt_league .app-icon {
+    color: #8b5cf6;
+}
+.app-card.futevolei .app-icon {
+    color: #10b981;
+}
+
+.app-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+    color: #1f2937;
+}
+
+body.dark-mode .app-name,
+body.theme-dark .app-name {
+    color: #f3f4f6;
+}
+
+.app-card-body {
+    padding: 1.25rem;
+    flex-grow: 1;
+}
+
+.app-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.app-metric-item {
+    background: #f9fafb;
+    border-radius: 8px;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+body.dark-mode .app-metric-item,
+body.theme-dark .app-metric-item {
+    background: #2b3035;
+    border-color: rgba(255, 255, 255, 0.04);
+}
+
+.app-metric-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: block;
+    margin-bottom: 0.15rem;
+}
+
+body.dark-mode .app-metric-label,
+body.theme-dark .app-metric-label {
+    color: #9ca3af;
+}
+
+.app-metric-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #111827;
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+}
+
+body.dark-mode .app-metric-value,
+body.theme-dark .app-metric-value {
+    color: #f9fafb;
+}
+
+.app-metric-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+}
+
+.app-progress-section {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.app-progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 0.35rem;
+}
+
+body.dark-mode .app-progress-header,
+body.theme-dark .app-progress-header {
+    color: #9ca3af;
+}
+
+.app-progress-bar {
+    height: 6px;
+    background-color: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+body.dark-mode .app-progress-bar,
+body.theme-dark .app-progress-bar {
+    background-color: #4b545c;
+}
+
+.app-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s ease;
+}
+
+.app-card.cup .app-progress-fill {
+    background-color: #f97316;
+}
+.app-card.bt_league .app-progress-fill {
+    background-color: #8b5cf6;
+}
+.app-card.futevolei .app-progress-fill {
+    background-color: #10b981;
+}
+
+.app-card-footer {
+    padding: 0.75rem 1.25rem;
+    background: #f9fafb;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.dark-mode .app-card-footer,
+body.theme-dark .app-card-footer {
+    background: #2b3035;
+    border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.app-btn-group {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.app-btn-group a {
+    flex: 1;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    text-decoration: none !important;
+}
+
+/* Charts Section */
+.charts-row {
+    margin-bottom: 1.75rem;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 1.25rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body.dark-mode .chart-card,
+body.theme-dark .chart-card {
+    background: #343a40;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.chart-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+body.dark-mode .chart-card-header,
+body.theme-dark .chart-card-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.chart-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+body.dark-mode .chart-title,
+body.theme-dark .chart-title {
+    color: #f3f4f6;
+}
+
+.chart-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-pill-group {
+    background: #f3f4f6;
+    padding: 3px;
+    border-radius: 8px;
+    display: inline-flex;
+    gap: 2px;
+}
+
+body.dark-mode .btn-pill-group,
+body.theme-dark .btn-pill-group {
+    background: #2b3035;
+}
+
+.btn-pill {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+body.dark-mode .btn-pill,
+body.theme-dark .btn-pill {
+    color: #9ca3af;
+}
+
+.btn-pill.active {
+    background: #ffffff;
+    color: #ea580c;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .btn-pill.active,
+body.theme-dark .btn-pill.active {
+    background: #4b545c;
+    color: #f97316;
+}
+
+.chart-canvas-container {
+    position: relative;
+    flex-grow: 1;
+    min-height: 280px;
+    width: 100%;
+}
+
+.donut-stats-list {
+    margin-top: 1rem;
+    padding: 0;
+    list-style: none;
+}
+
+.donut-stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0;
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+    font-size: 0.85rem;
+}
+
+body.dark-mode .donut-stat-item,
+body.theme-dark .donut-stat-item {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.donut-stat-item:last-child {
+    border-bottom: none;
+}
+
+.donut-stat-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+}
+
+body.dark-mode .donut-stat-label,
+body.theme-dark .donut-stat-label {
+    color: #d1d5db;
+}
+
+.donut-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.donut-stat-value {
+    font-weight: 700;
+    color: #111827;
+}
+
+body.dark-mode .donut-stat-value,
+body.theme-dark .donut-stat-value {
+    color: #f9fafb;
+}
+
+@media (max-width: 768px) {
+    .dashboard-title-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .chart-controls {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .chart-canvas-container {
+        min-height: 230px;
+    }
+}
