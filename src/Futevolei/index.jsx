@@ -8,6 +8,9 @@ import { useTheme } from '../ThemeContext';
 import { formatDate } from '../utils';
 
 function renderPoints(jogo, dupla) {
+  if (jogo?.dupla1 === 'BYE' || jogo?.dupla2 === 'BYE') {
+    return '-';
+  }
   if (jogo?.[dupla] !== null && jogo?.[dupla] !== undefined && jogo?.[dupla] !== '') {
     return jogo[dupla];
   }

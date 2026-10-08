@@ -165,8 +165,8 @@ export default function Tournament() {
       } else {
         return 'A definir'
       }
-    }
-    const duplaName = dupla || 'BYE';
+    } 
+    const duplaName = dupla || jogo.help_text.includes('BYE') ? 'BYE' : 'A definir';
     return duplaName.replace(/<br\/>/g, '\n').split('\n').map(abbreviateName).join('\n');
   };
 
