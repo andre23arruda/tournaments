@@ -357,6 +357,8 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
+      
+        <AdBanner slot="4419106208" format="horizontal" className="max-w-7xl mx-auto mt-16 px-4" />
       </div>
 
       {/* Examples Section */}
@@ -380,9 +382,10 @@ export default function LandingPage() {
             darkMode={darkMode}
           />
         </div>
+
+        <AdBanner slot="3004775462" format="horizontal" className="max-w-7xl mx-auto mt-16 px-4" />
       </div>
 
-      {/* <AdBanner slot="4419106208" format="horizontal" className="m-6 px-4" /> */}
 
       {/* Pricing Section */}
       <div id="planos" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
@@ -402,6 +405,8 @@ export default function LandingPage() {
             ))}
           </div>
         </div>
+
+        <AdBanner slot="1245630370" format="horizontal" className="max-w-7xl mx-auto mt-16 px-4" />
       </div>
 
       <div id="social" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
@@ -437,6 +442,8 @@ export default function LandingPage() {
             </a>
           </div>
         </div>
+
+        <AdBanner slot="1467177569" format="horizontal" className="max-w-7xl mx-auto mt-16 px-4" />
       </div>
 
       {/* CTA Section */}
