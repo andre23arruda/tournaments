@@ -8,35 +8,51 @@ import { openWhats } from '../utils';
 const FAQS = [
   {
     q: "É realmente fácil de usar?",
-    a: "Sim! Criamos um ambiente intuitivo e amigável para que você possa gerenciar seus torneios de forma simples e rápida."
+    a: "Sim! Criamos um ambiente intuitivo e amigável para que qualquer professor, gestor de arena ou organizador possa gerenciar torneios, aulas e quadras de forma simples e rápida, direto pelo celular ou computador."
   },
   {
-    q: "Qual é a maior dificuldade?",
-    a: "O seu desafio é chamar a galera para jogar! O Pódio Digital cuida de todo o resto: classificação, chaveamento e exibição dos resultados."
+    q: "Qual é a maior vantagem de usar o Pódio Digital?",
+    a: "O seu único trabalho será chamar a galera para jogar! O Pódio Digital automatiza toda a parte trabalhosa: sorteio de grupos, cruzamento de duplas no Rei/Rainha da Quadra, cálculo de saldo de pontos, critérios de desempate, montagem da chave mata-mata e divulgação em tempo real."
   },
   {
-    q: "O quê é necessário para utilizar a plataforma?",
-    a: "Para utilizar a plataforma, você precisa apenas de um dispositivo com acesso à internet (celular ou computador)."
+    q: "O que é necessário para utilizar a plataforma?",
+    a: "Para utilizar a plataforma, você precisa apenas de um navegador com acesso à internet (no celular, tablet ou computador). Não é exigida instalação de nenhum programa pesado."
   },
   {
     q: "Como funciona a contratação avulsa?",
-    a: "Na contratação avulsa, você paga um pequeno valor por cada participante do seu torneio. É ideal para eventos esporádicos. Ao finalizar, criamos o ambiente do seu torneio e você pode gerenciar tudo até o campeão ser definido."
+    a: "Na contratação avulsa, você paga um pequeno valor por cada participante do seu torneio (R$ 1,00 por participante no formato Torneio tradicional ou R$ 2,00 no formato Rei/Rainha da Quadra). É ideal para eventos esporádicos sem mensalidade fixa."
   },
   {
     q: "O que está incluso na Mensalidade Premium?",
-    a: "A mensalidade é focada em arenas e organizadores frequentes. Você tem direito a criar torneios ilimitados (formato tradicional ou Rei/Rainha da Quadra) sem custo adicional por participante."
+    a: "A Mensalidade Premium (R$ 80,00/mês) é voltada para arenas, clubes e professores que realizam eventos com frequência. Ela libera torneios ilimitados, eventos Rei/Rainha da Quadra ilimitados e ferramentas completas de gestão sem custo adicional por atleta inscrito."
   },
   {
-    q: "Os atletas precisam baixar algum aplicativo?",
-    a: "Não! O Pódio Digital funciona 100% no navegador (celular ou computador). Você simplesmente compartilha o link ou QR Code do torneio e todos conseguem acompanhar os jogos, placares e classificação em tempo real."
+    q: "Os atletas precisam baixar algum aplicativo para acompanhar os jogos?",
+    a: "Não! O Pódio Digital funciona 100% na web. Você compartilha o link exclusivo ou o QR Code do torneio nos grupos de WhatsApp ou nas mesas da arena, e todos os atletas e torcedores acompanham placares, grupos e chaveamento ao vivo."
   },
   {
     q: "O sistema gera a chave mata-mata automaticamente?",
-    a: "Sim. Ao encerrar a fase de grupos, o sistema verifica a classificação e monta a chave eliminatória (mata-mata) de forma automática, economizando seu tempo."
+    a: "Sim. Assim que todos os jogos da fase de grupos são finalizados, o sistema aplica automaticamente os critérios de classificação (vitórias, saldo de games/pontos e pontos pró) e monta os confrontos das oitavas, quartas, semifinais e final."
   },
   {
-    q: "Posso usar para outras modalidades além de Beach Tennis e Vôlei?",
-    a: "Sim! Nossa plataforma é flexível e pode ser utilizada para diversas modalidades esportivas."
+    q: "Como funciona o formato Rei/Rainha da Quadra (Super 8)?",
+    a: "No formato Rei/Rainha da Quadra, a inscrição é individual. O sistema gera automaticamente todas as rodadas para que cada atleta jogue ao lado de todos os outros participantes do grupo, somando vitórias e saldo de pontos individualmente até definir o campeão."
+  },
+  {
+    q: "Como funciona o Agendamento de Aulas e Cadastro de Alunos?",
+    a: "Os professores e gestores da arena podem cadastrar seus alunos, organizar turmas por nível ou modalidade e visualizar facilmente o calendário diário e semanal de aulas, evitando conflitos de horários nas quadras."
+  },
+  {
+    q: "Como funciona o link para Reserva de Quadras?",
+    a: "Sua arena recebe um link público exclusivo para compartilhar na bio do Instagram e no WhatsApp. Através dele, os jogadores consultam os horários disponíveis em tempo real e reservam a quadra desejada com praticidade."
+  },
+  {
+    q: "Posso usar para outras modalidades além de Beach Tennis, Futevôlei e Vôlei?",
+    a: "Sim! Nossa plataforma é flexível e atende perfeitamente campeonatos de Beach Tennis, Futevôlei, Vôlei de Praia, Padel, Tênis, Pickleball e outras modalidades disputadas em duplas, equipes ou individualmente."
+  },
+  {
+    q: "Como são resolvidos os empates na fase de grupos?",
+    a: "O sistema calcula tudo instantaneamente seguindo os critérios oficiais configurados no torneio: número de vitórias, saldo de pontos/games, pontos pró e confronto direto, eliminando erros de soma manual."
   }
 ];
 

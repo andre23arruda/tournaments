@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-  CheckCircle, Clock, Heart, Instagram,
-  Medal, Target, Trophy, Users, X,
+  BookOpen, Calendar, CalendarCheck, CheckCircle, ChevronRight, Clock, GraduationCap,
+  Heart, Instagram, Link2, MapPin, Medal, Share2, Target, Trophy, Users, X,
 } from 'lucide-react';
 import AdBanner from '../Components/AdBanner';
 import AnimatedCounter from '../Components/AnimatedCounter';
@@ -10,6 +10,7 @@ import Footer from '../Components/MainFooter';
 import Header from '../Components/MainHeader';
 import Carousel from '../Components/Carousel';
 import WhatsButton from '../Components/WhatsButton';
+import { GUIDES_ARTICLES } from '../Guides/articles';
 import { useTheme } from '../ThemeContext';
 import {
   EXAMPLES,
@@ -351,7 +352,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {FEATURES.map((feature, index) => (
               <FeatureCard key={index} feature={feature} darkMode={darkMode} />
             ))}
@@ -359,6 +360,243 @@ export default function LandingPage() {
         </div>
       
         <AdBanner slot="4419106208" format="horizontal" className="max-w-7xl mx-auto mt-16 px-4" />
+      </div>
+
+      {/* Classes Scheduling Section */}
+      <div id="aulas" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-blue-500/10 text-blue-500 border border-blue-500/20">
+                <GraduationCap className="h-4 w-4" />
+                Para Professores e Arenas
+              </div>
+
+              <h2 className={`text-3xl md:text-4xl font-bold mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                Agendamento de Aulas e Gestão de Alunos
+              </h2>
+
+              <p className={`text-lg mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                Esqueça as planilhas confusas e anotações no caderno. Cadastre seus alunos, organize turmas e tenha acesso rápido ao calendário completo de aulas da sua arena na palma da mão.
+              </p>
+
+              <ul className="space-y-4 mb-8">
+                {[
+                  'Cadastro simples de alunos com histórico e contato rápido',
+                  'Calendário intuitivo com visão diária e semanal das aulas',
+                  'Organização de turmas, horários fixos e aulas avulsas',
+                  'Acesso rápido pelo celular direto da quadra',
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <span className={`text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                onClick={openWhats}
+                className="px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105 shadow-md cursor-pointer bg-orange-600 hover:bg-orange-700 text-white"
+              >
+                Quero gerenciar minhas aulas
+              </button>
+            </div>
+
+            {/* Visual Mockup: Calendar & Students */}
+            <div className={`p-6 md:p-8 rounded-2xl shadow-2xl border ${
+              darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
+            }`}>
+              <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500">
+                    <Calendar className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                      Agenda de Aulas
+                    </h3>
+                    <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Quinta-feira • Quadras 1 e 2
+                    </p>
+                  </div>
+                </div>
+                <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                  18 alunos ativos
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  {
+                    time: '08:00 - 09:00',
+                    title: 'Turma Iniciante - Beach Tennis',
+                    students: 'Ana, Carla, Marcos, Lucas',
+                    status: 'Confirmada',
+                    color: 'border-l-4 border-blue-500',
+                  },
+                  {
+                    time: '18:00 - 19:00',
+                    title: 'Aula Particular - Futevôlei',
+                    students: 'Pedro Henrique & Gabriel',
+                    status: 'Confirmada',
+                    color: 'border-l-4 border-orange-500',
+                  },
+                  {
+                    time: '19:00 - 20:00',
+                    title: 'Turma Intermediário Misto',
+                    students: 'Juliana, Rafael, Bruna, Diego',
+                    status: 'Confirmada',
+                    color: 'border-l-4 border-green-500',
+                  },
+                ].map((lesson, i) => (
+                  <div
+                    key={i}
+                    className={`p-4 rounded-xl ${lesson.color} ${
+                      darkMode ? 'bg-gray-700/60' : 'bg-gray-50'
+                    } flex flex-col sm:flex-row sm:items-center justify-between gap-2`}
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 text-xs font-semibold text-orange-500 mb-1">
+                        <Clock className="h-3.5 w-3.5" />
+                        {lesson.time}
+                      </div>
+                      <p className={`font-bold text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                        {lesson.title}
+                      </p>
+                      <p className={`text-xs flex items-center gap-1 mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        <Users className="h-3.5 w-3.5" />
+                        {lesson.students}
+                      </p>
+                    </div>
+                    <span className="self-start sm:self-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      {lesson.status}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Court Reservation Section */}
+      <div id="quadras" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Visual Mockup: Court Booking Link */}
+            <div className={`order-2 lg:order-1 p-6 md:p-8 rounded-2xl shadow-2xl border ${
+              darkMode ? 'bg-gray-900 border-gray-700' : 'bg-gray-50 border-gray-200'
+            }`}>
+              {/* Simulated shareable link bar */}
+              <div className={`flex items-center justify-between px-4 py-2.5 rounded-xl mb-6 border ${
+                darkMode ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-700'
+              }`}>
+                <div className="flex items-center gap-2 text-xs sm:text-sm truncate">
+                  <Link2 className="h-4 w-4 text-teal-500 flex-shrink-0" />
+                  <span className="truncate font-mono">podiodigital.app.br/arena/sua-arena</span>
+                </div>
+                <span className="ml-2 px-2.5 py-1 rounded-md text-xs font-semibold bg-teal-500/10 text-teal-500 flex items-center gap-1 flex-shrink-0">
+                  <Share2 className="h-3 w-3" />
+                  Link Público
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    Escolha a Quadra e Horário
+                  </h3>
+                  <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Disponibilidade atualizada em tempo real
+                  </p>
+                </div>
+                <MapPin className="h-5 w-5 text-orange-500" />
+              </div>
+
+              {/* Courts pills */}
+              <div className="grid grid-cols-2 gap-3 mb-5">
+                <div className="p-3 rounded-xl bg-orange-600 text-white text-center font-semibold text-sm shadow">
+                  Quadra 01 • Coberta
+                </div>
+                <div className={`p-3 rounded-xl text-center font-semibold text-sm border ${
+                  darkMode ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-700'
+                }`}>
+                  Quadra 02 • Areia
+                </div>
+              </div>
+
+              {/* Time slots grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {[
+                  { time: '17:00', available: true },
+                  { time: '18:00', available: false },
+                  { time: '19:00', available: false },
+                  { time: '20:00', available: true },
+                  { time: '21:00', available: true },
+                  { time: '22:00', available: true },
+                ].map((slotItem, i) => (
+                  <div
+                    key={i}
+                    className={`p-3 rounded-xl border text-center transition-all ${
+                      slotItem.available
+                        ? darkMode
+                          ? 'bg-teal-500/10 border-teal-500/40 text-teal-300'
+                          : 'bg-teal-50 border-teal-200 text-teal-900'
+                        : darkMode
+                          ? 'bg-gray-800 border-gray-700 text-gray-500 opacity-60'
+                          : 'bg-gray-100 border-gray-200 text-gray-400'
+                    }`}
+                  >
+                    <div className="font-bold text-sm">{slotItem.time}</div>
+                    <div className="text-xs mt-0.5 font-medium">
+                      {slotItem.available ? 'Disponível' : 'Reservado'}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-teal-500/10 text-teal-500 border border-teal-500/20">
+                <CalendarCheck className="h-4 w-4" />
+                Reserva Online 24h
+              </div>
+
+              <h2 className={`text-3xl md:text-4xl font-bold mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                Link Exclusivo para Reserva de Quadras
+              </h2>
+
+              <p className={`text-lg mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                Dê mais praticidade aos atletas da sua arena. Libere um link personalizado para que os próprios jogadores consultem os horários livres e façam a reserva de quadras em poucos cliques.
+              </p>
+
+              <ul className="space-y-4 mb-8">
+                {[
+                  'Link exclusivo da sua arena para colocar na bio do Instagram e WhatsApp',
+                  'Visualização clara das quadras e horários disponíveis em tempo real',
+                  'Reduza o tempo gasto respondendo mensagens sobre horários livres',
+                  'Controle total sobre os agendamentos e bloqueios de horários',
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="h-6 w-6 text-teal-500 flex-shrink-0 mt-0.5" />
+                    <span className={`text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                onClick={openWhats}
+                className="px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105 shadow-md cursor-pointer bg-orange-600 hover:bg-orange-700 text-white"
+              >
+                Ativar reservas na minha arena
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Examples Section */}
@@ -444,6 +682,72 @@ export default function LandingPage() {
         </div>
 
         <AdBanner slot="1467177569" format="horizontal" className="max-w-7xl mx-auto mt-16 px-4" />
+      </div>
+
+      {/* Guides & Content Section */}
+      <div id="guias" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-4 bg-orange-500/10 text-orange-500 border border-orange-500/20">
+              <BookOpen className="h-4 w-4" />
+              Conteúdo para Organizadores e Arenas
+            </div>
+            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              Guias e Dicas de Organização
+            </h2>
+            <p className={`text-xl max-w-3xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Aprenda como estruturar campeonatos de Beach Tennis, Futevôlei e Vôlei, montar chaves equilibradas e otimizar a rotina da sua arena
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {GUIDES_ARTICLES.slice(0, 4).map((article) => (
+              <Link
+                key={article.slug}
+                to={`/guias/${article.slug}`}
+                className={`p-6 rounded-2xl shadow-lg transition-all hover:scale-[1.02] flex flex-col justify-between border ${
+                  darkMode ? 'bg-gray-700/80 border-gray-600 hover:bg-gray-700' : 'bg-gray-50 border-gray-100 hover:bg-white hover:shadow-xl'
+                }`}
+              >
+                <div>
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-500 mb-3">
+                    {article.category}
+                  </span>
+                  <h3 className={`text-lg font-bold mb-3 leading-snug ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                    {article.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                    {article.excerpt}
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-600 text-xs">
+                  <span className={darkMode ? 'text-gray-400' : 'text-gray-500'}>
+                    {article.readTime}
+                  </span>
+                  <span className="inline-flex items-center gap-1 font-bold text-orange-500">
+                    Ler guia
+                    <ChevronRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              to="/guias"
+              className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-semibold transition-all hover:scale-105 border-2 ${
+                darkMode
+                  ? 'border-orange-500 text-orange-400 hover:bg-orange-500/10'
+                  : 'border-orange-600 text-orange-600 hover:bg-orange-50'
+              }`}
+            >
+              Ver todos os {GUIDES_ARTICLES.length} guias completos
+              <ChevronRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* CTA Section */}

@@ -1,4 +1,10 @@
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
 User-agent: *
 Allow: /
 
-Sitemap: https://podio-digital.vercel.app/sitemap.xml
+Sitemap: https://podiodigital.app.br/sitemap.xml

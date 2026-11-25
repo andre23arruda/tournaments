@@ -5,6 +5,7 @@ import About from './About';
 import Checkout from './Checkout';
 import FAQ from './FAQ';
 import FutevoleiTournament from './Futevolei';
+import Guides from './Guides';
 import League from './League';
 import LeagueRanking from './League/Ranking';
 import LeagueRegister from './League/Register';
@@ -30,6 +31,8 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/ajuda" element={<FAQ />} />
+          <Route path="/guias" element={<Guides />} />
+          <Route path="/guias/:slug" element={<Guides />} />
           <Route path="/termos" element={<Terms />} />
           <Route path="/privacidade" element={<Privacy />} />
           <Route path="/contratar" element={<Checkout />} />

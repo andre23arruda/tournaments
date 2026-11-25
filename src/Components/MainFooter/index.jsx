@@ -32,6 +32,7 @@ export default function Footer({ darkMode, className = '' }) {
           <div className="flex flex-col md:flex-row gap-8 md:gap-16 flex-1 justify-center">
             <div className="flex flex-col gap-3 text-center md:text-left">
               <Link to="/sobre" className={`hover:text-orange-500 transition-colors ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Sobre nós</Link>
+              <Link to="/guias" className={`hover:text-orange-500 transition-colors ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Guias e Dicas</Link>
               <Link to="/ajuda" className={`hover:text-orange-500 transition-colors ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Ajuda</Link>
             </div>
             <div className="flex flex-col gap-3 text-center md:text-left">

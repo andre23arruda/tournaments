@@ -125,6 +125,15 @@ export default function Header({loginLink=true}) {
                 Planos
               </NavLink>
 
+              <span
+                onClick={() => navigate('/guias')}
+                className={`font-semibold cursor-pointer transition-colors ${
+                  darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-orange-600'
+                }`}
+              >
+                Guias
+              </span>
+
               <button
                 onClick={toggleTheme}
                 className={`cursor-pointer p-2 rounded-full transition-colors ${
@@ -210,6 +219,18 @@ export default function Header({loginLink=true}) {
               >
                 Planos
               </NavLink>
+
+              <span
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  navigate('/guias');
+                }}
+                className={`block px-3 py-2 text-base font-semibold cursor-pointer transition-colors ${
+                  darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-900 hover:text-orange-600'
+                }`}
+              >
+                Guias
+              </span>
 
               {loginLink && (
                 <div>

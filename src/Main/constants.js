@@ -1,7 +1,9 @@
 import {
   BarChart3,
   Calendar,
+  CalendarCheck,
   Crown,
+  GraduationCap,
   Medal,
   Trophy,
   Users,
@@ -36,6 +38,18 @@ export const FEATURES = [
     title: 'Histórico Completo',
     description: 'Mantenha registro de todos os torneios e resultados',
     color: 'text-purple-500'
+  },
+  {
+    icon: GraduationCap,
+    title: 'Agendamento de Aulas',
+    description: 'Cadastre seus alunos e tenha fácil acesso ao calendário de aulas',
+    color: 'text-blue-500'
+  },
+  {
+    icon: CalendarCheck,
+    title: 'Reserva de Quadras',
+    description: 'Libere um link para que os jogadores reservem as quadras da sua arena',
+    color: 'text-teal-500'
   }
 ];
 
