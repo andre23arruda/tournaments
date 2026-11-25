@@ -363,24 +363,24 @@ export default function LandingPage() {
       </div>
 
       {/* Classes Scheduling Section */}
-      <div id="aulas" className={`py-20 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+      <div id="aulas" className={`py-16 md:py-20 overflow-hidden ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-blue-500/10 text-blue-500 border border-blue-500/20">
-                <GraduationCap className="h-4 w-4" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+            <div className="min-w-0">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-5 bg-blue-500/10 text-blue-500 border border-blue-500/20">
+                <GraduationCap className="h-4 w-4 flex-shrink-0" />
                 Para Professores e Arenas
               </div>
 
-              <h2 className={`text-3xl md:text-4xl font-bold mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 Agendamento de Aulas e Gestão de Alunos
               </h2>
 
-              <p className={`text-lg mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              <p className={`text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 Esqueça as planilhas confusas e anotações no caderno. Cadastre seus alunos, organize turmas e tenha acesso rápido ao calendário completo de aulas da sua arena na palma da mão.
               </p>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-3 sm:space-y-4 mb-8">
                 {[
                   'Cadastro simples de alunos com histórico e contato rápido',
                   'Calendário intuitivo com visão diária e semanal das aulas',
@@ -388,8 +388,8 @@ export default function LandingPage() {
                   'Acesso rápido pelo celular direto da quadra',
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-blue-500 flex-shrink-0 mt-0.5" />
-                    <span className={`text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <span className={`text-sm sm:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       {item}
                     </span>
                   </li>
@@ -398,23 +398,23 @@ export default function LandingPage() {
 
               <button
                 onClick={openWhats}
-                className="px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105 shadow-md cursor-pointer bg-orange-600 hover:bg-orange-700 text-white"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold transition-all hover:scale-105 shadow-md cursor-pointer bg-orange-600 hover:bg-orange-700 text-white"
               >
                 Quero gerenciar minhas aulas
               </button>
             </div>
 
             {/* Visual Mockup: Calendar & Students */}
-            <div className={`p-6 md:p-8 rounded-2xl shadow-2xl border ${
+            <div className={`min-w-0 p-4 sm:p-6 md:p-8 rounded-2xl shadow-2xl border ${
               darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'
             }`}>
-              <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-500">
-                    <Calendar className="h-6 w-6" />
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-5 pb-4 border-b border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-blue-500/10 text-blue-500 flex-shrink-0">
+                    <Calendar className="h-5 w-5 sm:h-6 sm:w-6" />
                   </div>
-                  <div>
-                    <h3 className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                  <div className="min-w-0">
+                    <h3 className={`font-bold text-base sm:text-lg truncate ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                       Agenda de Aulas
                     </h3>
                     <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -422,7 +422,7 @@ export default function LandingPage() {
                     </p>
                   </div>
                 </div>
-                <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700">
+                <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700 flex-shrink-0">
                   18 alunos ativos
                 </span>
               </div>
@@ -453,24 +453,24 @@ export default function LandingPage() {
                 ].map((lesson, i) => (
                   <div
                     key={i}
-                    className={`p-4 rounded-xl ${lesson.color} ${
+                    className={`p-3.5 sm:p-4 rounded-xl ${lesson.color} ${
                       darkMode ? 'bg-gray-700/60' : 'bg-gray-50'
                     } flex flex-col sm:flex-row sm:items-center justify-between gap-2`}
                   >
-                    <div>
+                    <div className="min-w-0">
                       <div className="flex items-center gap-2 text-xs font-semibold text-orange-500 mb-1">
-                        <Clock className="h-3.5 w-3.5" />
+                        <Clock className="h-3.5 w-3.5 flex-shrink-0" />
                         {lesson.time}
                       </div>
                       <p className={`font-bold text-sm ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                         {lesson.title}
                       </p>
                       <p className={`text-xs flex items-center gap-1 mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                        <Users className="h-3.5 w-3.5" />
-                        {lesson.students}
+                        <Users className="h-3.5 w-3.5 flex-shrink-0" />
+                        <span className="truncate">{lesson.students}</span>
                       </p>
                     </div>
-                    <span className="self-start sm:self-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <span className="self-start sm:self-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 flex-shrink-0">
                       {lesson.status}
                     </span>
                   </div>
@@ -482,45 +482,45 @@ export default function LandingPage() {
       </div>
 
       {/* Court Reservation Section */}
-      <div id="quadras" className={`py-20 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div id="quadras" className={`py-16 md:py-20 overflow-hidden ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
             {/* Visual Mockup: Court Booking Link */}
-            <div className={`order-2 lg:order-1 p-6 md:p-8 rounded-2xl shadow-2xl border ${
+            <div className={`order-2 lg:order-1 min-w-0 p-4 sm:p-6 md:p-8 rounded-2xl shadow-2xl border ${
               darkMode ? 'bg-gray-900 border-gray-700' : 'bg-gray-50 border-gray-200'
             }`}>
               {/* Simulated shareable link bar */}
-              <div className={`flex items-center justify-between px-4 py-2.5 rounded-xl mb-6 border ${
+              <div className={`flex items-center justify-between gap-2 px-3 sm:px-4 py-2.5 rounded-xl mb-5 sm:mb-6 border ${
                 darkMode ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-700'
               }`}>
-                <div className="flex items-center gap-2 text-xs sm:text-sm truncate">
+                <div className="flex items-center gap-2 text-xs sm:text-sm min-w-0 flex-1">
                   <Link2 className="h-4 w-4 text-teal-500 flex-shrink-0" />
                   <span className="truncate font-mono">podiodigital.app.br/arena/sua-arena</span>
                 </div>
-                <span className="ml-2 px-2.5 py-1 rounded-md text-xs font-semibold bg-teal-500/10 text-teal-500 flex items-center gap-1 flex-shrink-0">
+                <span className="px-2 sm:px-2.5 py-1 rounded-md text-xs font-semibold bg-teal-500/10 text-teal-500 flex items-center gap-1 flex-shrink-0">
                   <Share2 className="h-3 w-3" />
-                  Link Público
+                  <span className="hidden xs:inline sm:inline">Link Público</span>
                 </span>
               </div>
 
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className={`font-bold text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <div className="flex items-center justify-between gap-2 mb-4">
+                <div className="min-w-0">
+                  <h3 className={`font-bold text-base sm:text-lg ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                     Escolha a Quadra e Horário
                   </h3>
                   <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                     Disponibilidade atualizada em tempo real
                   </p>
                 </div>
-                <MapPin className="h-5 w-5 text-orange-500" />
+                <MapPin className="h-5 w-5 text-orange-500 flex-shrink-0" />
               </div>
 
               {/* Courts pills */}
-              <div className="grid grid-cols-2 gap-3 mb-5">
-                <div className="p-3 rounded-xl bg-orange-600 text-white text-center font-semibold text-sm shadow">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3 mb-5">
+                <div className="p-2.5 sm:p-3 rounded-xl bg-orange-600 text-white text-center font-semibold text-xs sm:text-sm shadow">
                   Quadra 01 • Coberta
                 </div>
-                <div className={`p-3 rounded-xl text-center font-semibold text-sm border ${
+                <div className={`p-2.5 sm:p-3 rounded-xl text-center font-semibold text-xs sm:text-sm border ${
                   darkMode ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-white border-gray-200 text-gray-700'
                 }`}>
                   Quadra 02 • Areia
@@ -528,7 +528,7 @@ export default function LandingPage() {
               </div>
 
               {/* Time slots grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
                 {[
                   { time: '17:00', available: true },
                   { time: '18:00', available: false },
@@ -539,7 +539,7 @@ export default function LandingPage() {
                 ].map((slotItem, i) => (
                   <div
                     key={i}
-                    className={`p-3 rounded-xl border text-center transition-all ${
+                    className={`p-2.5 sm:p-3 rounded-xl border text-center transition-all ${
                       slotItem.available
                         ? darkMode
                           ? 'bg-teal-500/10 border-teal-500/40 text-teal-300'
@@ -558,21 +558,21 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="order-1 lg:order-2">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 bg-teal-500/10 text-teal-500 border border-teal-500/20">
-                <CalendarCheck className="h-4 w-4" />
+            <div className="order-1 lg:order-2 min-w-0">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold mb-5 bg-teal-500/10 text-teal-500 border border-teal-500/20">
+                <CalendarCheck className="h-4 w-4 flex-shrink-0" />
                 Reserva Online 24h
               </div>
 
-              <h2 className={`text-3xl md:text-4xl font-bold mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6 leading-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
                 Link Exclusivo para Reserva de Quadras
               </h2>
 
-              <p className={`text-lg mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              <p className={`text-base sm:text-lg mb-6 sm:mb-8 leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 Dê mais praticidade aos atletas da sua arena. Libere um link personalizado para que os próprios jogadores consultem os horários livres e façam a reserva de quadras em poucos cliques.
               </p>
 
-              <ul className="space-y-4 mb-8">
+              <ul className="space-y-3 sm:space-y-4 mb-8">
                 {[
                   'Link exclusivo da sua arena para colocar na bio do Instagram e WhatsApp',
                   'Visualização clara das quadras e horários disponíveis em tempo real',
@@ -580,8 +580,8 @@ export default function LandingPage() {
                   'Controle total sobre os agendamentos e bloqueios de horários',
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="h-6 w-6 text-teal-500 flex-shrink-0 mt-0.5" />
-                    <span className={`text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    <CheckCircle className="h-5 w-5 sm:h-6 sm:w-6 text-teal-500 flex-shrink-0 mt-0.5" />
+                    <span className={`text-sm sm:text-base ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                       {item}
                     </span>
                   </li>
@@ -590,7 +590,7 @@ export default function LandingPage() {
 
               <button
                 onClick={openWhats}
-                className="px-6 py-3 rounded-xl font-semibold transition-all hover:scale-105 shadow-md cursor-pointer bg-orange-600 hover:bg-orange-700 text-white"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold transition-all hover:scale-105 shadow-md cursor-pointer bg-orange-600 hover:bg-orange-700 text-white"
               >
                 Ativar reservas na minha arena
               </button>
